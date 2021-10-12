@@ -1,0 +1,158 @@
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { menuItemsClass } from 'src/app/models/const';
+import { Evenement } from 'src/app/models/evenement';
+import { Personne } from 'src/app/models/personne';
+import { Predicateur } from 'src/app/models/predicateur';
+import { CommonService } from 'src/app/services/common.service';
+import { EventService } from 'src/app/services/event.service';
+import { ParameterService } from 'src/app/services/parameter.service';
+
+@Component({
+  selector: 'app-add-event',
+  templateUrl: './add-event.component.html',
+  styleUrls: ['./add-event.component.scss']
+})
+export class AddEventComponent implements OnInit {
+
+  backRoute = menuItemsClass.EVENT_LIST;
+  event: Evenement;
+
+  libelle: string = '';
+  predicateur: string = '';
+  titre_message: string = '';
+  date_evenement: string='';
+  old_date_evenement = '';
+
+  predicateurs: Predicateur[] = [];
+
+  error: boolean = false;
+  saved: boolean = false;
+
+  nomTitreManquant = false;
+  dateInvalide = false;
+
+  constructor(
+    private eventService: EventService,
+    private router: Router,
+    private commonService: CommonService,
+  ) {
+    this.eventService.getPredicateurs().subscribe(response => this.predicateurs = response);
+  }
+
+
+
+  ngOnInit(): void {
+  }
+
+  get secondaryColor(): string {
+    return ParameterService.configuration.secondaryColor;
+  }
+
+  back() {
+    this.router.navigate([this.backRoute]);
+  }
+
+  sauvegarder() {
+
+    this.event = {
+      libelle: this.libelle.trim(),
+      predicateur: this.predicateur.trim(),
+      titre_message: this.titre_message.trim(),
+      date_evenement: this.date_evenement
+    } as Evenement;
+
+    // Validation Nom - prenom
+    let nomTitreValide = this.nomTitreValide();
+    let dateValide = this.dateEstValide();
+    console.log('dateValide', dateValide);
+
+
+
+    if (nomTitreValide && dateValide) {
+
+      this.eventService.saveEvent(this.event).subscribe(
+        enregistre => {
+          if(enregistre){
+            this.error = false;
+            this.saved = true;
+          } else {
+            this.error = true;
+            this.saved = true;
+          }
+        },
+        error => this.error = true
+      );
+    } else {
+
+    }
+
+
+  }
+
+
+  nomTitreValide(): boolean {
+    let result = this.libelle.trim() === '' && this.titre_message.trim() === '';
+    console.log('result', this.libelle.trim(), this.titre_message.trim(), result);
+
+    if (!result) {
+      this.nomTitreManquant = false;
+      return true;
+    }
+    // Afficher erreur
+    this.nomTitreManquant = true;
+    return false;
+  }
+
+
+  numeroValide() {
+    return true;
+  }
+
+  setValue(status) {
+    console.log('status', status);
+  }
+
+  get numeroManquant(): boolean {
+    return false;
+  }
+
+  normaliserDateNaissance() {
+    this.date_evenement =this.normaliserDate(this.date_evenement, this.old_date_evenement);
+    this.old_date_evenement = this.date_evenement;
+  }
+
+  dateEstValide(): boolean {
+    var date_regex = /^\d{2}-\d{2}-\d{4}$/;
+    let response = false;
+
+    if (this.date_evenement.trim() !== '' &&  date_regex.test(this.date_evenement.trim())) {
+
+      this.dateInvalide = false;
+      response = true;
+    } else {
+      this.dateInvalide = true;
+    }
+
+    return response;
+  }
+
+  isNumero(numero: string): boolean {
+    var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
+    if (!(date_regex.test(numero))) {
+      return false;
+    }
+    return true;
+  }
+
+  normaliserDate(date: string, dateAncien: string) {
+    if (dateAncien.length < date.length) {
+      if (date.length === 2 || date.length === 5) {
+        date = date + '-';
+      }
+    }
+    return date;
+  }
+
+}

@@ -1,0 +1,73 @@
+{
+  "langage": {
+    "francais":"Francés",
+    "anglais":"Inglés",
+    "espagnol":"Español",
+    "italien":"Italiano",
+    "allemand":"Alemán",
+    "portugais":"Portugués"
+  },
+  "menu":{
+    "liste":"Lista de personas",
+    "culte":"Asistencia al culto",
+    "liste_gr":"Lista de GR",
+    "liste_reseau":"Lista de redes"
+  },
+  "common": {
+    "retour": "Volver"
+  },
+  "page": {
+    "liste_personnes": {
+      "rechercher": "Buscar en",
+
+      "listeParGr": "Miembros por GR",
+      "liste": "Todos los miembros",
+      "total": "Total",
+      "regulier": "Regular",
+      "fidelisation": "Lealtad",
+      "irregulier": "Irregular",
+      "details": "Detalles",
+      "status":{
+        "responsable":"Responsable",
+        "potentiel": "Potencial",
+        "regulier": "Regular",
+        "en_cours_fidelisation": "En el proceso de fidelización",
+        "irregulier": "Irregular",
+        "fantome": "Fantasma"
+      },
+      "tableau":{
+        "entete":{
+          "nom":"Apellido",
+          "prenom":"El nombre",
+          "gr":"GR",
+          "status":"Estado",
+          "action":"Acción"
+        }
+      },
+      "info": {
+        "add_personne": "Añade una nueva persona",
+        "afficher_details": "Añade una nueva persona"
+      }
+    },
+    "add_personne": {
+      "nom": "Apellido",
+      "prenom": "El nombre",
+      "date_naissance": "Fecha de nacimiento",
+      "date_evangelisation": "Fecha de evangelización",
+      "date_ajout": "Fecha de adición",
+      "numero": "Número",
+      "email": "Correo electrónico",
+      "status": "Estado",
+      "annuler": "Cancela",
+      "enregistrer": "Ahorra",
+      "titre": "Añade una nueva persona",
+      "sucess_message": " se ha registrado",
+      "error_message": "Registro fallido, inténtelo de nuevo",
+      "nom_prenom_manquant": "Debe rellenar el nombre o los apellidos",
+      "numero_manquant": "Tienes que rellenar el número",
+      "email_invalide": "El correo electrónico no es válido",
+      "date_invalide": "La fecha no es válida"
+
+    }
+  }
+}

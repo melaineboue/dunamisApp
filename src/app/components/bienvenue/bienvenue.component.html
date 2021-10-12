@@ -1,0 +1,64 @@
+<div class="_container ms-2 me-2">
+  <div class="bloc-message">
+    <h1 *ngIf="step == 0" class="welcome-text">{{ 'page.bienvenue.texte.bienvenue' | translate }} <b>{{ user.prenom+ ' '+ user.nom }}</b></h1>
+    <div *ngIf="step == 1" class="form-registration row">
+      <div class="">
+        <app-titre [libelle]="'page.bienvenue.texte.titre'"></app-titre>
+        <small class="explications fst-italic mb-5">{{ 'page.bienvenue.texte.explication' | translate }}</small>
+    </div>
+    </div>
+
+    <div class="alert alert-danger alert-dismissible" *ngIf="error">
+      {{ 'page.bienvenue.texte.error_message' | translate }}
+    </div>
+
+    <div class="formulaire row mt-5" [ngStyle]="{'display': step < 1 ? 'none': ''}">
+
+        <div class="col-md-6 col-sm-12 mb-3 form-group">
+          <label > {{ 'page.bienvenue.texte.nom' | translate }}</label>
+          <input type="text" class="form-control" [(ngModel)]="user.prenom+ ' '+user.nom" readonly>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mb-3 form-group">
+          <label > {{ 'page.bienvenue.texte.pour' | translate }}</label>
+          <input type="text" class="form-control" [(ngModel)]="user.gr.libelle" readonly>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mb-3 form-group">
+          <label for="login"> {{ 'page.bienvenue.texte.login' | translate }}</label>
+          <input type="text" class="form-control" id="login" [(ngModel)]="login">
+          <small class="form-text message_erreur fst-italic" *ngIf="loginManquant">{{ 'page.bienvenue.texte.login_manquant' |
+            translate }}</small>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mb-3 form-group">
+          <label for="email"> {{ 'page.bienvenue.texte.email' | translate }}</label>
+          <input type="text" class="form-control" id="email" [(ngModel)]="email">
+          <small class="form-text message_erreur fst-italic">
+            <span *ngIf="emailIncorrect">{{ 'page.bienvenue.texte.email_incorrect' | translate }}</span>
+          </small>
+
+        </div>
+
+
+        <div class="col-md-6 col-sm-12 mb-3 form-group">
+          <label for="mot_de_passe"> {{ 'page.bienvenue.texte.mot_de_passe' | translate }}</label>
+          <input type="password" class="form-control" id="mot_de_passe" [(ngModel)]="motDePasse">
+          <small class="form-text message_erreur fst-italic" *ngIf="passwordManquant">{{ 'page.bienvenue.texte.mot_de_passe_manquant' | translate }}</small>
+        </div>
+
+        <div class="col-md-6 col-sm-12 mb-3 form-group">
+          <label for="mot_de_passe2"> {{ 'page.bienvenue.texte.retaper_mot_de_passe' | translate }}</label>
+          <input type="password" class="form-control" id="mot_de_passe2" [(ngModel)]="motDePasse2">
+          <small class="form-text message_erreur fst-italic" *ngIf="passwordManquant2">{{ 'page.bienvenue.texte.mot_de_passe_manquant' | translate }}</small>
+          <small class="form-text message_erreur fst-italic" *ngIf="passwordNonIdentique">{{ 'page.bienvenue.texte.mot_de_passe_non_conforme' | translate }}</small>
+        </div>
+    </div>
+
+     <div class="bloc-bouton-suivant text-center mt-4">
+       <button *ngIf="step==1" (click)="back()" class="btn btn-light bouton-suivant me-2">{{ 'page.bienvenue.texte.precedent' | translate }}</button>
+       <button *ngIf="step==0" (click)="next()" class="btn btn-light bouton-suivant me-2">{{ 'page.bienvenue.texte.suivant' | translate }}</button>
+       <button *ngIf="step==1" (click)="sauvegarder()" class="btn btn-secondary bouton-suivant me-2">{{ 'page.bienvenue.texte.sauvegarder' | translate }}</button>
+     </div>
+  </div>
+</div>

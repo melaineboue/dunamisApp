@@ -1,0 +1,73 @@
+{
+  "langage": {
+    "francais":"Francese",
+    "anglais":"Inglese",
+    "espagnol":"Spagnolo",
+    "italien":"Italiano",
+    "allemand":"Tedesco",
+    "portugais":"Portoghese"
+  },
+  "menu":{
+    "liste":"Elenco delle persone",
+    "culte":"Partecipazione al culto",
+    "liste_gr":"Elenco di GR",
+    "liste_reseau":"Elenco delle reti"
+  },
+  "common": {
+    "retour": "Indietro"
+  },
+  "page": {
+    "liste_personnes": {
+      "rechercher": "Cerca",
+
+      "listeParGr": "Membri per GR",
+      "liste": "Tutti i membri ",
+      "total": "Totale",
+      "regulier": "Regolare",
+      "fidelisation": "Lealtà",
+      "irregulier": "Irregolare",
+      "details": "Dettagli",
+      "status":{
+        "responsable":"Responsabile",
+        "potentiel": "Potenziale",
+        "regulier": "Regolare",
+        "en_cours_fidelisation": "Nel processo di sviluppo della lealtà",
+        "irregulier": "Irregolare",
+        "fantome": "Fantasma"
+      },
+      "tableau":{
+        "entete":{
+          "nom":"Cognome",
+          "prenom":"Nome",
+          "gr":"GR",
+          "status":"Stato",
+          "action":"Azione"
+        }
+      },
+      "info": {
+        "add_personne": "Aggiungere una nuova persona",
+        "afficher_details": "Mostra i dettagli"
+      }
+    },
+    "add_personne": {
+      "nom": "Cognome",
+      "prenom": "Nome",
+      "date_naissance": "Data di nascita",
+      "date_evangelisation": "Data di evangelizzazione",
+      "date_ajout": "Data aggiunta",
+      "numero": "Numero",
+      "email": "Email",
+      "status": "Stato",
+      "annuler": "Annulla",
+      "enregistrer": "Salva",
+      "titre": "Aggiungere una nuova persona",
+      "sucess_message": " è stato registrato",
+      "error_message": "Registrazione fallita, riprova",
+      "nom_prenom_manquant": "È necessario compilare il nome o il cognome",
+      "numero_manquant": "È necessario compilare il numero",
+      "email_invalide": "L'e-mail non è valida",
+      "date_invalide": "La data non è valida"
+
+    }
+  }
+}

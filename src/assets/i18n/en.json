@@ -1,0 +1,73 @@
+{
+  "langage": {
+    "francais": "French",
+    "anglais": "English",
+    "espagnol": "Spanish",
+    "italien": "Italian",
+    "allemand": "German",
+    "portugais": "Portuguese"
+  },
+  "menu": {
+    "liste": "Persons list",
+    "culte": "Attendance at worship",
+    "liste_gr": "List of GR",
+    "liste_reseau": "List of Networks"
+  },
+  "common": {
+    "retour": "Back"
+  },
+  "page": {
+    "liste_personnes": {
+      "rechercher": "Search",
+
+      "listeParGr": "Members by GR",
+      "liste": "All members",
+      "total": "Total",
+      "regulier": "Regular",
+      "fidelisation": "Loyalty",
+      "irregulier": "Irregular",
+      "details": "Details",
+      "status": {
+        "responsable": "Responsible",
+        "potentiel": "Potential",
+        "regulier": "Regular",
+        "en_cours_fidelisation": "In the process of developing loyalty",
+        "irregulier": "Irregular",
+        "fantome": "Ghost"
+      },
+      "tableau": {
+        "entete": {
+          "nom": "Last name",
+          "prenom": "First name",
+          "gr": "GR",
+          "status": "Status",
+          "action": "Action"
+        }
+      },
+      "info": {
+        "add_personne": "Add a new person",
+        "afficher_details": "Show details"
+      }
+    },
+    "add_personne": {
+      "nom": "Last name",
+      "prenom": "First name",
+      "date_naissance": "Date of birth",
+      "date_evangelisation": "Date of evangelization",
+      "date_ajout": "Date added",
+      "numero": "Number",
+      "email": "Email",
+      "status": "Status",
+      "annuler": "Cancel",
+      "enregistrer": "Save",
+      "titre": "Add a new person",
+      "sucess_message": " has been registered",
+      "error_message": "Registration failed, try again",
+      "nom_prenom_manquant": "You must fill in the firstname or lastname",
+      "numero_manquant": "You need to fill in the number",
+      "email_invalide": "The email is invalid",
+      "date_invalide": "The date is invalid"
+
+    }
+  }
+}

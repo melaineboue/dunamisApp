@@ -1,0 +1,76 @@
+{
+  "langage": {
+    "francais":"Francês",
+    "anglais":"Inglês",
+    "espagnol":"Espanhol",
+    "italien":"Italiano",
+    "allemand":"Alemão",
+    "portugais":"Português"
+  },
+  "menu":{
+    "liste":"Lista de pessoas",
+    "culte":"Presença nos serviços",
+    "liste_gr":"Lista de GR",
+    "liste_reseau":"Lista de redes"
+  },
+  "common": {
+    "retour": "Voltar"
+  },
+  "page": {
+    "liste_personnes": {
+      "rechercher": "Pesquisa",
+
+      "listeParGr": "Membros por GR",
+      "liste": "Todos os membros",
+      "total": "Total",
+      "regulier": "Regular",
+      "fidelisation": "Lealdade",
+      "irregulier": "Irregular",
+      "details": "Detalhes",
+
+      "status":{
+        "responsable":"Responsável",
+        "potentiel": "Potencial",
+        "regulier": "Regular",
+        "en_cours_fidelisation": "No processo de desenvolvimento da lealdade",
+        "irregulier": "Irregular",
+        "fantome": "Fantasma"
+      },
+      "tableau":{
+        "entete":{
+          "nom":"Nome",
+          "prenom":"Nome próprio",
+          "gr":"GR",
+          "status":"Estado",
+          "action":"Acção"
+        }
+      },
+      "info": {
+        "add_personne": "Acrescentar uma nova pessoa",
+        "afficher_details": "Mostrar detalhes"
+      }
+    },
+    "add_personne": {
+      "nom": "Sobrenome",
+      "prenom": "Nome próprio",
+      "date_naissance": "Data de nascimento",
+      "date_evangelisation": "Data da evangelização",
+      "date_ajout": "Data adicionada",
+      "numero": "Número",
+      "email": "Email",
+      "status": "Estado",
+      "annuler": "Cancelar",
+      "enregistrer": "Poupar",
+      "titre": "Acrescentar uma nova pessoa",
+      "sucess_message": " foi registado",
+      "error_message": "O registo falhou, tente novamente",
+      "nom_prenom_manquant": "É necessário preencher o nome ou apelido",
+      "numero_manquant": "É necessário preencher o número",
+      "email_invalide": "O e-mail é inválido",
+      "date_invalide": "A data é inválida"
+    },
+    "details_personne": {
+      "total_gr": ""
+    }
+  }
+}

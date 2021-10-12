@@ -1,0 +1,79 @@
+<div class="container">
+
+
+
+  <div class="row  mt-5 mb-5">
+    <div class="col-6">
+      <a [routerLink]="routeListePersonne">{{ 'page.liste_personnes.liste' | translate }} </a>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="mb-5 col-12">
+      <input type="text" class="form-control" id="recherche"
+        placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [formControl]="recherche">
+    </div>
+  </div>
+
+  <a class="link" [ngStyle]="{'background': backgroundButtonAdd }" (mouseover)="ajouterPersonneOver()"
+    (mouseleave)="ajouterPersonneBlur()" [routerLink]="routeAddPersonne" class="btn btn-secondary"
+    title="{{ 'page.liste_personnes.info.add_personne'| translate }}">
+    <i class="bi bi-person-plus"></i>
+  </a>
+  <hr />
+
+
+  <div class="row mb-5" *ngFor="let gr of grRecherches">
+
+    <div class="row mt-3 mb-2 titre-gr text-center">{{ gr.libelle }}</div>
+
+    <div class="row">
+      <div class="col-3"> {{ 'page.liste_personnes.total' | translate }} : <span
+          [ngStyle]="{'color': secondaryColor }">{{ gr.personnes.length}}</span></div>
+      <div class="col-3">
+        {{ 'page.liste_personnes.regulier' | translate }} : <span [ngStyle]="{'color': secondaryColor }"> {{gr.regulier}} </span>
+      </div>
+      <div class="col-3">
+        {{ 'page.liste_personnes.fidelisation' | translate }} : <span [ngStyle]="{'color': secondaryColor }"> {{gr.fidelisation}}</span>
+      </div>
+      <div class="col-3">
+        {{ 'page.liste_personnes.irregulier' | translate }} : <span [ngStyle]="{'color': secondaryColor }">{{ gr.irregulier }}</span>
+      </div>
+    </div>
+    <hr />
+
+    <table class="table table-striped">
+      <thead>
+        <tr [ngStyle]="{'color': secondaryColor }">
+          <th scope="col">#</th>
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.prenom" | translate }}</th>
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.gr" | translate }}</th>
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
+          <!--Couleur de fond Rouge: pas régulier, orange: en cours de fidélisation/ pas regulier-->
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.action" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let personne of gr.personnes; let numero = index">
+          <th scope="row">{{ numero + 1 }}</th>
+          <td> {{ personne.nom }} </td>
+          <td> {{ personne.prenom }} </td>
+          <td> {{ personne.gr.libelle }} </td>
+          <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
+          <td>
+            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
+            (click)="details(personne.id)"> {{ 'page.liste_personnes.details' | translate }}</i>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+
+
+
+
+</div>

@@ -1,0 +1,211 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2  mt-3">
+      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> Retour</button>
+    </div>
+    <div class="col-10">
+      <app-titre [libelle]="personne.prenom + ' '+ personne.nom "></app-titre>
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-3"> {{ 'page.detail_personne.total_gr' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }">{{
+        0 }}</span></div>
+    <div class="col-3"> {{ 'page.detail_personne.nombre_evenement' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }"> {{ 0 }}</span></div>
+    <div class="col-3"> {{ 'page.detail_personne.evenemement_absent' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }"> {{ 0 }}</span></div>
+    <div class="col-3"> {{ 'page.detail_personne.irregulier' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }">{{ 0 }}</span></div>
+  </div>
+  <hr />
+
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <td> {{ "page.liste_personnes.tableau.entete.nom" | translate }} </td>
+            <td class="value-person">{{ personne.nom }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.liste_personnes.tableau.entete.prenom" | translate }} </td>
+            <td class="value-person"> {{ personne.prenom }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.add_personne.numero" | translate }} </td>
+            <td class="value-person"> {{ personne.telephone }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.liste_personnes.tableau.entete.gr" | translate }} </td>
+            <td class="value-person"> {{ personne.gr.libelle }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.add_personne.date_ajout" | translate }} </td>
+            <td class="value-person"> {{ personne.date_ajout }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.liste_personnes.tableau.entete.status" | translate }} </td>
+            <td class="value-person"> {{ 'page.liste_personnes.status.'+personne.status | translate}} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.add_personne.email" | translate }} </td>
+            <td class="value-person"> {{ personne.email | translate}} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.add_personne.date_evangelisation" | translate }} </td>
+            <td class="value-person"> {{ personne.date_evangelisation }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.add_personne.date_naissance" | translate }} </td>
+            <td class="value-person"> {{ personne.date_naissance }} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-sm-12 col-md-12">
+
+      <div class="row">
+
+
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">
+              {{ 'page.detail_personne.suivi' | translate }}
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+              <!--MESSAGE ALERT SUCCESS ERROR-->
+              <div class="alert alert-success alert-dismissible mt-2" *ngIf="!error && saved">
+                {{ 'page.detail_personne.sucess_message_suivi' | translate }}
+              </div>
+
+              <div class="alert alert-danger alert-dismissible mt-2" *ngIf="error">
+                {{ 'page.detail_personne.error_message_suivi' | translate }}
+              </div>
+
+              <!--BOUTON AJOUTER SUIVI-->
+              <a (click)="ajouterSuivi()" [ngStyle]="{'background': 'backgroundButtonAdd' }" class="btn btn-secondary"
+                title="{{ 'page.detail_personne.ajouter_suivi'| translate }}" *ngIf="!ajoutSuivi">
+                <i class="bi bi-plus-square"></i>
+              </a>
+
+              <div class="mb-3" *ngIf="ajoutSuivi">
+                <textarea [(ngModel)]="suivi" class="form-control" id="nouveau_suivi" rows="3" placeholder="{{ 'page.detail_personne.description_suivi' | translate }}"></textarea>
+
+                <div class="row mt-3">
+                  <button (click)="cancel()" type="submit" class="btn btn-secondary col-md-5 col-sm-12 mb-2">{{
+                    'page.add_personne.annuler' | translate }}</button>
+                  <button
+                    [disabled]="suivi.trim().length === 0"
+                    (click)="enregistrerSuivi()"
+                    type="submit"
+                    class="btn ml-1 btn-primary bouton-enregistrer col-md-6 col-sm-12 mb-2"
+                    [ngStyle]="{'backgroundColor': secondaryColor }">{{ 'page.add_personne.enregistrer' | translate }}</button>
+                </div>
+              </div>
+
+              <hr/>
+              <table class="table table-striped" *ngIf="suivis.length > 0">
+                <tbody>
+                  <tr *ngFor="let suivi of suivis">
+                    <td>
+                      <small class="date_libelle">{{ suivi.date_suivi | translate }}</small>
+                      <span>{{ suivi.libelle }} </span>
+
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="text-center fst-italic" *ngIf="suivis.length == 0"> {{ 'page.detail_personne.aucun_suivi' | translate |
+                translate}} </div>
+
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              {{ 'page.detail_personne.evenemement' | translate }}
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+              <table class="table table-striped" *ngIf="evenementAssistes.length > 0">
+                <tbody>
+                  <tr *ngFor="let evenementAssiste of evenementAssistes">
+                    <td>
+                      <small class="date_libelle">{{ evenementAssiste.date_evenement }}</small>
+                      <span>{{ evenementAssiste.libelle }} </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center fst-italic" *ngIf="evenementAssistes.length == 0"> {{
+                'page.detail_personne.aucun_suivi' | translate}} </div>
+
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingThree">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+              {{ 'page.detail_personne.evenemement_absent' | translate }}
+            </button>
+          </h2>
+          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+              <table class="table table-striped" *ngIf="evenementNonAssistes.length > 0">
+                <tbody>
+                  <tr *ngFor="let evenementNonAssiste of evenementNonAssistes">
+                    <td>
+                      <small class="date_libelle">{{ evenementNonAssiste.date_evenement }}</small>
+                      <span>{{ evenementNonAssiste.libelle }} </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="text-center fst-italic" *ngIf="evenementNonAssistes.length == 0"> {{
+                'page.detail_personne.aucun_suivi' | translate}} </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+      <div c></div>
+    </div>
+  </div>
+
+</div>

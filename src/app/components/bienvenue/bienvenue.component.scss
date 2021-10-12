@@ -1,0 +1,30 @@
+.welcome-text {
+  background: lightgray;
+  display: inline-block;
+  padding: 50px;
+  border-radius: 10px;
+}
+
+.bloc-message {
+  position: relative;
+  display: inline-block;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50% );
+}
+
+._container {
+  position: absolute;
+  height: 90%;
+  width: 98%;
+}
+
+.bouton-suivant {
+  border: 1px solid gray;
+  font-size: 1.5em;
+}
+
+.message_erreur {
+  color: red;
+}
+

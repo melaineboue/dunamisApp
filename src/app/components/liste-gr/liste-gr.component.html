@@ -1,0 +1,51 @@
+<div class="container">
+
+
+
+  <div class="row">
+    <div class="mb-5 mt-5 col-12">
+      <input type="text" class="form-control" id="recherche"
+        placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="recherche">
+    </div>
+  </div>
+
+  <a [routerLink]="routeAddGr" [ngStyle]="{'background': backgroundButtonAdd }" class="btn btn-secondary"
+    title="{{ 'page.liste_gr.info.creer_gr'| translate }}">
+    <i class="bi bi-person-plus"></i>
+  </a>
+  <hr />
+
+
+
+  <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-2">{{ 'page.liste_gr.text.personne_gr' | translate }}</div>
+
+  <table class="table table-striped mb-3">
+    <thead>
+      <tr [ngStyle]="{'color': secondaryColor }">
+        <th scope="col">#</th>
+        <th scope="col">{{ "page.liste_gr.nom" | translate }}</th>
+        <th scope="col">{{ "page.liste_gr.responsable" | translate }}</th>
+        <th scope="col">{{ "page.liste_gr.taille" | translate }}</th>
+        <th scope="col">{{ "page.liste_gr.date_creation" | translate }}</th>
+        <!--Couleur de fond Rouge: pas régulier, orange: en cours de fidélisation/ pas regulier-->
+        <th scope="col">{{ "page.liste_gr.action" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let gr of grsRecherches; let numero = index">
+        <th scope="row">{{ numero + 1 }}</th>
+        <td> {{ gr.libelle }} </td>
+        <td> {{ gr.responsables }} </td>
+        <td> {{ gr.taille }} </td>
+        <td> {{ gr.date_creation }} </td>
+        <td>
+          <i class="details-gr" title="{{ 'page.liste_gr.info.afficher_details' | translate }}"
+            (click)="details(gr.id)"> {{ 'page.liste_gr.details' | translate }}</i>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+</div>

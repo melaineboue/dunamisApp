@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="row mt-5 mb-5">
+    <div class="col-2  mt-3">
+      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> {{ 'common.retour' | translate }}</button>
+    </div>
+    <div class="col-10">
+      <app-titre [libelle]="'page.add_event.titre'"></app-titre>
+    </div>
+  </div>
+
+  <div class="alert alert-success alert-dismissible mt-2" *ngIf="!error && saved">
+    {{ 'page.add_event.success_message' | translate }}
+  </div>
+
+  <div class="alert alert-danger alert-dismissible mt-2" *ngIf="error">
+    {{ 'page.add_personne.error_message' | translate }}
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="nom"> {{ 'page.add_event.nom' | translate }}</label>
+      <input type="text" class="form-control" [(ngModel)]="libelle" id="nom" [placeholder]="'page.add_event.nom_placeholder' | translate">
+      <small class="form-text message_erreur" *ngIf="nomTitreManquant">{{ 'page.add_event.nom_titre_manquant' |
+        translate }}</small>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="predicateur">{{ 'page.add_event.predicateur' | translate }}</label>
+      <input type="text" class="form-control" [(ngModel)]="predicateur" id="predicateur" [(ngModel)]="predicateur" list="liste_predicateur">
+      <datalist id="liste_predicateur">
+        <option *ngFor="let predicateur of predicateurs" [value]="predicateur.nom"></option>
+      </datalist>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="titre_message">{{ 'page.add_event.titre_message' | translate }}</label>
+      <input type="text" class="form-control"[(ngModel)]="titre_message"  id="titre_message" >
+      <small class="form-text message_erreur" *ngIf="nomTitreManquant">{{ 'page.add_event.nom_titre_manquant' | translate
+        }}</small>
+    </div>
+
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="dateNaissance">{{ 'page.add_event.date_event' | translate }}</label>
+      <input type="text" class="form-control" id="dateNaissance" [(ngModel)]="date_evenement" maDate
+        placeholder="jj-mm-aaaa" (keyup)="normaliserDateNaissance()" />
+      <small class="form-text message_erreur" *ngIf="dateInvalide">{{ 'page.add_event.date_invalide' |
+        translate }}</small>
+    </div>
+
+    <div class="row mb-2 mt-3">
+      <button (click)="back()" type="submit" class="btn btn-secondary col-md-6 col-sm-12 mb-2 ms-3">{{
+        'page.add_personne.annuler' | translate }}</button>
+      <button (click)="sauvegarder()" type="submit"
+        class="btn ml-1 btn-primary bouton-enregistrer col-md-5 col-sm-12 mb-2 ms-3"
+        [ngStyle]="{'backgroundColor': secondaryColor }">{{ 'page.add_personne.enregistrer' | translate }}</button>
+    </div>
+
+  </div>
+
+
+</div>

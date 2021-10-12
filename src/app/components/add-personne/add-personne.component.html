@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2  mt-3">
+      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> {{ 'common.retour' | translate }}</button>
+    </div>
+    <div class="col-10">
+      <app-titre [libelle]="'page.add_personne.titre'"></app-titre>
+    </div>
+  </div>
+
+  <div class="alert alert-success alert-dismissible mt-2" *ngIf="!error && saved">
+    {{ personne.nom+ ' '+personne.prenom + ' ' + ('page.add_personne.sucess_message' | translate) }}
+  </div>
+
+  <div class="alert alert-danger alert-dismissible mt-2" *ngIf="error">
+    {{ 'page.add_personne.error_message' | translate }}
+  </div>
+
+  <div class="row mt-5">
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="nom"> {{ 'page.add_personne.nom' | translate }}</label>
+      <input type="text" class="form-control" id="nom" [formControl]="nom">
+      <small class="form-text message_erreur" *ngIf="nomPrenomManquant">{{ 'page.add_personne.nom_prenom_manquant' |
+        translate }}</small>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="prenom">{{ 'page.add_personne.prenom' | translate }}</label>
+      <input type="text" class="form-control" id="prenom" [formControl]="prenom">
+      <small class="form-text message_erreur" *ngIf="nomPrenomManquant">{{ 'page.add_personne.nom_prenom_manquant' |
+        translate }}</small>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="numero">{{ 'page.add_personne.numero' | translate }}</label>
+      <input type="text" class="form-control" id="numero" [formControl]="numero">
+      <small class="form-text message_erreur" *ngIf="numeroManquant">{{ 'page.add_personne.numero_manquant' | translate
+        }}</small>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="exampleInputEmail1">{{ 'page.add_personne.email' | translate }}</label>
+      <input type="email" class="form-control" id="email" [formControl]="email">
+      <small class="form-text message_erreur" *ngIf="emailInvalide">{{ 'page.add_personne.email_invalide' | translate
+        }}</small>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="status">{{ 'page.add_personne.status' | translate }}</label>
+      <div>
+        <select class="form-select" aria-label="Default select example" [formControl]="statusPersonne">
+          <option *ngFor="let status of listeStatus; let i = index" [value]="status.id">{{
+            'page.liste_personnes.status.'+status.libelle | translate}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="status">GR</label>
+      <div>
+        <select class="form-select" aria-label="Default select example" [formControl]="gr">
+          <option *ngFor="let gr of grs" [value]="gr.id">{{ gr.libelle }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="dateNaissance">{{ 'page.add_personne.date_naissance' | translate }}</label>
+      <input type="text" class="form-control" id="dateNaissance" [formControl]="datenaissance" maDate
+        placeholder="jj-mm-aaaa" (keyup)="normaliserDateNaissance()" />
+      <small class="form-text message_erreur" *ngIf="dateNaissanceInvalide">{{ 'page.add_personne.date_invalide' |
+        translate }}</small>
+    </div>
+
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="datenaissance">{{ 'page.add_personne.date_evangelisation' | translate }}</label>
+      <input type="text" class="form-control" id="datenaissance" [formControl]="dateEvangelisation"
+        placeholder="jj-mm-aaaa">
+      <small class="form-text message_erreur" *ngIf="dateEvangelisationInvalide">{{ 'page.add_personne.date_invalide' |
+        translate }}</small>
+    </div>
+
+    <div class="row mb-2 mt-3">
+      <button (click)="back()" type="submit" class="btn btn-secondary col-md-5 col-sm-12 mb-2 ms-3">{{
+        'page.add_personne.annuler' | translate }}</button>
+      <button (click)="sauvegarder()" type="submit"
+        class="btn ml-1 btn-primary bouton-enregistrer col-md-6 col-sm-12 mb-2 ms-3"
+        [ngStyle]="{'backgroundColor': secondaryColor }">{{ 'page.add_personne.enregistrer' | translate }}</button>
+    </div>
+
+  </div>
+
+
+</div>

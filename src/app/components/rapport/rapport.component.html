@@ -1,0 +1,27 @@
+<div class="container">
+  <div class="row mb-2">
+    <button (click)="generate()" type="submit" class="btn btn-secondary  col-md-6 col-sm-12 mb-2 ">{{
+      'page.details_event.rapport' | translate }}
+    </button>
+
+
+  </div>
+
+  <div class="row" *ngIf="rapportMode">
+    <div>
+      <button *ngIf="!estCopie" (click)="copier()" type="submit" class="btn btn-light bouton-copier">{{
+        'common.copier' | translate }}
+      </button>
+
+      <button *ngIf="estCopie" (click)="copier()" type="submit" class="btn btn-light bouton-copier">{{
+        'common.copie' | translate }}
+      </button>
+    </div>
+
+    <textarea [(ngModel)]="rapport" class="form-control" id="rapport" rows="20"
+      placeholder="{{ 'common.rapport' | translate }}">
+    </textarea>
+  </div>
+</div>
+
+

@@ -1,0 +1,54 @@
+<div class="container">
+
+
+
+  <div class="row  mt-5 mb-5">
+    <app-titre [libelle]=" 'page.reunion.titre' | translate "></app-titre>
+  </div>
+
+
+  <div class="row">
+    <div class="mb-5 col-12">
+      <input type="text" class="form-control" id="recherche"
+        placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="recherche">
+    </div>
+  </div>
+
+
+  <hr />
+  <div class="row">
+    <div class="col-3"> {{ 'page.events.total' | translate }} : <span [ngStyle]="{'color': secondaryColor }">{{ reunions.length}}</span></div>
+    <div class="col-9"></div>
+  </div>
+  <hr />
+
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr [ngStyle]="{'color': secondaryColor }">
+        <th scope="col">#</th>
+        <th scope="col">{{ "page.reunion.semaine" | translate }}</th>
+        <th scope="col">{{ "page.reunion.message" | translate }}</th>
+        <th scope="col">{{ "page.reunion.annonce" | translate }}</th>
+        <th scope="col">{{ "page.reunion.action" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let reunion of reunionsRecherches; let numero = index">
+        <th scope="row">{{ numero + 1 }}</th>
+        <td> {{ reunion.semaine }} </td>
+        <td> {{ reunion.titre }} </td>
+        <td> {{ reunion.annonce }} </td>
+        <td>
+          <i class="bi bi-card-text details" title="{{ 'page.events.info.afficher_details' | translate }}"
+            (click)="details(event.id)"> {{ 'page.events.details' | translate }}</i>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+</div>

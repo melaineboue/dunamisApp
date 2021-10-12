@@ -1,0 +1,51 @@
+<div class="container">
+
+
+
+  <div class="row  mt-5 mb-5">
+    <app-titre [libelle]=" 'page.themes.titre' | translate "></app-titre>
+  </div>
+
+
+  <div class="row">
+    <div class="mb-5 col-12">
+      <input type="text" class="form-control" id="recherche"
+        placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [formControl]="recherche">
+    </div>
+  </div>
+
+  <a [routerLink]="routeAddTheme" [ngStyle]="{'background': backgroundButtonAdd }"
+    (mouseover)="ajouterPersonneOver()" (mouseleave)="ajouterPersonneBlur()" class="btn btn-secondary"
+    title="{{ 'page.themes.info.add_theme'| translate }}">
+    <i class="bi bi-plus-circle"></i>
+  </a>
+
+  <hr />
+
+
+
+  <table class="table table-striped">
+    <thead>
+      <tr [ngStyle]="{'color': secondaryColor }">
+        <th scope="col">#</th>
+        <th scope="col">{{ "page.themes.semaine" | translate }}</th>
+        <th scope="col">{{ "page.themes.message" | translate }}</th>
+        <th scope="col">{{ "page.themes.annonce" | translate }}</th>
+        <th scope="col">{{ "page.themes.action" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let theme of themesRecherches; let numero = index">
+        <th scope="row">{{ numero + 1 }}</th>
+        <td> {{ theme.semaine }} </td>
+        <td> {{ theme.titre }} </td>
+        <td> {{ theme.annonce }} </td>
+         <td> <!--Modifier supprimer  --></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+
+
+</div>

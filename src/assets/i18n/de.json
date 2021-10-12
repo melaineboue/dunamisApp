@@ -1,0 +1,73 @@
+{
+  "langage": {
+    "francais":"Französisch",
+    "anglais":"Englisch",
+    "espagnol":"Spanisch",
+    "italien":"Italienisch",
+    "allemand":"Deutsch",
+    "portugais":"Portugiesisch"
+  },
+  "menu":{
+    "liste":"Liste der Personen",
+    "culte":"Anwesenheit bei Dienstleistungen",
+    "liste_gr":"Liste von GR",
+    "liste_reseau":"Liste der Netzwerke"
+  },
+  "common": {
+    "retour": "Zurück"
+  },
+  "page": {
+    "liste_personnes": {
+      "rechercher": "Suche",
+
+      "listeParGr": "Mitglieder nach GR",
+      "liste": "Alle Mitglieder",
+      "total": "Insgesamt",
+      "regulier": "Regelmäßig",
+      "fidelisation": "Loyalität",
+      "irregulier": "Unregelmäßig",
+      "details": "Einzelheiten",
+      "status":{
+        "responsable":"Verantwortlich",
+        "potentiel": "Potenzial",
+        "regulier": "Regelmäßig",
+        "en_cours_fidelisation": "Im Prozess der Entwicklung von Loyalität",
+        "irregulier": "Unregelmäßig",
+        "fantome": "Geist"
+      },
+      "tableau":{
+        "entete":{
+          "nom":"Nachname",
+          "prenom":"Vornamen",
+          "gr":"GR",
+          "status":"Status",
+          "action":"Aktion"
+        }
+      },
+      "info": {
+        "add_personne": "Fügen Sie eine neue Person hinzu",
+        "afficher_details": "Details anzeigen"
+      }
+    },
+    "add_personne": {
+      "nom": "Nachname",
+      "prenom": "Vornamen",
+      "date_naissance": "Geburtsdatum",
+      "date_evangelisation": "Datum der Evangelisierung",
+      "date_ajout": "Datum hinzugefügt",
+      "numero": "Nummer",
+      "email": "E-mail",
+      "status": "Status",
+      "annuler": "Abbrechen",
+      "enregistrer": "Sparen",
+      "titre": "Fügen Sie eine neue Person hinzu",
+      "sucess_message": " registriert worden ist",
+      "error_message": "Registrierung fehlgeschlagen, versuchen Sie es erneut",
+      "nom_prenom_manquant": "Sie müssen den Vor- oder Nachnamen angeben",
+      "numero_manquant": "Sie müssen die Nummer ausfüllen",
+      "email_invalide": "Die E-Mail ist ungültig",
+      "date_invalide": "Das Datum ist ungültig"
+
+    }
+  }
+}

@@ -1,0 +1,68 @@
+<div class="container">
+  <app-titre [libelle]="'page.detail_personne.suivi'"></app-titre>
+  <small class="fst-italic"> {{ 'page.detail_personne.description_page' | translate }}</small>
+  <div class="row mt-5">
+    <!--MESSAGE ALERT SUCCESS ERROR-->
+    <div class="alert alert-success alert-dismissible mt-2" *ngIf="!error && saved">
+      {{ 'page.detail_personne.sucess_message_suivi' | translate }}
+    </div>
+
+    <div class="alert alert-danger alert-dismissible mt-2" *ngIf="error">
+      {{ 'page.detail_personne.error_message_suivi' | translate }}
+    </div>
+
+
+    <div class="mb-3">
+      <label for="description_suivi">{{ 'page.detail_personne.suivi' | translate }}</label>
+      <textarea [(ngModel)]="suivi" class="form-control" id="description_suivi" rows="3"
+        placeholder="{{ 'page.detail_personne.description_suivi' | translate }}">
+      </textarea>
+
+      <div *ngIf="checkedPersonnes.length > 0">
+        <hr />
+        <span>{{ checkedPersonnes }} </span>
+        <hr />
+      </div>
+
+
+      <div class="row mt-3">
+        <button (click)="enregistrerSuivi()" [ngStyle]="{'backgroundColor': secondaryColor }"
+        [disabled]="checkedPersonnes.length === 0 || suivi.trim().length === 0"
+          class="btn ml-1 btn-secondary bouton-enregistrer col-md-6 col-sm-12 mb-2">{{ 'page.add_personne.enregistrer' | translate }}</button>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <div class="mt-3 mb-3 col-12">
+        <input type="text" class="form-control" id="recherche"
+          placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="recherche">
+      </div>
+
+
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" [(ngModel)]="toutCocher" id="toutCocher"
+          (change)="cocherTout()">
+        <label class="form-check-label" for="toutCocher"> Tout cocher </label>
+      </div>
+
+      <table class="table table-striped" *ngIf="personnesRecherchees.length > 0">
+        <tbody>
+          <tr *ngFor="let personne of personnesRecherchees">
+            <td>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="personne.checked"
+                  [id]="'cocher'+personne.id">
+                <label class="form-check-label" [for]="'cocher'+personne.id"> {{ personne.prenom }} {{ personne.nom
+                  }}</label>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+
+    </div>
+
+  </div>
+</div>
