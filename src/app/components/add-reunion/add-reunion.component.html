@@ -1,0 +1,209 @@
+<div class="container">
+
+  <div class="row mb-4">
+    <div class="col-3 col-lg-2 mt-3">
+      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> {{ 'common.retour' |
+        translate }}</button>
+    </div>
+    <div class="col-9">
+      <app-titre [libelle]="'page.add_reunion.titre_page' | translate"></app-titre>
+    </div>
+  </div>
+
+
+
+  <div>
+    <div class="row">
+      <div class="col-12">
+        <label class="col-2" for="description_semaine">{{ 'page.add_reunion.semaine' | translate }}</label>
+        <a class="col-2 link" (click)="getWeek(0)">{{ 'page.add_reunion.semaine_en_cours' | translate }}</a>
+        <!-- <a class="col-2" >{{ 'page.add_reunion.semaine_precedente' | translate }}</a>
+        <a class="col-2" >{{ 'page.add_reunion.semaine_suivante' | translate }}</a> -->
+        <input type="text" id="semaine" class="form-control" [(ngModel)]="reunion.semaine">
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <label for="description_titre_message">{{ 'page.add_reunion.titre_message' | translate }}</label>
+        <input type="text" id="titre_message" class="form-control" [(ngModel)]="reunion.titre">
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <label for="description_annnonce">{{ 'page.add_reunion.annonce' | translate }}</label>
+        <textarea [(ngModel)]="reunion.annonce" class="form-control" id="description_annnonce" rows="3"
+          placeholder="{{ 'page.add_reunion.annonce' | translate }}">
+      </textarea>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-12">
+        <label for="date_gr">{{ 'page.add_reunion.date_gr' | translate }}</label>
+        <input type="text" id="date_gr" [(ngModel)]="laDate" class="form-control"  placeholder="DD/MM/AAAA">
+        <small class="fst-italic error" *ngIf="date_invalide"> {{ 'page.add_reunion.date_invalide' | translate}}</small>
+      </div>
+    </div>
+
+    <div class="row mt-3">
+      <div class="col-6">
+        <label for="heure_debut">{{ 'page.add_reunion.heure_debut' | translate }}</label>
+        <div class="row">
+          <div class="col-4">
+            <input type="number" id="heure_debut" class="form-control col-3" [(ngModel)]="heure_debut" placeholder="hh">
+            <small class="fst-italic error" *ngIf="heure_debut_invalide"> {{ 'page.add_reunion.heure_invalide' | translate}}</small>
+          </div>
+
+          <div class="col-4">
+             <input type="number" id="titre_message" class="form-control" [(ngModel)]="minute_debut" placeholder="mm">
+            <small class="fst-italic error" *ngIf="minute_debut_invalide"> {{ 'page.add_reunion.minute_invalide' | translate}}</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="heure_fin">{{ 'page.add_reunion.heure_fin' | translate }}</label> <span class="error fst-italic ms-3" *ngIf="heure_fin_superieur">{{ 'page.add_reunion.heure_fin_superieur' | translate}}</span>
+        <div class="row">
+          <div class="col-4">
+            <input type="number" id="heure_fin" class="form-control col-3" [(ngModel)]="heure_fin" placeholder="hh">
+            <small class="fst-italic error" *ngIf="heure_fin_invalide"> {{ 'page.add_reunion.heure_invalide' | translate}}</small>
+          </div>
+
+          <div class="col-4">
+            <input type="number" class="form-control" [(ngModel)]="minute_fin" placeholder="mm">
+            <small class="fst-italic error" *ngIf="minute_fin_invalide"> {{ 'page.add_reunion.heure_invalide' | translate}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <hr class="mt-3 mb-3">
+
+
+
+
+
+
+
+
+
+
+
+
+  <a *ngIf="!definitionPresent" class="link" (click)="definrPresent()">Définir les présent</a>
+  <div *ngIf="definitionPresent">
+
+
+    <app-titre [libelle]=""></app-titre>
+    <div class="mt-5 titre-participant">{{ 'page.add_reunion.titre_participants' | translate }}</div>
+
+    <div class="row">
+
+      <div class="mt-3 mb-3 col-12">
+        <input type="text" class="form-control" id="recherche"
+          placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="recherche">
+      </div>
+
+
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" [(ngModel)]="toutCocher" id="toutCocher"
+          (change)="cocherTout()">
+        <label class="form-check-label" for="toutCocher"> {{ 'common.tout_cocher' | translate }} </label>
+      </div>
+
+      <table class="table table-striped" *ngIf="personnesRecherchees.length > 0">
+        <tbody>
+          <tr *ngFor="let personne of personnesRecherchees">
+            <td>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="personne.checked"
+                  [id]="'cocher'+personne.id"  (change)="normaliserToutCocher()">
+                <label class="form-check-label" [for]="'cocher'+personne.id"> {{ personne.prenom }} {{ personne.nom
+                  }}</label>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngFor="let invite of invites">
+            <td>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="invite.checked"
+                  [id]="'cocherInvite'+invite.id"  (change)="normaliserToutCocher()">
+                <label class="form-check-label" [for]="'cocherInvite'+invite.id"> {{ invite.nom }} <span class="libelle_invite">{{ 'page.add_reunion.libelle_invite' | translate }}</span></label>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+
+      <a class="link" (click)="ajouterInvite()" *ngIf="!ajoutInviteEnCours">Ajouter un invité</a>
+      <div class="row" *ngIf="ajoutInviteEnCours">
+        <label for="nom_invite">{{ 'page.add_reunion.nom_invite' | translate }}</label>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <input type="text" id="nom_invite" [(ngModel)]="nomInvite" class="form-control">
+          <small class="fst-italic error" *ngIf="nomInviteInvalide"> {{ 'page.add_reunion.nom_invite_vide' | translate}}</small>
+          <small class="fst-italic error" *ngIf="errorSavingInvite"> {{ 'page.add_reunion.error_saving_invite' | translate}}</small>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <button class="btn btn-secondary me-2" (click)="enregistrerInvite()">{{ 'page.add_reunion.ajouter_invite' | translate}}</button>
+            <button class="btn btn-light bouton-light" (click)="annulerInviter()">{{ 'common.annuler' | translate}}</button>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+  <hr>
+
+
+
+
+  <div class="mt-3" *ngIf="!reunion.valide">
+    <button (click)="back()" class="btn btn-secondary"> {{ 'page.add_reunion.retour' | translate }}</button>
+    <button (click)="enregistrer()" class="btn btn-secondary ms-2"> {{ 'page.add_reunion.enregistrer' | translate
+      }}</button>
+    <button (click)="valider()" [disabled]="!reunion.enregistre" [ngStyle]="{'backgroundColor': secondaryColor }"
+      class="btn btn-secondary ms-2" [title]="'page.add_reunion.titre_valider' | translate "> {{
+      'page.add_reunion.valider' | translate }}</button>
+  </div>
+
+  <div class="mt-3 fst-italic" *ngIf="reunion.valide"> {{ 'page.add_reunion.modification_impossible' | translate }}
+  </div>
+
+  <div class="alert alert-success alert-dismissible mt-2" *ngIf="!error && saved">
+    {{ 'page.add_reunion.saved_success_message' | translate }}
+  </div>
+
+  <div class="alert alert-success alert-dismissible mt-2" *ngIf="!error && validated">
+    {{ 'page.add_reunion.valider_success_message' | translate }}
+  </div>
+
+  <div class="alert alert-danger alert-dismissible mt-2" *ngIf="error">
+    {{ 'page.add_reunion.error_message' | translate }}
+  </div>
+
+  <div class="mt-5 mb-5">
+    <app-rapport [rapport]="rapport" (generer)="genererRapport()"></app-rapport>
+  </div>
+</div>
+
+<app-participant></app-participant>
