@@ -1,4 +1,5 @@
 export const menuItemsClass = {
+  ACCUEIL: "accueil",
   LISTE_PERSONNE: "listeBrebis",
   LISTE_PERSONNE_GR: "listeBrebisGr",
   LISTE_GR: "listeGR",
@@ -11,6 +12,7 @@ export const menuItemsClass = {
   ADD_THEME: "addTheme",
   ADD_REUNION_GR: "addReunionGr",
   ADD_GR: "addGr",
+  ADD_REUNION: "addReunion",
   PRESENCE_CULTE: "presenceCulte",
   DETAILS_REUNION_GR: "detailsReunionGr",
   DETAILS_PERSONNE: "detailsBrebis",
@@ -22,12 +24,11 @@ export const menuItemsClass = {
   DECONNECTER: "logout",
   DASHBOARD: "dashboard",
   HISTORY: ""
-
 }
 
-export const defaultRedirectParamNotExist = menuItemsClass.LISTE_PERSONNE;
-export const defaultRedirectNotAuth = menuItemsClass.LISTE_PERSONNE;
-
+export const defaultRedirectParamNotExist = menuItemsClass.ACCUEIL;
+export const defaultRedirectNotAuth = menuItemsClass.LOGIN;
+export const defaultConnectedPage = menuItemsClass.ACCUEIL;
 
 export const Status = {
   RESPONSABLE: "responsable",

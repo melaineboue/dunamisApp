@@ -3,11 +3,11 @@ import { GR } from "./gr";
 export interface Personne {
   id: number;
   nom?: string;
-  prenom: string;
+  prenom?: string;
   date_naissance?: string;
   date_evangelisation?: string;
-  date_ajout: string;
-  telephone: string;
+  date_ajout?: string;
+  telephone?: string;
   email?: string;
   gr?: GR;
   photo?: string;
@@ -15,5 +15,6 @@ export interface Personne {
   ville?: string,
   pays?: string,
   login?: string,
-  pwd?: string
+  pwd?: string,
+  invite?: boolean
 }

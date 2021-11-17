@@ -37,7 +37,7 @@
       <tr [ngStyle]="{'color': secondaryColor }">
         <th scope="col">#</th>
         <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
-        <th scope="col">{{ "page.liste_personnes.tableau.entete.prenom" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.ville" | translate }}</th>
         <th scope="col">{{ "page.liste_personnes.tableau.entete.gr" | translate }}</th>
         <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
         <!--Couleur de fond Rouge: pas régulier, orange: en cours de fidélisation/ pas regulier-->
@@ -47,8 +47,8 @@
     <tbody>
       <tr *ngFor="let personne of personnesRecherches; let numero = index">
         <th scope="row">{{ numero + 1 }}</th>
-        <td> {{ personne.nom }} </td>
-        <td> {{ personne.prenom }} </td>
+        <td> {{ personne.prenom + ' '+ personne.nom }} </td>
+        <td> {{ personne.ville }} </td>
         <td> {{ personne.gr.libelle }} </td>
         <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
         <td>

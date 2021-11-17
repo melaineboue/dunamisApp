@@ -1,0 +1,124 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-10">
+      <app-titre [libelle]="gr.libelle"></app-titre>
+    </div>
+  </div>
+
+
+  <hr />
+  <!-- <button (click)="goToNouvelleReunion()" *ngIf="!gr.reunion" class="btn btn-secondary">{{ 'page.accueil.nouvelle_reunion' | translate }}</button> -->
+  <button (click)="goToNouvelleModifierReunion()" class="btn btn-secondary">{{ (gr.reunion ? 'page.accueil.modifier_reunion': 'page.accueil.nouvelle_reunion') | translate }}</button>
+  <hr />
+
+  <div class="row">
+    <div class="col-3"> {{ 'page.liste_personnes.total' | translate }} : <span [ngStyle]="{'color': secondaryColor }">{{
+        personnesGR.length}}</span></div>
+    <div class="col-3"> {{ 'page.liste_personnes.regulier' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }"> {{ nombreRegulier }}</span></div>
+    <div class="col-3"> {{ 'page.liste_personnes.fidelisation' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }"> {{ nombreIntegration }}</span></div>
+    <div class="col-3"> {{ 'page.liste_personnes.irregulier' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }">{{ nombreIrregulier }}</span></div>
+  </div>
+
+
+  <hr/>
+
+
+
+  <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-5">{{ 'page.liste_gr.text.personne_gr' | translate }}</div>
+  <div class="row">
+    <div class="mb-3 mt-3 col-12">
+      <input type="text" class="form-control" id="recherche"
+        placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="rechercheGr">
+    </div>
+  </div>
+  <table class="table table-striped" *ngIf="personnesGrRecherches.length > 0">
+    <thead>
+      <tr [ngStyle]="{'color': secondaryColor }">
+        <th scope="col">#</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.prenom" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.date_ajout" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.action" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let personne of personnesGrRecherches; let numero = index">
+        <th scope="row">{{ numero + 1 }}</th>
+        <td> {{ personne.nom }} </td>
+        <td> {{ personne.prenom }} </td>
+        <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
+        <td> {{ personne.date_ajout }} </td>
+        <td>
+          <button>
+            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
+              (click)="details(personne.id)"></i>
+          </button>
+
+          <button (click)="retirerDuGR(personne)" *ngIf="personne.status !== statusResponsable">
+            <i class="bi bi-x-square" title="{{ 'page.liste_gr.info.retirer_du_gr' | translate }}"></i>
+          </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div *ngIf="personnesGrRecherches.length <= 0" class="text-center">
+    {{ 'page.accueil.gr_vide' | translate }}
+  </div>
+
+  <hr>
+  <app-rapport [rapport]="rapport" (generer)="genererRapport()" [buttonLibelle]="'rapport_suivi'" ></app-rapport>
+  <hr />
+
+  <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-5">{{ 'page.liste_gr.text.personne_hors_gr' | translate }}</div>
+  <div class="mb-3 mt-3 col-12">
+    <input type="text" class="form-control" id="recherche"
+      placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="rechercheHorsGr">
+  </div>
+  <table class="table table-striped" *ngIf="personnesHorsGrRecherches.length > 0">
+    <thead>
+      <tr [ngStyle]="{'color': secondaryColor }">
+        <th scope="col">#</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.prenom" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.gr" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.action" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let personne of personnesHorsGrRecherches; let numero = index">
+        <th scope="row">{{ numero + 1 }}</th>
+        <td> {{ personne.nom }} </td>
+        <td> {{ personne.prenom }} </td>
+        <td> {{ (personne.gr.libelle == 'aucun_gr' ? 'common.aucun_gr' : personne.gr.libelle) | translate }} </td>
+        <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
+        <td>
+          <button>
+            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
+              (click)="details(personne.id)"></i>
+          </button>
+
+          <button (click)="ajouterGR(personne)">
+            <i class="bi bi-plus-square" title="{{ 'page.liste_gr.info.ajouter_au_gr' | translate }}"></i>
+          </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <div *ngIf="personnesHorsGrRecherches.length <= 0" class="text-center">
+    {{ 'page.accueil.pas_de_donnees_trouve' | translate }}
+  </div>
+
+
+
+</div>

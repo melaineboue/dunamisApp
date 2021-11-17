@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { menuItemsClass } from 'src/app/models/const';
 import { Evenement } from 'src/app/models/evenement';
-import { Personne } from 'src/app/models/personne';
 import { Predicateur } from 'src/app/models/predicateur';
+import { estDate, estHeure } from 'src/app/utils/utils';
 import { CommonService } from 'src/app/services/common.service';
 import { EventService } from 'src/app/services/event.service';
 import { ParameterService } from 'src/app/services/parameter.service';
@@ -24,6 +23,7 @@ export class AddEventComponent implements OnInit {
   titre_message: string = '';
   date_evenement: string='';
   old_date_evenement = '';
+  heure_evenement = '20:30';
 
   predicateurs: Predicateur[] = [];
 
@@ -32,6 +32,7 @@ export class AddEventComponent implements OnInit {
 
   nomTitreManquant = false;
   dateInvalide = false;
+  heureInvalide = false;
 
   constructor(
     private eventService: EventService,
@@ -60,17 +61,16 @@ export class AddEventComponent implements OnInit {
       libelle: this.libelle.trim(),
       predicateur: this.predicateur.trim(),
       titre_message: this.titre_message.trim(),
-      date_evenement: this.date_evenement
+      date_evenement: this.date_evenement.trim(),
+      heure_evenement: this.heure_evenement.trim()
     } as Evenement;
 
     // Validation Nom - prenom
     let nomTitreValide = this.nomTitreValide();
     let dateValide = this.dateEstValide();
-    console.log('dateValide', dateValide);
+    let heureValide = this.heureEstValide();
 
-
-
-    if (nomTitreValide && dateValide) {
+    if (nomTitreValide && dateValide && heureValide) {
 
       this.eventService.saveEvent(this.event).subscribe(
         enregistre => {
@@ -124,15 +124,33 @@ export class AddEventComponent implements OnInit {
   }
 
   dateEstValide(): boolean {
-    var date_regex = /^\d{2}-\d{2}-\d{4}$/;
+    var date_regex = /^\d{2}\/\d{2}\/\d{4}$/;
     let response = false;
 
-    if (this.date_evenement.trim() !== '' &&  date_regex.test(this.date_evenement.trim())) {
+    this.date_evenement = this.date_evenement.trim();
+    if (this.date_evenement !== '' &&  date_regex.test(this.date_evenement) && estDate(this.date_evenement)) {
 
       this.dateInvalide = false;
       response = true;
     } else {
       this.dateInvalide = true;
+    }
+
+    return response;
+  }
+
+  heureEstValide(): boolean {
+    var heure_regex = /^\d{2}:\d{2}$/;
+    let response = false;
+
+    this.heure_evenement = this.heure_evenement.trim();
+
+    if (this.heure_evenement !== '' &&  heure_regex.test(this.heure_evenement) && estHeure(this.heure_evenement)) {
+
+      this.heureInvalide = false;
+      response = true;
+    } else {
+      this.heureInvalide = true;
     }
 
     return response;
@@ -149,7 +167,7 @@ export class AddEventComponent implements OnInit {
   normaliserDate(date: string, dateAncien: string) {
     if (dateAncien.length < date.length) {
       if (date.length === 2 || date.length === 5) {
-        date = date + '-';
+        date = date + '/';
       }
     }
     return date;

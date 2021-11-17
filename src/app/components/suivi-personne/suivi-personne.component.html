@@ -43,7 +43,7 @@
       <div class="form-check">
         <input type="checkbox" class="form-check-input" [(ngModel)]="toutCocher" id="toutCocher"
           (change)="cocherTout()">
-        <label class="form-check-label" for="toutCocher"> Tout cocher </label>
+        <label class="form-check-label" for="toutCocher"> {{ 'common.tout_cocher' | translate }} </label>
       </div>
 
       <table class="table table-striped" *ngIf="personnesRecherchees.length > 0">
@@ -51,7 +51,7 @@
           <tr *ngFor="let personne of personnesRecherchees">
             <td>
               <div class="form-check">
-                <input type="checkbox" class="form-check-input" [(ngModel)]="personne.checked"
+                <input type="checkbox" class="form-check-input" [(ngModel)]="personne.checked" (change)="cocherPersonne()"
                   [id]="'cocher'+personne.id">
                 <label class="form-check-label" [for]="'cocher'+personne.id"> {{ personne.prenom }} {{ personne.nom
                   }}</label>

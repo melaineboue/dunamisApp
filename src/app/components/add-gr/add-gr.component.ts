@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
@@ -27,13 +28,14 @@ export class AddGrComponent implements OnInit {
   responsables: PersonneSuivi[] = [];
 
   constructor(
+    private http: HttpClient,
     private router: Router,
     private commonService: CommonService,
     private grService: GrService,
     private personneService: PersonneService,
     private clipboardService: ClipboardService
   ) {
-    this.personneService.getPersonneReseau().subscribe(listePersonnes => {
+    this.personneService.getPersonneReseauNonResponsable().subscribe(listePersonnes => {
       this.personnes = listePersonnes.map(personne => ({
         id: personne.id,
         nom: personne.nom,
@@ -59,6 +61,7 @@ export class AddGrComponent implements OnInit {
   }
 
   validerResponsable() {
+
     this.selectionEnCoursResponsable = false;
     this.responsables = this.personnes.filter(personne => personne.checked).map(personne => ({
       id: personne.id,
@@ -101,6 +104,8 @@ export class AddGrComponent implements OnInit {
       this.error = true;
     })
   }
+
+
 
 
   get personneCoches(): PersonneSuivi[] {

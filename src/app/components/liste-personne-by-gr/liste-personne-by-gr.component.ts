@@ -2,6 +2,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ifError } from 'assert';
 import { menuItemsClass, Status } from 'src/app/models/const';
 import { GrContent } from 'src/app/models/gr-content';
 import { Personne } from 'src/app/models/personne';
@@ -16,7 +17,7 @@ import { PersonneService } from 'src/app/services/personne.service';
 })
 export class ListePersonneByGrComponent implements OnInit {
 
-  grs: GrContent[];
+  grs: GrContent[] = [];
   recherche = new FormControl('');
   hover = false;
 
@@ -77,10 +78,13 @@ export class ListePersonneByGrComponent implements OnInit {
    * Retourne les Grs qui contiennent texte recherché dans leur libellé ou le nom des personnes
    */
   get grRecherches(): GrContent[] {
-    return this.grs.filter(gr =>
+    const grRecherche = this.grs.filter(gr =>
       this.commonService.rechercher(this.recherche.value, gr.libelle) ||
       gr.personnes.some( personne => this.commonService.rechercher(this.recherche.value, personne.nom, personne.prenom, personne.telephone, personne.status, personne.gr.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout))
-    )
+    );
+
+    grRecherche.map(gr => gr.personnes = gr.personnes.filter(personne => this.commonService.rechercher(this.recherche.value, personne.nom, personne.prenom, personne.telephone, personne.status, personne.gr.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout)));
+    return grRecherche;
   }
 
   get secondaryColor(): string {
@@ -93,4 +97,15 @@ export class ListePersonneByGrComponent implements OnInit {
     this.router.navigate([this.routeDetailsPersonne]);
   }
 
+  nombreRegulier(personnes: Personne[]): number {
+    return personnes.filter(personne => personne.status === Status.REGULIER).length
+  }
+
+  nombreIntegration(personnes: Personne[]): number {
+    return personnes.filter(personne => personne.status === Status.EN_COURS_FIDELISATION).length
+  }
+
+  nombreIrregulier(personnes: Personne[]): number {
+    return personnes.filter(personne => personne.status === Status.IRREGULIER).length
+  }
 }

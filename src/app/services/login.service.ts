@@ -1,9 +1,12 @@
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { Status } from '../models/const';
 import { Personne } from '../models/personne';
 import { ResponseAPI } from '../models/response';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -39,12 +42,13 @@ export class LoginService implements CanActivate{
       gr: {
         id:1,
         libelle: 'GR Franckie',
-        idreseau: 1
+        idreseau: 1,
+
       }
     }
   ]
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
 
 
@@ -53,13 +57,23 @@ export class LoginService implements CanActivate{
   }
 
   login(login: string, password: string): Observable<Personne>{
-    let usersFiltered = this.users.filter(user => user.login === login && user.pwd === password);
-    let user = usersFiltered.length > 0 ? usersFiltered[0] : null;
+    // service = login
+    // action = connection
+    let url = `${environment.host}?action=connection&service=login&login=${login}&password=${password}`;
 
-    return of(user);
+    return this.http.get<Personne>(url).pipe(map(user => {
+      return user;
+    }));
+
   }
 
   reinit(login: string): Observable<ResponseAPI<string>>{
+    // service = login
+    // action = init password
+    let url = `${environment.host}?service=login&action=initpassword&login=${login}`;
+    // TO DO
+
+
     let usersFiltered = this.users.filter(user => user.login === login);
     if(usersFiltered.length === 0){
       // Login inexistant
@@ -80,26 +94,37 @@ export class LoginService implements CanActivate{
    * @param code: code d'acces
    * @returns Personne correspondant au code, sinon null si code incorrect
    */
-  validerCode(code: string): Observable<Personne>{
-    return of(this.users[1]);
+   getUserFromCode(code: string): Observable<Personne>{
+    // service = login
+    // action = validercode
+    let url = `${environment.host}?service=login&action=validercode&code=${code}`;
+    return this.http.get<Personne>(url).pipe(map(response => response))
   }
 
-  getUserFromCode(code: string): Observable<Personne>{
+  /*getUserFromCode(code: string): Observable<Personne>{
+    return
     return of(this.users[1]);
-  }
+  }*/
 
   setUserSession(user: Personne){
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('idUser', user.id + '');
     localStorage.setItem('idGr', user.gr.id + '');
     localStorage.setItem('idReseau', user.gr.idreseau + '');
+    localStorage.setItem('gr', user.gr.libelle);
+
+  }
+
+  destroySessionProvisoire(){
+    localStorage.removeItem('userProvisoire');
+    localStorage.removeItem('provisoire_idUser');
+    localStorage.removeItem('provisoire_idGr');
+    localStorage.removeItem('provisoire_idReseau');
+    localStorage.removeItem('provisoire_gr');
   }
 
   destroyUserSession(){
-    localStorage.removeItem('user');
-    localStorage.removeItem('idUser');
-    localStorage.removeItem('idGr');
-    localStorage.removeItem('idReseau');
+    localStorage.clear();
   }
 
 }

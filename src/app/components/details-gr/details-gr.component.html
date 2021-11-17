@@ -2,7 +2,7 @@
 
   <div class="row">
     <div class="col-2  mt-3">
-      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> Retour</button>
+      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> {{ 'common.retour' | translate }} </button>
     </div>
     <div class="col-10">
       <app-titre [libelle]="gr.libelle"></app-titre>
@@ -41,7 +41,7 @@
         <th scope="col">#</th>
         <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
         <th scope="col">{{ "page.liste_personnes.tableau.entete.prenom" | translate }}</th>
-        <th scope="col">{{ "page.liste_personnes.tableau.entete.gr" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.ville" | translate }}</th>
         <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
         <!--Couleur de fond Rouge: pas régulier, orange: en cours de fidélisation/ pas regulier-->
         <th scope="col">{{ "page.liste_personnes.tableau.entete.action" | translate }}</th>
@@ -52,7 +52,7 @@
         <th scope="row">{{ numero + 1 }}</th>
         <td> {{ personne.nom }} </td>
         <td> {{ personne.prenom }} </td>
-        <td> {{ personne.gr.libelle }} </td>
+        <td> {{ personne.ville }} </td>
         <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
         <td>
           <button>
@@ -94,8 +94,8 @@
         <th scope="row">{{ numero + 1 }}</th>
         <td> {{ personne.nom }} </td>
         <td> {{ personne.prenom }} </td>
-        <td> {{ personne.gr.libelle }} </td>
-        <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
+        <td> {{ ( personne.gr.libelle != 'aucun_gr' ? personne.gr.libelle : 'common.aucun_gr') | translate }} </td>
+        <td> {{ personne.status | translate }}</td>
         <td>
           <button>
             <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"

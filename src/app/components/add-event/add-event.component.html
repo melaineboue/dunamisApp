@@ -18,9 +18,32 @@
 
   <div class="row mt-5">
     <div class="col-md-6 col-sm-12 mb-3 form-group">
-      <label for="nom"> {{ 'page.add_event.nom' | translate }}</label>
+      <label for="nom"> {{ 'page.add_event.nom' | translate }}</label><span class="obligatoire">*</span>
       <input type="text" class="form-control" [(ngModel)]="libelle" id="nom" [placeholder]="'page.add_event.nom_placeholder' | translate">
       <small class="form-text message_erreur" *ngIf="nomTitreManquant">{{ 'page.add_event.nom_titre_manquant' |
+        translate }}</small>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="titre_message">{{ 'page.add_event.titre_message' | translate }}</label><span class="obligatoire">*</span>
+      <input type="text" class="form-control"[(ngModel)]="titre_message"  id="titre_message" >
+      <small class="form-text message_erreur" *ngIf="nomTitreManquant">{{ 'page.add_event.nom_titre_manquant' | translate
+        }}</small>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="dateNaissance">{{ 'page.add_event.date_event' | translate }}</label><span class="obligatoire">*</span>
+      <input type="text" class="form-control" id="dateNaissance" [(ngModel)]="date_evenement" maDate
+        placeholder="JJ / MM / AAAA" (keyup)="normaliserDateNaissance()" />
+      <small class="form-text message_erreur" *ngIf="dateInvalide">{{ 'page.add_event.date_invalide' |
+        translate }}</small>
+    </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="heure_event">{{ 'page.add_event.heure_event' | translate }}</label><span class="obligatoire">*</span>
+      <input type="text" class="form-control" id="heure_event" [(ngModel)]="heure_evenement" maDate
+        placeholder="HH:MM" />
+      <small class="form-text message_erreur" *ngIf="heureInvalide">{{ 'page.add_event.heure_invalide' |
         translate }}</small>
     </div>
 
@@ -30,22 +53,6 @@
       <datalist id="liste_predicateur">
         <option *ngFor="let predicateur of predicateurs" [value]="predicateur.nom"></option>
       </datalist>
-    </div>
-
-    <div class="col-md-6 col-sm-12 mb-3 form-group">
-      <label for="titre_message">{{ 'page.add_event.titre_message' | translate }}</label>
-      <input type="text" class="form-control"[(ngModel)]="titre_message"  id="titre_message" >
-      <small class="form-text message_erreur" *ngIf="nomTitreManquant">{{ 'page.add_event.nom_titre_manquant' | translate
-        }}</small>
-    </div>
-
-
-    <div class="col-md-6 col-sm-12 mb-3 form-group">
-      <label for="dateNaissance">{{ 'page.add_event.date_event' | translate }}</label>
-      <input type="text" class="form-control" id="dateNaissance" [(ngModel)]="date_evenement" maDate
-        placeholder="jj-mm-aaaa" (keyup)="normaliserDateNaissance()" />
-      <small class="form-text message_erreur" *ngIf="dateInvalide">{{ 'page.add_event.date_invalide' |
-        translate }}</small>
     </div>
 
     <div class="row mb-2 mt-3">

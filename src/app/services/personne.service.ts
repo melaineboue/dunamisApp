@@ -1,9 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Status } from '../models/const';
 import { Evenement } from '../models/evenement';
+import { GR } from '../models/gr';
 import { Personne } from '../models/personne';
+import { ReunionGr } from '../models/reunion-gr';
 import { StatusModel } from '../models/status';
 import { Suivi } from '../models/suivi';
 
@@ -109,43 +113,85 @@ export class PersonneService {
   constructor(private http: HttpClient ) { }
 
   getPersonneReseau(): Observable<Personne[]> {
-    return of(this.personnes);
+    // service = personne ** action = personneNonResponsable
+    let url = `${environment.host}?service=personne&action=personneReseau&id_reseau=${localStorage.getItem('idReseau')}`;
+    return this.http.get<Personne[]>(url).pipe();
   }
 
+
+  getPersonneReseauNonResponsable(): Observable<Personne[]> {
+    // service = personne ** action = personneNonResponsable
+    let url = `${environment.host}?service=personne&action=personneNonResponsable&id_reseau=${localStorage.getItem('idReseau')}`;
+    return this.http.get<Personne[]>(url).pipe();
+  }
+
+
   getStatus(): Observable<StatusModel[]> {
-    return of(this.status);
+    // service = personne ** action = listeStatus
+    let url = `${environment.host}?service=personne&action=listeStatus`;
+    return this.http.get<StatusModel[]>(url).pipe();
   }
 
   ajouterPersonne(personne: Personne): Observable<boolean>{
-    console.log('personne ', personne);
-
+    // service = personne ** action = ajouterPersonne
     this.personnes.push(personne);
-    return of(true);
+    let url = encodeURI(`${environment.host}?service=personne&action=ajouterPersonne&id_reseau=${localStorage.getItem('idReseau')}${this.toStringPersonne(personne)}`);
+    return this.http.get<boolean>(url).pipe();
   }
 
   getPersonne(personneId: number): Observable<Personne>{
-    let response = this.personnes.filter(personne => personne.id == personneId);
-    return of(response.length > 0 ? response[0] : null);
+    // service = personne ** action = personneDetails
+    let url = encodeURI(`${environment.host}?service=personne&action=personneDetails&id_personne=${personneId}`);
+    return this.http.get<Personne>(url).pipe();
   }
 
   getSuivis(personneId: number): Observable<Suivi[]>{
-    return of(this.suivis);
+    // service = personne ** action = suivis
+    let url = encodeURI(`${environment.host}?service=personne&action=suivis&id_personne=${personneId}`);
+    return this.http.get<Suivi[]>(url).pipe();
+  }
+
+  sauvegarderSuivi(suivi: string, idPersonnes: number[]): Observable<boolean>{
+    // service = personne ** action = sauvegardeSuivi
+    let url = encodeURI(`${environment.host}?service=personne&action=sauvegardeSuivi&id_personnes=${idPersonnes.join('***')}&suivi=${suivi}`);
+    return this.http.get<boolean>(url).pipe();
   }
 
   getEvenementsAssistes(personneId: number): Observable<Evenement[]>{
-    return of(this.evenementAssistes);
+    // service = personne ** action = events
+    let url = encodeURI(`${environment.host}?service=personne&action=events&id_personne=${personneId}`);
+    return this.http.get<Evenement[]>(url).pipe();
   }
 
   getEvenementsNonAssistes(personneId: number): Observable<Evenement[]>{
-    return of(this.evenementNonAssistes);
-  }
-
-  sauvegarderSuivi(suivi: string, idPersonne: number[]): Observable<boolean>{
-    return of(true);
+    // service = personne ** action = eventsNot
+    let url = encodeURI(`${environment.host}?service=personne&action=eventsNot&id_personne=${personneId}`);
+    return this.http.get<Evenement[]>(url).pipe();
   }
 
   creerCompte(personne:Personne): Observable<boolean>{
-    return of(true);
+    //service=creerGr, service=login
+    let url = `${environment.host}?action=creerGr&service=login&id_personne=${personne.id}&email=${personne.email}&login=${personne.login}&password=${personne.pwd}`;
+    return this.http.get<boolean>(url).pipe(map(response=>{
+      if(response){
+        return true;
+      } else {
+        return false;
+      }
+    }));
+
+  }
+
+  getGrAssiste(personneId: number): Observable<ReunionGr[]>{
+    // service = personne ** action = grAssiste
+    let url = encodeURI(`${environment.host}?service=personne&action=grAssiste&id_personne=${personneId}`);
+    console.log(url);
+
+    return this.http.get<ReunionGr[]>(url).pipe();
+  }
+
+  toStringPersonne(personne: Personne): string {
+    return `&nom=${personne.nom}&prenom=${personne.prenom}&telephone=${personne.telephone}&email=${personne.email}&status=${personne.status}&id_gr=${personne.gr.id}&date_naissance=${personne.date_naissance}&date_evangelisation=${personne.date_evangelisation}`;
   }
 
 }

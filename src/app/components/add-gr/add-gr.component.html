@@ -25,95 +25,47 @@
 
     <div class="col-md-6 col-sm-12">
       <div class="row">
-
         <div class="col-12 mb-3 form-group">
           <input type="text" class="form-control" id="nom" [(ngModel)]="gr.libelle" readonly>
         </div>
       </div>
-
-      <div *ngIf="!selectionEnCoursResponsable">
-
-
-
-        <div class="row mt-5 mb-3" *ngIf="responsables.length > 0">
-          <hr/>
-          <div class="col-12">{{ 'page.creer_gr.text.responsables' | translate }}</div>
-        </div>
-
-        <div class="row mb-3" *ngFor="let responsable of responsables">
-          <div class="col-5"><input type="text" class="form-control"
-              [(ngModel)]="responsable.prenom+' '+responsable.nom" readonly></div>
-          <div class="col-5">
-            <div class="input-group">
-              <input type="text" class="form-control" [(ngModel)]="responsable.code" readonly>
-              <div class="input-group-append bouton-generer" (click)="genererCode(responsable)">
-                <span class="input-group-text btn btn-secondary" id="basic-addon2"><i
-                    class="bi bi-arrow-clockwise"></i></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-2" *ngIf="!responsable.copier">
-            <button (click)="copierCodeInClipboard(responsable)" class="btn btn-light bouton-copier"
-              [ngStyle]="{'background': secondaryColor }">
-              <i class="bi bi-files"></i>
-            </button>
-          </div>
-          <div class="col-1" *ngIf="responsable.copier"><button class="btn btn-light bouton-copier"
-              [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button></div>
-        </div>
-
-        <div class="row" *ngIf="responsables.length > 0">
-          <button
-            class="btn btn-light bouton-ajouter-responsable"
-            title="{{ 'page.creer_gr.info.creer_gr' | translate }}"
-            (click)="creerGR()">
-            {{ 'page.creer_gr.text.creer_gr' | translate }} {{ gr.libelle }}
-          </button>
-        </div>
-      </div>
-
-
     </div>
 
-
-
-    <!-- L'AUTRE MOITIE -->
     <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <!-- L'AUTRE MOITIE -->
 
-      <button (click)="ajouterResponsable()" class="btn btn-light bouton-ajouter-responsable"
-        title="{{ 'page.creer_gr.info.definir_responsable' | translate }}" *ngIf="!selectionEnCoursResponsable">
-        <i class="bi bi-person-plus-fill"></i> {{ 'page.creer_gr.text.responsables' | translate }}
-      </button>
-
-      <div *ngIf="selectionEnCoursResponsable">
-
-
-        <div class="row mb-3 ">
-          <div class="col-12 liste-personne">
-
-            <div class="form-check" *ngFor="let personne of personnes">
-              <input type="checkbox" class="form-check-input" [(ngModel)]="personne.checked"
-                [id]="'cocher'+personne.id">
-              <label class="form-check-label" [for]="'cocher'+personne.id"> {{ personne.prenom }} {{ personne.nom
-                }}</label>
-            </div>
-
-          </div>
-        </div>
-
-        <button class="btn btn-light bouton-ajouter-responsable" title="{{ 'page.creer_gr.info.valider' | translate }}"
-          (click)="validerResponsable()">
-          {{ 'page.creer_gr.text.ajouter_responsable' | translate }}
+        <button (click)="ajouterResponsable()" class="btn btn-light bouton-ajouter-responsable"
+          title="{{ 'page.creer_gr.info.definir_responsable' | translate }}" *ngIf="!selectionEnCoursResponsable">
+          <i class="bi bi-person-plus-fill"></i> {{ 'page.creer_gr.text.responsables' | translate }}
         </button>
 
+        <div *ngIf="selectionEnCoursResponsable">
 
 
-      </div>
+          <div class="row mb-3 ">
+            <div class="col-12 liste-personne">
+
+              <div class="form-check" *ngFor="let personne of personnes">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="personne.checked"
+                  [id]="'cocher'+personne.id">
+                <label class="form-check-label" [for]="'cocher'+personne.id"> {{ personne.prenom }} {{ personne.nom
+                  }}</label>
+              </div>
+
+            </div>
+          </div>
+
+          <button class="btn btn-light bouton-ajouter-responsable" [disabled]="personneCoches.length === 0"
+            title="{{ 'page.creer_gr.info.valider' | translate }}" (click)="validerResponsable()">
+            {{ 'page.creer_gr.text.ajouter_responsable' | translate }}
+          </button>
+
+
+
+        </div>
 
     </div>
 
-  </div>
 
 
 
@@ -122,6 +74,56 @@
 
 
 
+
+
+
+
+
+
+    <div *ngIf="!selectionEnCoursResponsable">
+
+
+
+      <div class="row mt-5 mb-3" *ngIf="responsables.length > 0">
+        <hr />
+        <div class="col-12">{{ 'page.creer_gr.text.responsables' | translate }}</div>
+      </div>
+
+      <div class="row mb-3" *ngFor="let responsable of responsables">
+        <div class="col-5"><input type="text" class="form-control" [(ngModel)]="responsable.prenom+' '+responsable.nom"
+            readonly></div>
+        <div class="col-5">
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="responsable.code" readonly>
+            <div class="input-group-append bouton-generer" (click)="genererCode(responsable)">
+              <span class="input-group-text btn btn-secondary" id="basic-addon2"><i
+                  class="bi bi-arrow-clockwise"></i></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2" *ngIf="!responsable.copier">
+          <button (click)="copierCodeInClipboard(responsable)" class="btn btn-light bouton-copier"
+            [ngStyle]="{'background': secondaryColor }">
+            <i class="bi bi-files"></i>
+          </button>
+        </div>
+        <div class="col-1" *ngIf="responsable.copier"><button class="btn btn-light bouton-copier"
+            [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button></div>
+      </div>
+
+      <div class="row" *ngIf="responsables.length > 0">
+        <div class="col-sm-12 col-md-6">
+
+          <button class="btn btn-light bouton-ajouter-responsable" title="{{ 'page.creer_gr.info.creer_gr' | translate }}"
+          (click)="creerGR()">
+          {{ 'page.creer_gr.text.creer_gr' | translate }} {{ gr.libelle }}
+        </button>
+      </div>
+      </div>
+    </div>
+
+</div>
 
 
 

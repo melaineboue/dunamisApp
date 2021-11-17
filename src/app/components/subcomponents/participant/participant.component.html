@@ -1,0 +1,67 @@
+<a *ngIf="!definitionPresent" class="link" (click)="definrPresent()">Définir les présent</a>
+<div *ngIf="definitionPresent">
+
+
+    <app-titre [libelle]=""></app-titre>
+    <div class="mt-5 titre-participant">{{ 'page.add_reunion.titre_participants' | translate }}</div>
+
+    <div class="row">
+
+      <div class="mt-3 mb-3 col-12">
+        <input type="text" class="form-control" id="recherche"
+          placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="recherche">
+      </div>
+
+
+      <div class="form-check">
+        <input type="checkbox" class="form-check-input" [(ngModel)]="toutCocher" id="toutCocher"
+          (change)="cocherTout()">
+        <label class="form-check-label" for="toutCocher"> {{ 'common.tout_cocher' | translate }} </label>
+      </div>
+
+      <table class="table table-striped" *ngIf="personnesRecherchees.length > 0">
+        <tbody>
+          <tr *ngFor="let personne of personnesRecherchees">
+            <td>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="personne.checked"
+                  [id]="'cocher'+personne.id"  (change)="normaliserToutCocher()">
+                <label class="form-check-label" [for]="'cocher'+personne.id"> {{ personne.prenom }} {{ personne.nom
+                  }}</label>
+              </div>
+            </td>
+          </tr>
+
+          <tr *ngFor="let invite of invites">
+            <td>
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" [(ngModel)]="invite.checked"
+                  [id]="'cocherInvite'+invite.id"  (change)="normaliserToutCocher()">
+                <label class="form-check-label" [for]="'cocherInvite'+invite.id"> {{ invite.nom }} <span class="libelle_invite">{{ 'page.add_reunion.libelle_invite' | translate }}</span></label>
+              </div>
+            </td>
+          </tr>
+
+        </tbody>
+      </table>
+
+
+      <a class="link" (click)="ajouterInvite()" *ngIf="!ajoutInviteEnCours">Ajouter un invité</a>
+      <div class="row" *ngIf="ajoutInviteEnCours">
+        <label for="nom_invite">{{ 'page.add_reunion.nom_invite' | translate }}</label>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+          <input type="text" id="nom_invite" [(ngModel)]="nomInvite" class="form-control">
+          <small class="fst-italic error" *ngIf="nomInviteInvalide"> {{ 'page.add_reunion.nom_invite_vide' | translate}}</small>
+          <small class="fst-italic error" *ngIf="errorSavingInvite"> {{ 'page.add_reunion.error_saving_invite' | translate}}</small>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <button class="btn btn-secondary me-2" (click)="enregistrerInvite()">{{ 'page.add_reunion.ajouter_invite' | translate}}</button>
+            <button class="btn btn-light bouton-light" (click)="annulerInviter()">{{ 'common.annuler' | translate}}</button>
+        </div>
+      </div>
+
+    </div>
+
+
+  </div>

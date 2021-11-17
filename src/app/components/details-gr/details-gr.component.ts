@@ -14,9 +14,9 @@ import { ParameterService } from 'src/app/services/parameter.service';
 })
 export class DetailsGrComponent implements OnInit {
 
-  gr: GR;
-  personnesGR: Personne[];
-  personnesHorsGR: Personne[];
+  gr: GR = {id: 0, libelle: '', idreseau: 0};
+  personnesGR: Personne[] = [];
+  personnesHorsGR: Personne[] = [];
 
   statusResponsable = Status.RESPONSABLE;
 
@@ -58,7 +58,7 @@ export class DetailsGrComponent implements OnInit {
   }
 
   ajouterGR(personne: Personne) {
-    this.grService.ajouterPersonne(personne).subscribe(response => {
+    this.grService.ajouterPersonne(personne, this.gr.id).subscribe(response => {
       this.personnesGR.push(personne);
       this.personnesHorsGR = this.personnesHorsGR.filter(currentPersonne => currentPersonne.id !== personne.id);
     });

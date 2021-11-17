@@ -9,6 +9,7 @@ export class CommonService {
   idPersonneDetails: number = null;
   idGrDetails: number = null;
   idEvent: number = null;
+  idReunion: number = null;
 
   backRoute: string[] = [];
 
@@ -34,6 +35,14 @@ export class CommonService {
 
   getIdEvent(){
     return this.idEvent;
+  }
+
+  setIdRenuion(idReunion: number){
+    this.idReunion = idReunion;
+  }
+
+  getIdRenuion(){
+    return this.idReunion;
   }
 
   setBackRoute(route: string){

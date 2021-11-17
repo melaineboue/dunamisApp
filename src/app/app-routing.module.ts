@@ -21,14 +21,19 @@ import { AddEventComponent } from './components/add-event/add-event.component';
 import { AddThemeGrComponent } from './components/add-theme-gr/add-theme-gr.component';
 import { DetailsEventComponent } from './components/details-event/details-event.component';
 import { ListEventsComponent } from './components/list-events/list-events.component';
+import { DetailsReunionComponent } from './components/details-reunion/details-reunion.component';
+import { HomeComponent } from './components/home/home.component';
+import { AddReunionComponent } from './components/add-reunion/add-reunion.component';
 
 const routes: Routes = [
+  { path:menuItemsClass.ACCUEIL , component: HomeComponent, canActivate: [ LoginService ] },
   { path:menuItemsClass.LISTE_PERSONNE , component: ListePersonnesComponent, canActivate: [ LoginService ] },
   { path:menuItemsClass.LISTE_PERSONNE_GR , component: ListePersonneByGrComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.ADD_PERSONNE , component: AddPersonneComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.ADD_GR , component: AddGrComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.ADD_EVENT , component: AddEventComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.ADD_THEME , component: AddThemeGrComponent, canActivate: [ LoginService ]  },
+  { path:menuItemsClass.ADD_REUNION , component: AddReunionComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.DETAILS_PERSONNE , component: DetailsPersonneComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.DETAILS_GR , component: DetailsGrComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.DETAILS_GR , component: DetailsGrComponent, canActivate: [ LoginService ]  },
@@ -38,6 +43,7 @@ const routes: Routes = [
   { path:menuItemsClass.EVENT_LIST , component: ListEventsComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.REUNION_GR_LIST , component: ReunionGrComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.THEME_GR_LIST , component: ThemeGrComponent, canActivate: [ LoginService ]  },
+  { path:menuItemsClass.DETAILS_REUNION_GR , component: DetailsReunionComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.LOGIN , component: LoginComponent  },
   { path:menuItemsClass.BIENVENUE , component: BienvenueComponent },
   { path:menuItemsClass.DECONNECTER , component: DeconnecterComponent, canActivate: [ LoginService ]  },

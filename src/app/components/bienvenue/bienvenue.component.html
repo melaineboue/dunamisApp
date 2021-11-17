@@ -25,9 +25,11 @@
         </div>
 
         <div class="col-md-6 col-sm-12 mb-3 form-group">
-          <label for="login"> {{ 'page.bienvenue.texte.login' | translate }}</label>
+          <label for="login"> {{ 'page.bienvenue.texte.login' | translate }}<span class="obligatoire">*</span></label>
           <input type="text" class="form-control" id="login" [(ngModel)]="login">
           <small class="form-text message_erreur fst-italic" *ngIf="loginManquant">{{ 'page.bienvenue.texte.login_manquant' |
+            translate }}</small>
+          <small class="form-text message_erreur fst-italic" *ngIf="errorLoginExiste">{{ 'page.bienvenue.texte.login_existe_deja' |
             translate }}</small>
         </div>
 
@@ -42,7 +44,7 @@
 
 
         <div class="col-md-6 col-sm-12 mb-3 form-group">
-          <label for="mot_de_passe"> {{ 'page.bienvenue.texte.mot_de_passe' | translate }}</label>
+          <label for="mot_de_passe"> {{ 'page.bienvenue.texte.mot_de_passe' | translate }}<span class="obligatoire">*</span></label>
           <input type="password" class="form-control" id="mot_de_passe" [(ngModel)]="motDePasse">
           <small class="form-text message_erreur fst-italic" *ngIf="passwordManquant">{{ 'page.bienvenue.texte.mot_de_passe_manquant' | translate }}</small>
         </div>

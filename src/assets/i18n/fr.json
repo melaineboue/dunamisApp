@@ -16,14 +16,21 @@
     "liste_evenement": "Evênements",
     "theme_gr": "Thèmes de GR",
     "reunion_gr": "Reunion de GR",
+    "accueil": "Accueil",
     "deconnecter": "Déconnecter"
   },
   "common": {
     "retour": "Retour",
     "copier": "Copier",
     "copie": "Copié",
-    "rapport": "Rapport"
-
+    "masquer": "Masquer",
+    "rapport": "Rapport",
+    "tout_cocher": "Tout cocher",
+    "aucun_gr": "Aucun GR",
+    "rapport_suivi": "Rapport de suivi",
+    "annuler":"Annuler",
+    "afficher_rapport":"Afficher rapport",
+    "generer_rapport":"Générer rapport"
   },
   "page": {
     "liste_personnes": {
@@ -48,6 +55,8 @@
           "nom": "Nom",
           "prenom": "Prénom",
           "gr": "GR",
+          "ville": "Ville",
+          "date_ajout": "Date d'ajout",
           "status": "Status",
           "action": "Action"
         }
@@ -90,6 +99,8 @@
       "sucess_message_suivi":"L'enregistrement a reussi",
       "error_message_suivi": "L'enrégistrement a échoué",
       "titre": "Suivi spirituel en masse",
+      "gr_assiste": "Gr assistés",
+      "aucun_gr_suivi": "Aucun GR suivi",
       "description_page": "Cette page permet de definir un suivi pour un grand nombre de personnes."
     },
     "liste_gr": {
@@ -108,7 +119,8 @@
       "text": {
         "personne_gr":"Personnes du GR",
         "personne_hors_gr":"Personnes hors du GR",
-        "ajouter_au_gr": "Ajouter au GR"
+        "ajouter_au_gr": "Ajouter au GR",
+        "liste_gr": "La liste des GR"
       }
     },
     "creer_gr": {
@@ -148,7 +160,8 @@
         "retaper_mot_de_passe": "Retaper mot de passe",
         "error_message": "Il y a erreur dans la création du compte",
         "explication": "Créer votre compte pour avoir accès à l'application ultérièrement.",
-        "pour": "Pour acceder à"
+        "pour": "Pour acceder à",
+        "login_existe_deja": "Le login existe déjà"
       }
     },
     "login": {
@@ -191,9 +204,11 @@
       "nom_placeholder":"Par exemple : Le grand Live",
       "predicateur":"Prédicateur",
       "date_event": "Date de l'evênement",
+      "heure_event": "Heure",
       "titre_message":"Titre du message",
       "date":"Date",
-      "date_invalide":"La date est invalide",
+      "date_invalide":"La date est invalide (format attendu : JJ/MM/AAAA)",
+      "heure_invalide":"L'heure est invalide (format attendu : HH:MM)",
       "nom_titre_manquant": "Renseigner le nom ou le titre"
 
     },
@@ -213,7 +228,20 @@
       "semaine":"Sémaine",
       "message":"Méssage",
       "annonce":"Annonce",
-      "action":"Action"
+      "gr":"Gr",
+      "action":"Action",
+      "titre_message": "Titre du message",
+      "date_reunion": "Date de la reunion",
+      "tout_reseau": "Tout le réseau",
+      "aucun_absent": "Aucun absent",
+      "aucun_present": "Aucune personne n'était présente",
+      "invite": "Invité",
+      "status_libelle": "Status",
+      "date": "Date",
+      "status":{
+        "en_cours": "En cours",
+        "valide": "Validé"
+      }
     },
     "details_event": {
       "personne_presente": "Présences",
@@ -224,7 +252,44 @@
       "date_event": "Date de l'evênement",
       "heure_event": "Heure",
       "aucun_participant": "Auncune personne n'était présente",
+      "aucun_absent": "Auncun n'absent",
       "rapport": "Generer rapport"
+    },
+    "accueil": {
+      "nouvelle_reunion": "Nouvelle reunion",
+      "modifier_reunion": "Modifier reunion en cours",
+      "pas_de_donnees_trouve": "Aucune données trouvées",
+      "gr_vide": "Il n'y a aucune personne dans votre GR"
+    },
+    "add_reunion": {
+      "saved_success_message":"Les informations ont été enregistrées",
+      "semaine":"Sémaine",
+      "semaine_en_cours": "Sémaine en cours",
+      "semaine_precedente": "Sémaine précédente",
+      "semaine_suivante": "Sémaine suivante",
+      "titre_message":"Titre du message",
+      "titre_page":"Reunion de GR",
+      "annonce":"Annonce",
+      "valider_success_message":"Les informations de la reunion ont été validée",
+      "error_message":"L'enregistrement a échoué, Réessayer",
+      "titre_valider": "Aucune modification ne sera possible après validation",
+      "retour":"Retour",
+      "enregistrer":"Enregistrer",
+      "valider":"Valider",
+      "heure_debut":"Heure début",
+      "heure_fin":"Heure de fin",
+      "date_gr":"Date du GR",
+      "date_invalide":"La date saisi est incorrect",
+      "heure_fin_superieur":" l'heure de fin doit être superieur",
+      "heure_invalide":"Heure invalide",
+      "minute_invalide":"Minute invalide",
+      "titre_participants":"Participants au GR",
+      "nom_invite":"Nom de l'invité",
+      "ajouter_invite":"Ajouter invité",
+      "libelle_invite":"invité",
+      "error_saving_invite":"Une erreur est survenue, réessayez plus tard",
+      "nom_invite_vide":"Veuillez saisir le nom",
+      "modification_impossible": "Aucun modification n'est possible après validation"
     }
   }
 }

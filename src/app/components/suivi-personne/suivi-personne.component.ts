@@ -48,7 +48,20 @@ export class SuiviPersonneComponent implements OnInit {
   }
 
   cocherTout() {
+    console.log('jjj');
+
     this.personnes.forEach(personne => personne.checked = this.toutCocher);
+  }
+
+  cocherPersonne(){
+    console.log('okk');
+
+    if(this.personnes.length === this.personnes.filter(personne => personne.checked).length){
+      this.toutCocher = true;
+    }
+    else {
+      this.toutCocher = false;
+    }
   }
 
   get checkedPersonnes(): string {

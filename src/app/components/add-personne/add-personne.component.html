@@ -49,7 +49,7 @@
       <label for="status">{{ 'page.add_personne.status' | translate }}</label>
       <div>
         <select class="form-select" aria-label="Default select example" [formControl]="statusPersonne">
-          <option *ngFor="let status of listeStatus; let i = index" [value]="status.id">{{
+          <option *ngFor="let status of listeStatus; let i = index" [value]="status.id" [selected]="status.selected">{{
             'page.liste_personnes.status.'+status.libelle | translate}}</option>
         </select>
       </div>
@@ -67,7 +67,7 @@
     <div class="col-md-6 col-sm-12 mb-3 form-group">
       <label for="dateNaissance">{{ 'page.add_personne.date_naissance' | translate }}</label>
       <input type="text" class="form-control" id="dateNaissance" [formControl]="datenaissance" maDate
-        placeholder="jj-mm-aaaa" (keyup)="normaliserDateNaissance()" />
+        placeholder="jj/mm/aaaa" (keyup)="normaliserDateNaissance()" />
       <small class="form-text message_erreur" *ngIf="dateNaissanceInvalide">{{ 'page.add_personne.date_invalide' |
         translate }}</small>
     </div>
@@ -76,7 +76,7 @@
     <div class="col-md-6 col-sm-12 mb-3 form-group">
       <label for="datenaissance">{{ 'page.add_personne.date_evangelisation' | translate }}</label>
       <input type="text" class="form-control" id="datenaissance" [formControl]="dateEvangelisation"
-        placeholder="jj-mm-aaaa">
+        placeholder="jj/mm/aaaa">
       <small class="form-text message_erreur" *ngIf="dateEvangelisationInvalide">{{ 'page.add_personne.date_invalide' |
         translate }}</small>
     </div>

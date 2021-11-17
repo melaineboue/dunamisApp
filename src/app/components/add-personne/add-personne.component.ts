@@ -25,7 +25,7 @@ export class AddPersonneComponent implements OnInit {
   prenom = new FormControl('');
   numero = new FormControl('');
   email = new FormControl('');
-  statusPersonne = new FormControl('1');
+  statusPersonne = new FormControl('2');
   gr = new FormControl('1');
 
   datenaissance = new FormControl('');
@@ -49,7 +49,12 @@ export class AddPersonneComponent implements OnInit {
     private commonService: CommonService,
     private grService: GrService
   ) {
-    this.personneService.getStatus().subscribe(status => this.listeStatus = status);
+    this.personneService.getStatus().subscribe(status => {
+      this.listeStatus = status;
+      const statusSelected = this.listeStatus.filter(status => status.selected);
+      const idSelected = statusSelected.length > 0 ? statusSelected[0].id : 1;
+      this.statusPersonne.setValue(idSelected)
+    });
     this.grService.getList().subscribe(grs => this.grs = grs);
   }
 
@@ -94,10 +99,14 @@ export class AddPersonneComponent implements OnInit {
 
       this.personneService.ajouterPersonne(this.personne).subscribe(
         enregistre => {
-          console.log("Success");
+          if(enregistre){
 
-          this.error = false;
-          this.saved = true;
+            this.error = false;
+            this.saved = true;
+          } else {
+            this.error = true;
+            this.saved = true;
+          }
         },
         error => this.error = true
       );
@@ -123,11 +132,9 @@ export class AddPersonneComponent implements OnInit {
 
     let estEmail = regexp.test(email);
     if (!email || estEmail) {
-      console.log('email existe');
       this.emailInvalide = false;
       return true;
     }
-    console.log('email invalide');
 
     this.emailInvalide = true;
   }
@@ -145,30 +152,48 @@ export class AddPersonneComponent implements OnInit {
   }
 
   normaliserDateNaissance() {
-    console.log(this.datenaissance.value);
-
     this.datenaissance.setValue(this.normaliserDate(this.datenaissance.value, this.oldDateNaissance));
     this.oldDateNaissance = this.datenaissance.value;
   }
 
   dateValide(): boolean {
-    var date_regex = /^\d{2}-\d{2}-\d{4}$/;
+    var date_regex = /^\d{2}\/\d{2}\/\d{4}$/;
     let response = true;
-    if (this.datenaissance.value.trim() !== '' && !(date_regex.test(this.datenaissance.value))) {
+    if (this.datenaissance.value.trim() !== '' && !(date_regex.test(this.datenaissance.value) && this.isDate(this.datenaissance.value))) {
       this.dateNaissanceInvalide = true;
       response = false;
     } else {
       this.dateNaissanceInvalide = false;
     }
 
-    if (this.dateEvangelisation.value.trim() !== '' &&  !(date_regex.test(this.dateEvangelisation.value))) {
+    if (this.dateEvangelisation.value.trim() !== '' &&  !(date_regex.test(this.dateEvangelisation.value)) && this.isDate(this.dateEvangelisation.value) ) {
       this.dateEvangelisationInvalide = true;
       response = false;
     } else {
       this.dateEvangelisationInvalide = false;
     }
 
+
+
     return response;
+  }
+
+  isDate(date: string): boolean {
+    const dates = date.split('/');
+    let resultat = true;
+
+    if(Number(dates[0]) <= 0 || Number(dates[0])> 31){
+      resultat = false;
+    }
+
+    if(Number(dates[1]) <= 0 || Number(dates[1])> 12){
+      resultat = false;
+    }
+
+    if(Number(dates[2]) <= 0 ){
+      resultat = false;
+    }
+    return resultat;
   }
 
   isNumero(numero: string): boolean {
@@ -182,7 +207,7 @@ export class AddPersonneComponent implements OnInit {
   normaliserDate(date: string, dateAncien: string) {
     if (dateAncien.length < date.length) {
       if (date.length === 2 || date.length === 5) {
-        date = date + '-';
+        date = date + '/';
       }
     }
     return date;

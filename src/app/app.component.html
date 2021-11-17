@@ -12,7 +12,7 @@
       <i class="material-icons">menu</i>
     </button>
 
-    <button class="header__button mr-sm-2" type="button" [ngClass]="{'ms-5': !userExiste }">
+    <button class="header__button mr-sm-2" type="button" [ngClass]="{'ms-5': !userExiste }" (click)="cliquerNomReseau()">
       {{ nomReseau | uppercase }}
     </button>
 

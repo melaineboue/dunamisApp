@@ -31,7 +31,7 @@ import { PersonneService } from 'src/app/services/personne.service';
 })
 export class ListePersonnesComponent implements OnInit {
 
-  personnes: Personne[];
+  personnes: Personne[] = [];
   recherche = new FormControl('');
   hover = false;
 

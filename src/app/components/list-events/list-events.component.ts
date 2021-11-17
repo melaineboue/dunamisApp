@@ -14,7 +14,7 @@ import { ParameterService } from 'src/app/services/parameter.service';
 })
 export class ListEventsComponent implements OnInit {
 
-  events: Evenement[];
+  events: Evenement[] = [];
   recherche = new FormControl('');
   hover = false;
 

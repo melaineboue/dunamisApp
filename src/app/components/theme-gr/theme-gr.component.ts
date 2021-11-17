@@ -14,7 +14,7 @@ import { ThemeService } from 'src/app/services/theme.service';
 })
 export class ThemeGrComponent implements OnInit {
 
-  themes: Theme[];
+  themes: Theme[] = [];
   recherche = new FormControl('');
   hover = false;
 

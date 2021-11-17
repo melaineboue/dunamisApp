@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { menuItemsClass } from 'src/app/models/const';
+import { defaultConnectedPage, menuItemsClass } from 'src/app/models/const';
 import { Personne } from 'src/app/models/personne';
+import { CommonService } from 'src/app/services/common.service';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -24,15 +25,14 @@ export class LoginComponent implements OnInit {
   login = '';
   code = '';
 
-  constructor(private router: Router, private loginService: LoginService) {
-    console.log('ooooooooooooooo');
+  constructor(private router: Router, private loginService: LoginService, private commonService: CommonService) {
 
     if( localStorage.getItem('user')
         && localStorage.getItem('idUser')
         && localStorage.getItem('idGr')
         && localStorage.getItem('idReseau')) {
 
-          this.router.navigate([`${menuItemsClass.LISTE_PERSONNE}`]);
+          this.router.navigate([`${defaultConnectedPage}`]);
     }
   }
 
@@ -40,19 +40,10 @@ export class LoginComponent implements OnInit {
   }
 
   connexion() {
-    /*let user = {
-      nom: 'BOUE',
-      prenom: 'Melaine',
-      gr: {
-        id: 1,
-        libelle: 'Gr Franckie - Mélaine',
-        idreseau: 1
-      }
-    } as Personne;*/
     this.loginService.login(this.login, this.motDePasse).subscribe(user => {
       if (user) {
         this.setUserSession(user);
-        this.router.navigate([`/${menuItemsClass.LISTE_PERSONNE}`])
+        this.router.navigate([`/${defaultConnectedPage}`])
       } else {
         this.loginMotDePasseIncorrect = true;
         this.loginInexistant = false;
@@ -145,13 +136,11 @@ export class LoginComponent implements OnInit {
 
   setUserSessionProvisoire(user: Personne){
     localStorage.setItem('userProvisoire', JSON.stringify(user));
-    localStorage.setItem('idUser', user.id + '');
-    localStorage.setItem('idGr', user.gr.id + '');
-    localStorage.setItem('idReseau', user.gr.idreseau + '');
+    localStorage.setItem('provisoire_idUser', user.id + '');
+    localStorage.setItem('provisoire_idGr', user.gr.id + '');
+    localStorage.setItem('provisoire_idReseau', user.gr.idreseau + '');
+    localStorage.setItem('provisoire_gr', user.gr.libelle);
   }
 
-  destroyUserSession(){
-
-  }
 
 }

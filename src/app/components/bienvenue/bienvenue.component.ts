@@ -29,6 +29,7 @@ export class BienvenueComponent implements OnInit {
 
   saved = false;
   error = false;
+  errorLoginExiste = false;
 
   constructor(private router: Router, private personneService: PersonneService, private commonService: CommonService, private loginService: LoginService) { }
 
@@ -63,13 +64,16 @@ export class BienvenueComponent implements OnInit {
       this.user.login = this.login;
 
       this.personneService.creerCompte(this.user).subscribe(returnValue=>{
-        this.saved = true;
-        this.error = false;
-        this.loginService.setUserSession(this.user); /*
-        localStorage.setItem('idGr', this.user.gr.id+'');
-        localStorage.setItem('idReseau', this.user.gr.idreseau+'');*/
-        this.commonService.setIdGr(Number(localStorage.getItem('idGr')));
-        this.router.navigate([`/${menuItemsClass.DETAILS_GR}`])
+        if(returnValue){
+
+          this.saved = true;
+          this.error = false;
+          this.loginService.destroySessionProvisoire();
+          this.loginService.setUserSession(this.user);
+          this.router.navigate([`/${menuItemsClass.ACCUEIL}`])
+        } else {
+          this.errorLoginExiste = true;
+        }
       },
       error => {
         this.saved = true;

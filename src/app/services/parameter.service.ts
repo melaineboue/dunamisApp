@@ -20,10 +20,12 @@ export class ParameterService {
   constructor() { }
 
   getPrimaryColor(): Observable<string> {
+    // TO DO
     return of(this.primaryColor);
   }
 
   getConfigurationReseau(): Observable<InformationReseau> {
+    // TO DO
     return of(ParameterService.configuration);
   }
 

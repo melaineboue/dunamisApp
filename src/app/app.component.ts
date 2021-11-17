@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Langue } from './models/langue';
 import { Menu } from './models/menu';
 import { menuItemsClass } from './models/const';
+import { Router } from '@angular/router';
 
 
 
@@ -46,18 +47,19 @@ export class AppComponent {
   ] as Langue[];
 
   menuItems = [
+    { class: menuItemsClass.ACCUEIL, libelle: "menu.accueil", icone: "home" },
     { class: menuItemsClass.LISTE_PERSONNE, libelle: "menu.liste", icone: "groups" },
     { class: menuItemsClass.SUIVI_PERSONNE, libelle: "menu.suivi", icone: "assignment_ind" },
     // { class: menuItemsClass.PRESENCE_CULTE, libelle: "menu.culte", icone: "home" },
     { class: menuItemsClass.LISTE_GR, libelle: "menu.liste_gr", icone: "local_library" },
+    { class: menuItemsClass.REUNION_GR_LIST, libelle: "menu.reunion_gr", icone: "group_work" },
     { class: menuItemsClass.EVENT_LIST, libelle: "menu.liste_evenement", icone: "event" },
     // { class: menuItemsClass.EVENT_LIST, libelle: "menu.liste_evenement", icone: "event" },
     { class: menuItemsClass.THEME_GR_LIST, libelle: "menu.theme_gr", icone: "article" },
-    { class: menuItemsClass.REUNION_GR_LIST, libelle: "menu.reunion_gr", icone: "group_work" },
     // { class: menuItemsClass.LISTE_RESEAU, libelle: "menu.liste_reseau", icone: "local_library" },
     { class: menuItemsClass.DECONNECTER, libelle: "menu.deconnecter", icone: "power_settings_new" },
     // { class: menuItemsClass.DASHBOARD, libelle: "Dashboard", icone: "dashboard" },
-    { class: menuItemsClass.HISTORY, libelle: "History", icone: "history" },
+    // { class: menuItemsClass.HISTORY, libelle: "History", icone: "history" },
   ] as Menu[];
   // Material Icon
   // https://fonts.google.com/icons
@@ -68,7 +70,11 @@ export class AppComponent {
 
   langage = 'es';
 
-  constructor(private parameterService: ParameterService, private translate: TranslateService) {
+  constructor(
+    private parameterService: ParameterService,
+    private translate: TranslateService,
+    private router: Router
+    ) {
     this.parameterService.getConfigurationReseau().subscribe(config => {
       this.backgroundColor = config.primaryColor;
       this.secondaryColor = config.secondaryColor;
@@ -99,6 +105,10 @@ export class AppComponent {
 
   survolerMenuItem() {
 
+  }
+
+  cliquerNomReseau(){
+    this.router.navigate([ `${menuItemsClass.ACCUEIL}` ])
   }
 
   get userExiste(): boolean {

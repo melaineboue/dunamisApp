@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row mb-2">
-    <button (click)="generate()" type="submit" class="btn btn-secondary  col-md-6 col-sm-12 mb-2 ">{{
-      'page.details_event.rapport' | translate }}
+  <div class="mb-2">
+    <button (click)="generate()" type="submit" class="btn btn-secondary mb-2 ">{{
+      'common.'+buttonLibelle | translate }}
     </button>
 
 
@@ -9,16 +9,20 @@
 
   <div class="row" *ngIf="rapportMode">
     <div>
-      <button *ngIf="!estCopie" (click)="copier()" type="submit" class="btn btn-light bouton-copier">{{
+      <button *ngIf="!estCopie" (click)="copier()" type="submit" class="btn btn-light bouton-copier me-2">{{
         'common.copier' | translate }}
       </button>
 
-      <button *ngIf="estCopie" (click)="copier()" type="submit" class="btn btn-light bouton-copier">{{
+      <button *ngIf="estCopie" (click)="copier()" type="submit" class="btn btn-light bouton-copier me-2">{{
         'common.copie' | translate }}
+      </button>
+
+      <button (click)="masquer()" type="submit" class="btn btn-light bouton-copier">{{
+        'common.masquer' | translate }}
       </button>
     </div>
 
-    <textarea [(ngModel)]="rapport" class="form-control" id="rapport" rows="20"
+    <textarea [(ngModel)]="rapport" class="form-control" id="rapport" rows="20" [readonly]="readonly"
       placeholder="{{ 'common.rapport' | translate }}">
     </textarea>
   </div>

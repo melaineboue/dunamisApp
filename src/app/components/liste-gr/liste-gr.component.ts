@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { menuItemsClass } from 'src/app/models/const';
 import { GR } from 'src/app/models/gr';
 import { CommonService } from 'src/app/services/common.service';
+import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
 
 @Component({
@@ -12,24 +13,7 @@ import { ParameterService } from 'src/app/services/parameter.service';
 })
 export class ListeGrComponent implements OnInit {
 
-  grs: GR[] = [
-    {
-      id: 1,
-      idreseau:1,
-      libelle: "Gr Franckie - Mélaine",
-      date_creation: "12/11/2020",
-      responsables: "Franckie - Mélaine",
-      taille: 20
-    },
-    {
-      id: 2,
-      idreseau:1,
-      libelle: "Gr Maureen - Armelle",
-      date_creation: "12/11/2020",
-      responsables: "Maureen - Armelle",
-      taille: 16
-    }
-  ];
+  grs: GR[] = [];
   recherche = '';
   nouveauGr = false;
 
@@ -38,7 +22,9 @@ export class ListeGrComponent implements OnInit {
   routeHere = `/${menuItemsClass.LISTE_GR}`;
 
 
-  constructor(private commonService: CommonService, private router: Router) { }
+  constructor(private commonService: CommonService, private router: Router, private grService: GrService) {
+    this.grService.getList().subscribe(list => this.grs = list);
+  }
 
   ngOnInit(): void {
   }

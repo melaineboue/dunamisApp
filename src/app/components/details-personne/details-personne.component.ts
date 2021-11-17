@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { menuItemsClass } from 'src/app/models/const';
 import { Evenement } from 'src/app/models/evenement';
 import { Personne } from 'src/app/models/personne';
+import { ReunionGr } from 'src/app/models/reunion-gr';
 import { Suivi } from 'src/app/models/suivi';
 import { CommonService } from 'src/app/services/common.service';
 import { ParameterService } from 'src/app/services/parameter.service';
@@ -17,7 +18,7 @@ export class DetailsPersonneComponent implements OnInit {
 
   idPersonne: number = null;
   backRoute: string = '';
-  personne: Personne;
+  personne: Personne = { id: 0 , gr: { id: 0 }};
   panelOpenState = true;
   ajoutSuivi = false;
   suivi = '';
@@ -26,8 +27,10 @@ export class DetailsPersonneComponent implements OnInit {
   saved = false;
 
   suivis: Suivi[] =[];
+  grAssiste: ReunionGr [] = [];
   evenementAssistes: Evenement[] = [];
   evenementNonAssistes: Evenement[] = [];
+
 
   routeListePersonne = `/${menuItemsClass.LISTE_PERSONNE}`;
 
@@ -41,6 +44,7 @@ export class DetailsPersonneComponent implements OnInit {
       this.personneService.getSuivis(this.idPersonne).subscribe(suivis => this.suivis = suivis);
       this.personneService.getEvenementsAssistes(this.idPersonne).subscribe(event => this.evenementAssistes = event);
       this.personneService.getEvenementsNonAssistes(this.idPersonne).subscribe(event => this.evenementNonAssistes = event);
+      this.personneService.getGrAssiste(this.idPersonne).subscribe(grs => this.grAssiste = grs);
 
     }
   }
@@ -49,7 +53,6 @@ export class DetailsPersonneComponent implements OnInit {
   }
 
   back() {
-    console.log('ooo',this.commonService.backRoute);
 
     this.backRoute = this.commonService.getBackRoute(true);
 
@@ -69,19 +72,30 @@ export class DetailsPersonneComponent implements OnInit {
 
     this.personneService.sauvegarderSuivi(this.suivi,[this.idPersonne]).subscribe(
       enregistre => {
-        this.saved = true;
-        this.error = false;
 
-        let ladate = new Date();
-        this.suivis.push({
-          id: 0,
-          libelle: this.suivi,
-          personne_id: this.idPersonne,
-          date_suivi: this.getLabelZero(ladate.getDate())+"/"+this.getLabelZero(ladate.getMonth()+1)+"/"+ladate.getFullYear()
-        } as Suivi);
+        if(enregistre){
+          this.saved = true;
+          this.error = false;
 
-        this.suivi = '';
-        this.ajoutSuivi = false;
+          let ladate = new Date();
+          this.suivis.push({
+            id: 0,
+            libelle: this.suivi,
+            libelle_html: this.suivi,
+            personne_id: this.idPersonne,
+            date_suivi: this.getLabelZero(ladate.getDate())+"/"+this.getLabelZero(ladate.getMonth()+1)+"/"+ladate.getFullYear()
+          } as Suivi);
+
+    console.log(this.suivis);
+
+
+          this.suivi = '';
+          this.ajoutSuivi = false;
+        } else {
+          this.error = true;
+          this.saved = true;
+        }
+
       },
       error => {
         this.error = true;

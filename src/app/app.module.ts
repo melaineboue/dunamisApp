@@ -33,6 +33,10 @@ import { DetailsEventComponent } from './components/details-event/details-event.
 import { AddThemeGrComponent } from './components/add-theme-gr/add-theme-gr.component';
 import { RapportComponent } from './components/rapport/rapport.component';
 import { ListEventsComponent } from './components/list-events/list-events.component';
+import { DetailsReunionComponent } from './components/details-reunion/details-reunion.component';
+import { HomeComponent } from './components/home/home.component';
+import { AddReunionComponent } from './components/add-reunion/add-reunion.component';
+import { ParticipantComponent } from './components/subcomponents/participant/participant.component';
 
 
 export function translateLoaderHttp(http: HttpClient) {
@@ -61,7 +65,11 @@ export function translateLoaderHttp(http: HttpClient) {
     DetailsEventComponent,
     AddThemeGrComponent,
     RapportComponent,
-    ListEventsComponent
+    ListEventsComponent,
+    DetailsReunionComponent,
+    HomeComponent,
+    AddReunionComponent,
+    ParticipantComponent
   ],
   imports: [
     MatSelectModule,

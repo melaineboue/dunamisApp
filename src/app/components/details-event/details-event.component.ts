@@ -17,13 +17,13 @@ import { ParameterService } from 'src/app/services/parameter.service';
 export class DetailsEventComponent implements OnInit {
 
   idEvent: number = null;
-  event: Evenement;
+  event: Evenement = { id: 0 };
   backRoute: string = `/${menuItemsClass.EVENT_LIST}`;
 
   personneAssistes: Personne[] = [];
   personneNonAssistes: Personne[] = [];
   personnesInvite: Personne[] = []
-  grs: GR[];
+  grs: GR[] = [];
 
   recherchePresent = '';
   rechercheAbsent = '';
@@ -66,14 +66,14 @@ export class DetailsEventComponent implements OnInit {
       const personnesGr = this.personneAssistes.filter(personne => personne.gr.id === gr.id)
       const personnesInviteGr = this.personnesInvite.filter(personne => personne.gr.id === gr.id)
       texte += `*${gr.libelle} (${personnesGr.length})*\n`
-      texte += personnesGr.map(personne => personne.prenom + ' ✅\n') + '\n';
+      texte += personnesGr.map(personne => personne.prenom + ' '+ personne.nom +  ' ✅\n') ;
 
       if(personnesInviteGr.length > 0) {
-        texte += `Invités (${personnesInviteGr.length})\n`;
-        texte += personnesInviteGr.map(personne => personne.prenom + ' ✅\n') + '\n';
+        texte += `----Invités---- (${personnesInviteGr.length})\n`;
+        texte += personnesInviteGr.map(personne => personne.prenom + ' '+ personne.nom + ' ✅\n') + '\n';
       }
 
-      texte += '\n';
+      texte += '\n\n';
     });
 
     texte += 'Total: '+ (this.personneAssistes.length + this.personnesInvite.length)
@@ -86,12 +86,15 @@ export class DetailsEventComponent implements OnInit {
     return ParameterService.configuration.secondaryColor;
   }
 
-  get personneAssistesRecherche(): Personne[]{
-    console.log('okk', this.recherchePresent);
+  get personneAssistesRecherche(): { nom, prenom, gr}[]{
 
-    return this.personneAssistes.filter(personne => this.commonService.rechercher(
+    const personnesGr = this.personneAssistes.map(personne => ({ nom: personne.nom, prenom: personne.prenom, gr: personne.gr}));
+    const invitesGr = this.personnesInvite.map(personne => ({ nom: personne.nom, prenom: personne.prenom, gr: personne.gr}));
+    const personnes = personnesGr.concat(invitesGr);
+
+    return personnes.filter(personne => this.commonService.rechercher(
       this.recherchePresent,
-      personne.nom, personne.prenom, personne.telephone, personne.status, personne.gr.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout
+      personne.nom, personne.prenom, personne.gr.libelle
     ));
   }
 

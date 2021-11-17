@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-2  mt-3">
-      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> Retour</button>
+      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> {{ 'common.retour' | translate }} </button>
     </div>
     <div class="col-10">
       <app-titre [libelle]="personne.prenom + ' '+ personne.nom "></app-titre>
@@ -10,15 +10,12 @@
 
 
   <div class="row mt-5">
-    <div class="col-3"> {{ 'page.detail_personne.total_gr' | translate }} : <span
-        [ngStyle]="{'color': secondaryColor }">{{
-        0 }}</span></div>
-    <div class="col-3"> {{ 'page.detail_personne.nombre_evenement' | translate }} : <span
-        [ngStyle]="{'color': secondaryColor }"> {{ 0 }}</span></div>
-    <div class="col-3"> {{ 'page.detail_personne.evenemement_absent' | translate }} : <span
-        [ngStyle]="{'color': secondaryColor }"> {{ 0 }}</span></div>
-    <div class="col-3"> {{ 'page.detail_personne.irregulier' | translate }} : <span
-        [ngStyle]="{'color': secondaryColor }">{{ 0 }}</span></div>
+    <div class="col-4"> {{ 'page.detail_personne.total_gr' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }">{{  grAssiste.length }}</span></div>
+    <div class="col-4"> {{ 'page.detail_personne.nombre_evenement' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }"> {{ evenementAssistes.length }}</span></div>
+    <div class="col-4"> {{ 'page.detail_personne.evenemement_absent' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }"> {{ evenementNonAssistes.length }}</span></div>
   </div>
   <hr />
 
@@ -116,10 +113,10 @@
               <hr/>
               <table class="table table-striped" *ngIf="suivis.length > 0">
                 <tbody>
-                  <tr *ngFor="let suivi of suivis">
+                  <tr *ngFor="let suivi of suivis" [title]="suivi.libelle">
                     <td>
                       <small class="date_libelle">{{ suivi.date_suivi | translate }}</small>
-                      <span>{{ suivi.libelle }} </span>
+                      <div [innerHtml]="suivi.libelle_html"></div>
 
                     </td>
                   </tr>
@@ -189,6 +186,38 @@
 
               <div class="text-center fst-italic" *ngIf="evenementNonAssistes.length == 0"> {{
                 'page.detail_personne.aucun_suivi' | translate}} </div>
+
+            </div>
+          </div>
+        </div>
+
+
+        <br />
+
+        <div class="accordion-item mb-5">
+          <h2 class="accordion-header" id="headingFour">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+              {{ 'page.detail_personne.gr_assiste' | translate }}
+            </button>
+          </h2>
+          <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+              <table class="table table-striped" *ngIf="grAssiste.length > 0">
+                <tbody>
+                  <tr *ngFor="let reunion of grAssiste">
+                    <td>
+                      <small class="date_libelle">{{ reunion.date }}</small>
+                      <span>{{ reunion.titre }} </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="text-center fst-italic" *ngIf="grAssiste.length == 0"> {{
+                'page.detail_personne.aucun_gr_suivi' | translate}} </div>
 
             </div>
           </div>

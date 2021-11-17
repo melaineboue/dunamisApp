@@ -1,25 +1,20 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 import { Status } from '../models/const';
 import { Evenement } from '../models/evenement';
 import { Personne } from '../models/personne';
 import { Predicateur } from '../models/predicateur';
+import { getIdReseau } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService {
 
-  events: Evenement[] = [
-    {
-      id:1,
-      libelle: 'Le grand Live',
-      predicateur: 'Apôtre APT',
-      predicateur_id:1,
-      titre_message: 'Les gens qui ont bouleversé leur génération',
-      date_evenement:'04/09/2021'
-    }
-  ];
+  events: Evenement[] = [];
 
   personnesAssiste: Personne[]=[
     {
@@ -67,56 +62,66 @@ export class EventService {
     }
   ];
 
-  personnesInvitees: Personne[]=[
-    {
-      id:1,
-      nom: 'BOUE',
-      prenom:'Brice',
-      date_ajout: '04/08/2021',
-      telephone: '0769089717',
-      status: Status.INVITE,
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1
-      }
-    }
-  ]
+  personnesInvitees: Personne[]=[]
 
   predicateurs: Predicateur[] = [
     { id: 1, nom: 'Apôtre Alain Patrick Tsengue'}
   ]
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getEvents(): Observable<Evenement[]> {
-    return of(this.events);
+    // service = event
+    // action = listeEvent
+    let url = `${environment.host}?service=event&action=listeEvent`;
+    return this.http.get<Evenement[]>(url).pipe();
   }
 
   getPredicateurs(): Observable<Predicateur[]>{
-    return of(this.predicateurs);
+    let url = encodeURI(`${environment.host}?service=event&action=listePredicateur`);
+    return this.http.get<Predicateur[]>(url).pipe();
   }
 
   saveEvent(event: Evenement): Observable<boolean>{
-    event.id = this.events.length + 15;
-    this.events.push(event);
-    return of(true);
+    // service = event , action = saveEvent
+    let url = encodeURI(`${environment.host}?service=event&action=saveEvent&${this.eventToString(event)}`);
+
+    return this.http.get<number | boolean>(url).pipe(map(response => {
+      if(response){
+        event.id = Number(response);
+        this.events.push(event);
+        return true;
+      }
+      return false;
+    }));
   }
 
   getEventById(id: number): Observable<Evenement> {
-    const results = this.events.filter(event => event.id === id);
-    return of( results.length > 0 ? results[0] : null );
+    // service = event , action = saveEvent
+    let url = encodeURI(`${environment.host}?service=event&action=getEventById&id_event=${id}`);
+    return this.http.get<Evenement>(url).pipe();
   }
 
   getPersonnesAssiste(idEvent: number): Observable<Personne[]>{
-    return of(this.personnesAssiste);
+    let url = encodeURI(`${environment.host}?service=event&action=getPersonnesAssiste&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
+    return this.http.get<Personne[]>(url).pipe();
   }
 
   getPersonnesNonAssiste(idEvent: number): Observable<Personne[]>{
-    return of(this.personnesNonAssiste);
+    let url = encodeURI(`${environment.host}?service=event&action=getPersonnesNonAssiste&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
+    return this.http.get<Personne[]>(url).pipe();
   }
 
   getEventInvites(idEvent: number): Observable<Personne[]>{
-    return of(this.personnesInvitees)
+    let url = encodeURI(`${environment.host}?service=event&action=listeInvite&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
+    return this.http.get<Personne[]>(url).pipe();
+  }
+
+  eventToString(event: Evenement): string {
+    const dates = event.date_evenement.split('/');
+    const heures = event.heure_evenement.trim();
+    const date = `${dates[2]}-${dates[1]}-${dates[0]} ${heures}:00`;
+
+    return `id_event=${event.id}&nom_event=${event.libelle}&predicateur_event=${event.predicateur}&titre_message=${event.titre_message}&date_event=${date}`
   }
 }

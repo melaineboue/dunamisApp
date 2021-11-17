@@ -1,0 +1,162 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2  mt-3">
+      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> {{ 'common.retour' | translate }}</button>
+    </div>
+    <div class="col-10">
+      <app-titre [libelle]="reunion.gr_libelle + ' (' + reunion.date + ')'"></app-titre>
+    </div>
+  </div>
+
+
+  <div class="row mt-5">
+    <div class="col-3"> {{ 'page.details_event.personne_presente' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }">{{ personneAssistes.length + inviteAssiste.length }}</span>
+    </div>
+    <div class="col-3"> {{ 'page.details_event.personne_absente' | translate }} : <span
+        [ngStyle]="{'color': secondaryColor }"> {{ personneNonAssistes.length + inviteNonAssiste.length }}</span>
+    </div>
+
+    <div class="col-3"> </div>
+
+  </div>
+  <hr />
+
+  <div class="row">
+    <div class="col-sm-12 col-md-6">
+      <table class="table table-striped">
+        <tbody>
+          <tr>
+            <td> {{ "page.reunion.semaine" | translate }} </td>
+            <td class="value-reunion">{{ reunion.semaine }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.reunion.gr" | translate }} </td>
+            <td class="value-reunion"> {{ reunion.gr_libelle }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.reunion.titre_message" | translate }} </td>
+            <td class="value-reunion"> {{ reunion.titre }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.reunion.date_reunion" | translate }} </td>
+            <td class="value-reunion"> {{ reunion.date }} </td>
+          </tr>
+          <tr>
+            <td> {{ "page.reunion.annonce" | translate }} </td>
+            <td class="value-reunion"> {{ reunion.annonce }} </td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-sm-12 col-md-12">
+
+      <div class="row">
+
+
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">
+              {{ 'page.details_event.personne_presente' | translate }} ({{personneAssistesRecherche.length + inviteAssisteRecherche.length }})
+            </button>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+              <div class="row">
+                <div class="mb-4 col-12">
+                  <input type="text" class="form-control"
+                    placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="recherchePresent">
+                </div>
+              </div>
+
+              <table class="table table-striped" *ngIf="personneAssistes.length > 0">
+                <tbody>
+                  <tr *ngFor="let personne of personneAssistesRecherche">
+                    <td>
+                      <span> {{ personne.prenom + ' '+ personne.nom }} </span>
+                    </td>
+                  </tr>
+
+                  <tr *ngFor="let invite of inviteAssisteRecherche">
+                    <td>
+                      <span> {{ invite.nom }} </span>
+                      <small class="black-libelle"> {{ 'page.reunion.invite' | translate }} </small>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <div class="text-center fst-italic" *ngIf="personneAssistes.length == 0"> {{ 'page.reunion.aucun_present' | translate |
+                translate}}
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <br />
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              {{ 'page.details_event.personne_absente' | translate }} ({{personneNonAssistesRecherche.length + inviteNonAssisteRecherche.length}})
+            </button>
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+              <div class="row">
+                <div class="mb-4 col-12">
+                  <input type="text" class="form-control"
+                    placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="rechercheAbsent">
+                </div>
+              </div>
+
+              <table class="table table-striped" *ngIf="personneNonAssistes.length > 0">
+                <tbody>
+                  <tr *ngFor="let personne of personneNonAssistesRecherche">
+                    <td>
+                      <span> {{ personne.prenom + ' '+ personne.nom }} </span>
+                    </td>
+                  </tr>
+
+                  <tr *ngFor="let invite of inviteNonAssisteRecherche">
+                    <td>
+                      <span> {{ invite.nom }} </span>
+                      <small class="black-libelle"> {{ 'page.reunion.invite' | translate }} </small>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="text-center fst-italic" *ngIf="personneNonAssistes.length == 0"> {{
+                'page.reunion.aucun_absent' | translate}} </div>
+
+            </div>
+          </div>
+        </div>
+
+        <br />
+      </div>
+
+      <hr>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <app-rapport [rapport]="reunion.rapport" [readonly]="true" [buttonLibelle]="'afficher_rapport'"></app-rapport>
+  <!-- <app-show-rapport [rapport]="rapport"></app-show-rapport> -->
+
+
+</div>
+
