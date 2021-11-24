@@ -5,9 +5,11 @@ import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { Status } from '../models/const';
 import { Evenement } from '../models/evenement';
+import { Invite } from '../models/invite';
 import { Personne } from '../models/personne';
+import { PersonneSuivi } from '../models/personneSuivi';
 import { Predicateur } from '../models/predicateur';
-import { getIdReseau } from '../utils/utils';
+import { getIdGr, getIdReseau } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -112,9 +114,14 @@ export class EventService {
     return this.http.get<Personne[]>(url).pipe();
   }
 
-  getEventInvites(idEvent: number): Observable<Personne[]>{
+  getPersonneGrUser(idEvent: number): Observable<PersonneSuivi[]>{
+    let url = encodeURI(`${environment.host}?service=event&action=personnes&id_event=${idEvent}&id_gr=${getIdGr()}`);
+    return this.http.get<PersonneSuivi[]>(url).pipe();
+  }
+
+  getEventInvites(idEvent: number): Observable<Invite[]>{
     let url = encodeURI(`${environment.host}?service=event&action=listeInvite&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
-    return this.http.get<Personne[]>(url).pipe();
+    return this.http.get<Invite[]>(url).pipe();
   }
 
   eventToString(event: Evenement): string {
@@ -123,5 +130,22 @@ export class EventService {
     const date = `${dates[2]}-${dates[1]}-${dates[0]} ${heures}:00`;
 
     return `id_event=${event.id}&nom_event=${event.libelle}&predicateur_event=${event.predicateur}&titre_message=${event.titre_message}&date_event=${date}`
+  }
+
+  /**
+   *
+   * @param idsParticipant
+   * @param idsInvite
+   * @param idsInvitePresent
+   * @param event
+   * @returns le id de l'evênement modifié
+   */
+  enregistrerParticipant(idsParticipant:number[], idsInvite:number[], idsInvitePresent:number[], event: Evenement): Observable<number>{
+    const ids = idsParticipant.join('-');
+    const idsInviteChaine = idsInvite.join('-');
+    const idsInvitePresentChaine = idsInvitePresent.join('-');
+    let url = encodeURI(`${environment.host}?service=event&action=saveParticipantEvent&invite=${idsInviteChaine}&invitePresent=${idsInvitePresentChaine}&participants=${ids}&id_event=${event.id}`);
+
+    return this.http.get<number>(url).pipe();
   }
 }

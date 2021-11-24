@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Invite } from '../models/invite';
-import { getIdGr } from '../utils/utils';
+import { getIdGr, getIdReseau } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,11 @@ export class InviteService {
 
   getInvitesFromReunion(idReunion: number): Observable<Invite[]>{
     const url = encodeURI(`${environment.host}?service=invite&action=getInviteByReunion&id_reunion=${idReunion}`);
+    return this.http.get<Invite[]>(url).pipe();
+  }
+
+  getInvitesFromEvent(idEvent: number): Observable<Invite[]>{
+    const url = encodeURI(`${environment.host}?service=invite&action=getInvitesFromEvent&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
     return this.http.get<Invite[]>(url).pipe();
   }
 }

@@ -47,9 +47,9 @@
     <tbody>
       <tr *ngFor="let personne of personnesRecherches; let numero = index">
         <th scope="row">{{ numero + 1 }}</th>
-        <td> {{ personne.prenom + ' '+ personne.nom }} </td>
+        <td> {{ (personne.prenom | titlecase) + ' '+ (personne.nom | uppercase ) }} </td>
         <td> {{ personne.ville }} </td>
-        <td> {{ personne.gr.libelle }} </td>
+        <td> {{ (personne.gr.libelle == 'aucun_gr' ? 'common.aucun_gr' : personne.gr.libelle) | translate }}</td>
         <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
         <td>
           <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"

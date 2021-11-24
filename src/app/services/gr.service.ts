@@ -14,72 +14,12 @@ import { Suivi } from '../models/suivi';
 })
 export class GrService {
 
-  grs: GR[] = [
-    { id: 1, libelle: 'Gr Franckie', idreseau: 1, date_creation:'12/12/2020', taille: 20, responsables: 'Franckie - Mélaine' },
-    { id: 2, libelle: 'Gr Christellyne', idreseau: 1, date_creation: '14/07/2021', taille: 14, responsables: 'Christellyne' },
-    { id: 3, libelle: 'Gr Maureen', idreseau: 1, date_creation: '25/08/2021', taille: 12, responsables: 'Maurren - Maeva' },
-  ];
+  grs: GR[] = [];
 
-  autorizedCaracter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ$_&1234567890';
+  autorizedCaracter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ$_1234567890';
 
-  personnesGR: Personne[] = [
-    {
-      id:1,
-      nom: 'BOUE',
-      prenom:'Mélaine',
-      date_ajout: '04/08/2021',
-      telephone: '0769089717',
-      status: Status.RESPONSABLE,
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1
-      }
-    },
-
-    {
-      id:3,
-      nom: 'Birat',
-      prenom:'Christellyne',
-      date_ajout: '04/08/2021',
-      telephone: '0745859652',
-      status: Status.RESPONSABLE,
-      gr: {
-        id:2,
-        libelle: 'GR Christellyne',
-        idreseau: 1
-      }
-    },
-
-    {
-      id:4,
-      nom: 'Nzimbou',
-      prenom:'Ludmila',
-      date_ajout: '04/08/2021',
-      telephone: '0623521452',
-      status: Status.POTENTIEL,
-      gr: {
-        id:2,
-        libelle: 'GR Christellyne',
-        idreseau: 1
-      }
-    }
-  ];
-  personnesHorsGR: Personne[] = [
-    {
-      id:2,
-      nom: 'BOUE',
-      prenom:'Arnaud',
-      date_ajout: '05/08/2021',
-      telephone: '0769089717',
-      status: Status.REGULIER,
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1
-      }
-    }
-  ];
+  personnesGR: Personne[] = [];
+  personnesHorsGR: Personne[] = [];
 
 
   constructor(private http: HttpClient) {  }

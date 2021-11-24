@@ -68,8 +68,6 @@ export class DetailsPersonneComponent implements OnInit {
 
   enregistrerSuivi(){
 
-    console.log(this.suivi);
-
     this.personneService.sauvegarderSuivi(this.suivi,[this.idPersonne]).subscribe(
       enregistre => {
 
@@ -85,9 +83,6 @@ export class DetailsPersonneComponent implements OnInit {
             personne_id: this.idPersonne,
             date_suivi: this.getLabelZero(ladate.getDate())+"/"+this.getLabelZero(ladate.getMonth()+1)+"/"+ladate.getFullYear()
           } as Suivi);
-
-    console.log(this.suivis);
-
 
           this.suivi = '';
           this.ajoutSuivi = false;

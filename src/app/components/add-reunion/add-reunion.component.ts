@@ -16,6 +16,7 @@ import { getGr, getIdReseau } from 'src/app/utils/utils';
 import { ReseauService } from 'src/app/services/reseau.service';
 import { Invite } from 'src/app/models/invite';
 import { InviteService } from 'src/app/services/invite.service';
+import { participantEmitObject } from 'src/app/models/participant-emit-object';
 
 @Component({
   selector: 'app-add-reunion',
@@ -24,17 +25,10 @@ import { InviteService } from 'src/app/services/invite.service';
 })
 export class AddReunionComponent implements OnInit {
 
-  definitionPresent = false;
-  errorSavingInvite = false;
-  nomInviteInvalide = false;
-
   error = false;
   saved = false;
   validated = false;
-  toutCocher = false;
-  ajoutInviteEnCours = false;
 
-  recherche = '';
   rapport = "";
 
   semaine: number = 0;
@@ -60,8 +54,6 @@ export class AddReunionComponent implements OnInit {
   invites: Invite[] = [];
 
   responsableReseau: Personne[] = [];
-
-  annonce = '';
 
   reunion: ReunionGr = {
     id: 0,
@@ -142,37 +134,13 @@ export class AddReunionComponent implements OnInit {
     this.getWeek(0)
   }
 
+  changerPresence(participants: participantEmitObject){
+    this.invites = participants.invites;
+    this.personnesGr = participants.personnes;
+  }
+
   back() {
     this.router.navigate([`/${menuItemsClass.ACCUEIL}`])
-  }
-
-  ajouterInvite(){
-    this.ajoutInviteEnCours = true;
-  }
-
-  annulerInviter(){
-    this.nomInvite = '';
-    this.ajoutInviteEnCours = false;
-  }
-
-  enregistrerInvite(){
-    if(this.nomInvite.trim() !== ''){
-      this.inviteService.saveInviteReunion(this.nomInvite.trim()).subscribe(id=>{
-        if(id){
-          this.errorSavingInvite = false;
-          const invite = {nom: this.nomInvite.trim(), checked: true, id: id };
-
-          this.invites.push(invite);
-          this.nomInvite = '';
-        } else {
-          this.errorSavingInvite = true;
-        }
-      },
-      error => this.errorSavingInvite = true );
-
-    } else {
-      this.nomInviteInvalide = true;
-    }
   }
 
   enregistrer() {
@@ -304,7 +272,7 @@ export class AddReunionComponent implements OnInit {
     var year = currentdate.getFullYear();
     var oneJan = new Date(currentdate.getFullYear(), 0, 1);
     let semaine;
-    console.log(this.reunion.semaine);
+
     if(!week){
       let semaine = Math.floor((currentdate.getTime() - oneJan.getTime()) / 1000 / 60 / 60 / 24 / 7);
       this.reunion.semaine = `${semaine}`;
@@ -312,8 +280,6 @@ export class AddReunionComponent implements OnInit {
 
       semaine = this.reunion.semaine
     }
-
-    console.log(this.reunion.semaine);
 
     semaine += week;
     if (semaine <= 0) {
@@ -333,23 +299,7 @@ export class AddReunionComponent implements OnInit {
     })
   }
 
-  definrPresent() {
-    this.definitionPresent = true;
-  }
 
-  cocherTout() {
-    this.reunion.enregistre = false;
-    this.personnesGr.map(personne => personne.checked = this.toutCocher);
-  }
-
-  normaliserToutCocher(){
-    this.reunion.enregistre = false;
-    if(this.personnesGr.length === this.personnesGr.filter(personne => personne.checked).length){
-      this.toutCocher = true;
-    } else {
-      this.toutCocher = false;
-    }
-  }
 
   heureEstValide(heure: number): boolean {
     return heure >= 0 && heure < 24;
@@ -370,10 +320,6 @@ export class AddReunionComponent implements OnInit {
 
   get secondaryColor(): string {
     return ParameterService.configuration.secondaryColor;
-  }
-
-  get personnesRecherchees(): PersonneSuivi[] {
-    return this.personnesGr.filter(personne => this.commonService.rechercher(this.recherche, personne.nom, personne.prenom) || this.commonService.rechercher(this.recherche, personne.prenom, personne.nom));
   }
 
   get respos(): string {

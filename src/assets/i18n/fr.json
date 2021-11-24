@@ -29,7 +29,12 @@
     "aucun_gr": "Aucun GR",
     "rapport_suivi": "Rapport de suivi",
     "annuler":"Annuler",
+    "enregistrer":"Enregistrer",
+    "definir_present":"Définir les présents",
     "afficher_rapport":"Afficher rapport",
+    "saved_success_message":"Les informations ont été enregistrées",
+    "valider_success_message":"Les informations ont été validé",
+    "error_message":"L'enregistrement a échoué, Réessayer",
     "generer_rapport":"Générer rapport"
   },
   "page": {
@@ -56,6 +61,7 @@
           "prenom": "Prénom",
           "gr": "GR",
           "ville": "Ville",
+          "pays": "Pays",
           "date_ajout": "Date d'ajout",
           "status": "Status",
           "action": "Action"
@@ -74,6 +80,8 @@
       "date_ajout": "Date ajout",
       "numero": "Numéro",
       "email": "Email",
+      "ville": "Ville",
+      "pays": "Pays",
       "status": "Status",
       "annuler": "Annuler",
       "enregistrer": "Enregistrer",
@@ -262,7 +270,6 @@
       "gr_vide": "Il n'y a aucune personne dans votre GR"
     },
     "add_reunion": {
-      "saved_success_message":"Les informations ont été enregistrées",
       "semaine":"Sémaine",
       "semaine_en_cours": "Sémaine en cours",
       "semaine_precedente": "Sémaine précédente",
@@ -270,8 +277,6 @@
       "titre_message":"Titre du message",
       "titre_page":"Reunion de GR",
       "annonce":"Annonce",
-      "valider_success_message":"Les informations de la reunion ont été validée",
-      "error_message":"L'enregistrement a échoué, Réessayer",
       "titre_valider": "Aucune modification ne sera possible après validation",
       "retour":"Retour",
       "enregistrer":"Enregistrer",
@@ -283,7 +288,7 @@
       "heure_fin_superieur":" l'heure de fin doit être superieur",
       "heure_invalide":"Heure invalide",
       "minute_invalide":"Minute invalide",
-      "titre_participants":"Participants au GR",
+      "titre_participants":"Participants",
       "nom_invite":"Nom de l'invité",
       "ajouter_invite":"Ajouter invité",
       "libelle_invite":"invité",

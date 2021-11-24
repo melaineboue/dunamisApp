@@ -1,4 +1,4 @@
-<a *ngIf="!definitionPresent" class="link" (click)="definrPresent()">Définir les présent</a>
+<a *ngIf="!definitionPresent" class="link" (click)="definrPresent()"> {{ 'common.definir_present' | translate}}</a>
 <div *ngIf="definitionPresent">
 
 
@@ -13,13 +13,13 @@
       </div>
 
 
-      <div class="form-check">
+      <div class="form-check" *ngIf="personnesRecherchees.length > 0">
         <input type="checkbox" class="form-check-input" [(ngModel)]="toutCocher" id="toutCocher"
           (change)="cocherTout()">
         <label class="form-check-label" for="toutCocher"> {{ 'common.tout_cocher' | translate }} </label>
       </div>
 
-      <table class="table table-striped" *ngIf="personnesRecherchees.length > 0">
+      <table class="table table-striped" *ngIf="personnesRecherchees.length > 0 || invitesRecherchees.length > 0">
         <tbody>
           <tr *ngFor="let personne of personnesRecherchees">
             <td>

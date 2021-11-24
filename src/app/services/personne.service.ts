@@ -139,6 +139,16 @@ export class PersonneService {
     return this.http.get<boolean>(url).pipe();
   }
 
+  getVilles(): Observable<string[]>{
+    let url = `${environment.host}?service=personne&action=personneVilles`;
+    return this.http.get<string[]>(url).pipe();
+  }
+
+  getPays(): Observable<string[]>{
+    let url = `${environment.host}?service=personne&action=personnePays`;
+    return this.http.get<string[]>(url).pipe();
+  }
+
   getPersonne(personneId: number): Observable<Personne>{
     // service = personne ** action = personneDetails
     let url = encodeURI(`${environment.host}?service=personne&action=personneDetails&id_personne=${personneId}`);
@@ -172,6 +182,8 @@ export class PersonneService {
   creerCompte(personne:Personne): Observable<boolean>{
     //service=creerGr, service=login
     let url = `${environment.host}?action=creerGr&service=login&id_personne=${personne.id}&email=${personne.email}&login=${personne.login}&password=${personne.pwd}`;
+    console.log(url);
+
     return this.http.get<boolean>(url).pipe(map(response=>{
       if(response){
         return true;
@@ -185,13 +197,11 @@ export class PersonneService {
   getGrAssiste(personneId: number): Observable<ReunionGr[]>{
     // service = personne ** action = grAssiste
     let url = encodeURI(`${environment.host}?service=personne&action=grAssiste&id_personne=${personneId}`);
-    console.log(url);
-
     return this.http.get<ReunionGr[]>(url).pipe();
   }
 
   toStringPersonne(personne: Personne): string {
-    return `&nom=${personne.nom}&prenom=${personne.prenom}&telephone=${personne.telephone}&email=${personne.email}&status=${personne.status}&id_gr=${personne.gr.id}&date_naissance=${personne.date_naissance}&date_evangelisation=${personne.date_evangelisation}`;
+    return `&nom=${personne.nom}&prenom=${personne.prenom}&telephone=${personne.telephone}&email=${personne.email}&ville=${personne.ville}&pays=${personne.pays}&status=${personne.status}&id_gr=${personne.gr.id}&date_naissance=${personne.date_naissance}&date_evangelisation=${personne.date_evangelisation}`;
   }
 
 }

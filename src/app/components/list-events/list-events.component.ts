@@ -23,13 +23,10 @@ export class ListEventsComponent implements OnInit {
   routeHere = `/${menuItemsClass.EVENT_LIST}`;
 
   constructor(private eventService: EventService, private commonService: CommonService, private router: Router) {
-    console.log('construct');
-
     commonService.setBackRoute(menuItemsClass.EVENT_LIST);
   }
 
   ngOnInit(): void {
-    console.log('ngInit');
     this.eventService.getEvents().subscribe(response => this.events = response);
   }
 

@@ -108,7 +108,8 @@ export class AppComponent {
   }
 
   cliquerNomReseau(){
-    this.router.navigate([ `${menuItemsClass.ACCUEIL}` ])
+    this.closeMenu(menuItemsClass.ACCUEIL);
+    this.router.navigate([ `${menuItemsClass.ACCUEIL}` ]);
   }
 
   get userExiste(): boolean {

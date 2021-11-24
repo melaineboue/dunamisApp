@@ -26,7 +26,7 @@
 
   <div class="row mb-5" *ngFor="let gr of grRecherches">
 
-    <div class="row mt-3 mb-2 titre-gr text-center">{{ gr.libelle }}</div>
+    <div class="row mt-3 mb-2 titre-gr text-center">{{ (gr.libelle == 'aucun_gr' ? 'common.aucun_gr' : gr.libelle) | translate }}</div>
 
     <div class="row">
       <div class="col-3"> {{ 'page.liste_personnes.total' | translate }} : <span

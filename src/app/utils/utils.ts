@@ -1,3 +1,4 @@
+import { GR } from "../models/gr";
 
 export function deuxChiffre(number: number){
   return number < 10 ? '0'+number : number;
@@ -41,5 +42,9 @@ return Number(localStorage.getItem('idGr'));
 }
 
 export function getGr(): string {
-return localStorage.getItem('gr');
+  return localStorage.getItem('gr');
+}
+
+export function getGrForUser(): GR {
+  return JSON.parse(localStorage.getItem('user')).gr;
 }

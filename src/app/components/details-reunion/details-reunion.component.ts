@@ -40,7 +40,6 @@ export class DetailsReunionComponent implements OnInit {
     private grService: GrService
   ) {
     this.idReunion = this.commonService.getIdRenuion();
-    console.log(this.idReunion);
 
     if (!this.idReunion) {
       this.router.navigate([this.backRoute]);
@@ -57,9 +56,6 @@ export class DetailsReunionComponent implements OnInit {
   }
 
   back() {
-    console.log(this.rechercheAbsent);
-    console.log(this.recherchePresent);
-
     this.commonService.setIdEvent(null);
     this.router.navigate([this.backRoute]);
   }

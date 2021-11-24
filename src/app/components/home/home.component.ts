@@ -115,7 +115,6 @@ export class HomeComponent implements OnInit {
   }
 
   get personnesHorsGrRecherches(): Personne[] {
-    console.log(this.personnesHorsGR);
 
     return this.personnesHorsGR.filter(personne => this.commonService.rechercher(
       this.rechercheHorsGr,

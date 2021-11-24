@@ -89,7 +89,7 @@ export class ListePersonnesComponent implements OnInit {
   get personnesRecherches(): Personne[] {
     return this.personnes.filter(personne => this.commonService.rechercher(
       this.recherche.value,
-      personne.nom, personne.prenom, personne.telephone, personne.status, personne.gr.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout
+      personne.nom, personne.prenom, personne.telephone, personne.status, personne.ville, personne.gr.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout
     ));
   }
 

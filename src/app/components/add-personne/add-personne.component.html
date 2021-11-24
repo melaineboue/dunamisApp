@@ -19,14 +19,14 @@
   <div class="row mt-5">
     <div class="col-md-6 col-sm-12 mb-3 form-group">
       <label for="nom"> {{ 'page.add_personne.nom' | translate }}</label>
-      <input type="text" class="form-control" id="nom" [formControl]="nom">
+      <input type="text" class="form-control" id="nom" [(ngModel)]="nom" (ngModelChange)="nom = $event.toUpperCase()">
       <small class="form-text message_erreur" *ngIf="nomPrenomManquant">{{ 'page.add_personne.nom_prenom_manquant' |
         translate }}</small>
     </div>
 
     <div class="col-md-6 col-sm-12 mb-3 form-group">
       <label for="prenom">{{ 'page.add_personne.prenom' | translate }}</label>
-      <input type="text" class="form-control" id="prenom" [formControl]="prenom">
+      <input type="text" class="form-control" id="prenom" [(ngModel)]="prenom"  (ngModelChange)="prenom = inTitleCase($event)">
       <small class="form-text message_erreur" *ngIf="nomPrenomManquant">{{ 'page.add_personne.nom_prenom_manquant' |
         translate }}</small>
     </div>
@@ -39,11 +39,27 @@
     </div>
 
     <div class="col-md-6 col-sm-12 mb-3 form-group">
-      <label for="exampleInputEmail1">{{ 'page.add_personne.email' | translate }}</label>
+      <label for="email">{{ 'page.add_personne.email' | translate }}</label>
       <input type="email" class="form-control" id="email" [formControl]="email">
       <small class="form-text message_erreur" *ngIf="emailInvalide">{{ 'page.add_personne.email_invalide' | translate
         }}</small>
     </div>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="ville">{{ 'page.add_personne.ville' | translate }}</label>
+      <input type="text" class="form-control" id="ville" [(ngModel)]="ville" list="datalist_ville" autocomplete="off">
+    </div>
+    <datalist id="datalist_ville">
+      <option *ngFor="let ville of villes" [value]="ville">{{ ville }}</option>
+    </datalist>
+
+    <div class="col-md-6 col-sm-12 mb-3 form-group">
+      <label for="pays">{{ 'page.add_personne.pays' | translate }}</label>
+      <input type="text" class="form-control" id="pays" [(ngModel)]="paysPersonne" list="datalist_pays" autocomplete="off">
+    </div>
+    <datalist id="datalist_pays">
+      <option *ngFor="let currentPays of pays" [value]="currentPays">{{ currentPays }}</option>
+    </datalist>
 
     <div class="col-md-6 col-sm-12 mb-3 form-group">
       <label for="status">{{ 'page.add_personne.status' | translate }}</label>

@@ -7,12 +7,10 @@
 
   document.querySelector("#btnNav").addEventListener("click", () => {
       nav.classList.add("nav--open");
-      console.log('nav--open');
   });
 
   document.querySelector(".nav__overlay").addEventListener("click", () => {
       nav.classList.remove("nav--open");
-      console.log('overlay');
   });
 }
 );

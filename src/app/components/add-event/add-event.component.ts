@@ -94,7 +94,6 @@ export class AddEventComponent implements OnInit {
 
   nomTitreValide(): boolean {
     let result = this.libelle.trim() === '' && this.titre_message.trim() === '';
-    console.log('result', this.libelle.trim(), this.titre_message.trim(), result);
 
     if (!result) {
       this.nomTitreManquant = false;
@@ -108,10 +107,6 @@ export class AddEventComponent implements OnInit {
 
   numeroValide() {
     return true;
-  }
-
-  setValue(status) {
-    console.log('status', status);
   }
 
   get numeroManquant(): boolean {

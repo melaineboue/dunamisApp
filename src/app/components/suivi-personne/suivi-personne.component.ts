@@ -28,8 +28,6 @@ export class SuiviPersonneComponent implements OnInit {
       checked: false
     } as PersonneSuivi)));
 
-    console.log('this.personnes', this.personnes);
-
   }
 
   ngOnInit(): void {
@@ -48,14 +46,10 @@ export class SuiviPersonneComponent implements OnInit {
   }
 
   cocherTout() {
-    console.log('jjj');
-
     this.personnes.forEach(personne => personne.checked = this.toutCocher);
   }
 
   cocherPersonne(){
-    console.log('okk');
-
     if(this.personnes.length === this.personnes.filter(personne => personne.checked).length){
       this.toutCocher = true;
     }

@@ -80,10 +80,10 @@ export class ListePersonneByGrComponent implements OnInit {
   get grRecherches(): GrContent[] {
     const grRecherche = this.grs.filter(gr =>
       this.commonService.rechercher(this.recherche.value, gr.libelle) ||
-      gr.personnes.some( personne => this.commonService.rechercher(this.recherche.value, personne.nom, personne.prenom, personne.telephone, personne.status, personne.gr.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout))
+      gr.personnes.some( personne => this.commonService.rechercher(this.recherche.value, personne.nom, personne.prenom, personne.telephone, personne.status, personne.ville, personne.gr.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout))
     );
 
-    grRecherche.map(gr => gr.personnes = gr.personnes.filter(personne => this.commonService.rechercher(this.recherche.value, personne.nom, personne.prenom, personne.telephone, personne.status, personne.gr.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout)));
+    grRecherche.map(gr => gr.personnes = gr.personnes.filter(personne => this.commonService.rechercher(this.recherche.value, personne.nom, personne.prenom, personne.telephone, personne.status, personne.ville, personne.gr.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout)));
     return grRecherche;
   }
 

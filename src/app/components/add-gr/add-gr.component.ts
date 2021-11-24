@@ -87,8 +87,6 @@ export class AddGrComponent implements OnInit {
   }
 
   copierCodeInClipboard(responsable: PersonneSuivi) {
-    console.log('copy ', responsable);
-
     this.responsables.forEach(responsable => responsable.copier = false);
     this.clipboardService.copy(responsable.code);
     responsable.copier = true;

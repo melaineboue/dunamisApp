@@ -9,6 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
 import { PersonneService } from 'src/app/services/personne.service';
+import { titleCase } from 'title-case';
 
 
 @Component({
@@ -21,12 +22,14 @@ export class AddPersonneComponent implements OnInit {
   backRoute = menuItemsClass.LISTE_PERSONNE;
   personne: Personne;
 
-  nom = new FormControl('');
-  prenom = new FormControl('');
+  nom = '';
+  prenom = '';
   numero = new FormControl('');
   email = new FormControl('');
   statusPersonne = new FormControl('2');
   gr = new FormControl('1');
+  paysPersonne = '';
+  ville = '';
 
   datenaissance = new FormControl('');
   dateEvangelisation = new FormControl('');
@@ -35,6 +38,9 @@ export class AddPersonneComponent implements OnInit {
 
   listeStatus: StatusModel[] = [];
   grs: GR[] = [];
+
+  villes: string[] = ['Rennes', 'Nantes'];
+  pays: string[] = ['France'];
 
   error: boolean = false;
   saved: boolean = false;
@@ -56,6 +62,8 @@ export class AddPersonneComponent implements OnInit {
       this.statusPersonne.setValue(idSelected)
     });
     this.grService.getList().subscribe(grs => this.grs = grs);
+    this.personneService.getPays().subscribe(pays => this.pays = pays);
+    this.personneService.getVilles().subscribe(villes => this.villes = villes);
   }
 
 
@@ -78,8 +86,8 @@ export class AddPersonneComponent implements OnInit {
   sauvegarder() {
 
     this.personne = {
-      nom: this.nom.value,
-      prenom: this.prenom.value,
+      nom: this.nom,
+      prenom: this.prenom,
       date_naissance: this.datenaissance.value,
       date_evangelisation: this.dateEvangelisation.value,
       date_ajout: "",
@@ -87,7 +95,9 @@ export class AddPersonneComponent implements OnInit {
       email: this.email.value,
       gr: { id: this.gr.value } as GR,
       photo: "",
-      status: this.statusPersonne.value
+      status: this.statusPersonne.value,
+      ville: this.ville,
+      pays: this.paysPersonne
     } as Personne;
 
     // Validation Nom - prenom
@@ -117,7 +127,7 @@ export class AddPersonneComponent implements OnInit {
 
 
   nomPrenomValide(): boolean {
-    let result = this.nom.value || this.prenom.value;
+    let result = this.nom || this.prenom;
     if (result) {
       this.nomPrenomManquant = false;
       return true;
@@ -143,9 +153,6 @@ export class AddPersonneComponent implements OnInit {
     return true;
   }
 
-  setValue(status) {
-    console.log('status', status);
-  }
 
   get numeroManquant(): boolean {
     return false;
@@ -211,6 +218,10 @@ export class AddPersonneComponent implements OnInit {
       }
     }
     return date;
+  }
+
+  inTitleCase(text: string): string {
+      return titleCase(text);
   }
 
 
