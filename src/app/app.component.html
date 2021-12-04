@@ -7,16 +7,28 @@
 </head>
 
 <body class="preload">
-  <header class="header " [ngStyle]="{'background': backgroundColor, 'color':'white'}">
-    <button class="header__button" id="btnNav" type="button" (click)="showMenu()" *ngIf="userExiste">
-      <i class="material-icons">menu</i>
-    </button>
+  <header class="header row" [ngStyle]="{'background': backgroundColor, 'color':'white'}">
+    <div class="col-9">
 
-    <button class="header__button mr-sm-2" type="button" [ngClass]="{'ms-5': !userExiste }" (click)="cliquerNomReseau()">
-      {{ nomReseau | uppercase }}
-    </button>
+      <button class="header__button" id="btnNav" type="button" (click)="showMenu()" *ngIf="userExiste">
+        <i class="material-icons">menu</i>
+      </button>
+
+      <button class="header__button mr-sm-2" type="button" [ngClass]="{'ms-5': !userExiste }" (click)="cliquerNomReseau()">
+        {{ nomReseau | uppercase }}
+      </button>
+    </div>
+
+    <div class="col-3" *ngIf="username" (click)="userSetup()">
+      <span class="user-setup">
+        <i class="material-icons account mt-2 me-2">account_circle</i>
+        <span >{{ username }}</span>
+      </span>
+    </div>
 
   </header>
+
+
 
 
   <nav class="nav" [ngClass]="{'nav--open': menuOpened }">
@@ -40,12 +52,22 @@
       </a>
 
       <!-- Langues -->
-      <a *ngFor="let langue of langues" class="nav__link" (click)="changeLangage(langue.code)" >
-        {{ langue.libelle | translate }}
-      </a>
+      <div class="ms-2 me-2 mt-3">
+        <select class="form-select" aria-label="Default select example" [(ngModel)]="langage" (change)="changeLangage()">
+          <option
+              *ngFor="let langue of langues"
+              [value]="langue.code"
+              [selected]="langue === langue"
+              >
+              {{ langue.libelle | translate }}
+            </option>
+        </select>
+      </div>
 
     </div>
     <div class="nav__overlay" (click)="closeMenu('exit')"></div>
+
+
   </nav>
   <main>
     <!--<app-liste-personnes *ngIf="menuActive === classMenuItem.LISTE_PERSONNE"></app-liste-personnes>-->

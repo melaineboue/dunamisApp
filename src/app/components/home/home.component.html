@@ -106,7 +106,7 @@
               (click)="details(personne.id)"></i>
           </button>
 
-          <button (click)="ajouterGR(personne)">
+          <button (click)="ajouterGR(personne)" *ngIf="personne.status !== 'responsable'">
             <i class="bi bi-plus-square" title="{{ 'page.liste_gr.info.ajouter_au_gr' | translate }}"></i>
           </button>
         </td>
@@ -119,6 +119,8 @@
     {{ 'page.accueil.pas_de_donnees_trouve' | translate }}
   </div>
 
+  <span class="flag-icon flag-icon-gr flag-icon-squared">l</span>
 
+  <img src="assets/images/flags/small/fr.svg" width="50" height="50"/>
 
 </div>

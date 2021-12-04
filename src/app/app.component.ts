@@ -30,7 +30,7 @@ import { Router } from '@angular/router';
     ])
   ]
 })
-export class AppComponent {
+export class AppComponent{
   classMenuItem = menuItemsClass;
 
   title = 'dunamisApp';
@@ -81,12 +81,14 @@ export class AppComponent {
       this.nomReseau = config.reseauName;
     });
 
+
     this.langage = this.translate.getBrowserLang();
     this.translate.use(this.langage);
   }
 
-  changeLangage(langage: string) {
-    this.langage = langage
+
+
+  changeLangage() {
     this.translate.use(this.langage);
   }
 
@@ -112,8 +114,21 @@ export class AppComponent {
     this.router.navigate([ `${menuItemsClass.ACCUEIL}` ]);
   }
 
+  userSetup(){
+    console.log('User setup');
+
+  }
+
   get userExiste(): boolean {
     return localStorage.getItem('idUser') !== null && localStorage.getItem('idGr') !== null && localStorage.getItem('idReseau') !== null;
   }
 
+  get username(): string {
+      let username = '';
+      if(localStorage.getItem('user')){
+        const user = JSON.parse(localStorage.getItem('user'));
+        username = `${user.prenom} ${user.nom}`.length > 24 ? `${user.prenom.substring(0,1)}. ${user.nom}`: `${user.prenom} ${user.nom}`;
+      }
+      return username;
+  }
 }

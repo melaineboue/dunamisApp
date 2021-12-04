@@ -8,20 +8,40 @@
     "portugais": "Portuguese"
   },
   "menu": {
-    "liste": "Persons list",
-    "culte": "Attendance at worship",
-    "liste_gr": "List of GR",
-    "liste_reseau": "List of Networks"
+    "liste": "List of people",
+    "culte": "Attendance at services",
+    "liste_gr": "List of GR groups",
+    "liste_reseau": "List of networks ",
+    "suivi": "Follow-up of people",
+    "liste_evenement": "Events",
+    "theme_gr": "GR's themes",
+    "reunion_gr": "GR Meeting",
+    "accueil": "Home",
+    "deconnecter": "Logout"
   },
   "common": {
-    "retour": "Back"
+    "retour": "Back",
+    "copier": "Copy",
+    "copie": "Copied",
+    "masquer": "Hide",
+    "rapport": "Report",
+    "tout_cocher": "Check all",
+    "aucun_gr": "No GR",
+    "rapport_suivi": "Follow-up report",
+    "annuler":"Cancel",
+    "enregistrer":"Save",
+    "definir_present":"Set presents list",
+    "afficher_rapport":"Show report",
+    "saved_success_message":"The informations has been saved",
+    "valider_success_message":"The informations has been validated",
+    "error_message":"Registration failed, Try again",
+    "generer_rapport":"Generate report"
   },
   "page": {
     "liste_personnes": {
-      "rechercher": "Search",
-
-      "listeParGr": "Members by GR",
+      "listeParGr": "Members list by GR",
       "liste": "All members",
+      "rechercher": "Search",
       "total": "Total",
       "regulier": "Regular",
       "fidelisation": "Loyalty",
@@ -31,15 +51,18 @@
         "responsable": "Responsible",
         "potentiel": "Potential",
         "regulier": "Regular",
-        "en_cours_fidelisation": "In the process of developing loyalty",
+        "en_cours_fidelisation": "In the process of becoming loyal",
         "irregulier": "Irregular",
-        "fantome": "Ghost"
+        "fantome": "Phantom"
       },
       "tableau": {
         "entete": {
           "nom": "Last name",
           "prenom": "First name",
           "gr": "GR",
+          "ville": "City",
+          "pays": "Country",
+          "date_ajout": "Date added",
           "status": "Status",
           "action": "Action"
         }
@@ -51,23 +74,227 @@
     },
     "add_personne": {
       "nom": "Last name",
-      "prenom": "First name",
+      "prenom":  "First name",
       "date_naissance": "Date of birth",
       "date_evangelisation": "Date of evangelization",
       "date_ajout": "Date added",
       "numero": "Number",
       "email": "Email",
+      "ville": "City",
+      "pays": "Country",
       "status": "Status",
       "annuler": "Cancel",
       "enregistrer": "Save",
-      "titre": "Add a new person",
+      "titre": "Add new person",
       "sucess_message": " has been registered",
       "error_message": "Registration failed, try again",
-      "nom_prenom_manquant": "You must fill in the firstname or lastname",
+      "nom_prenom_manquant": "You need to fill in the last name or first name",
       "numero_manquant": "You need to fill in the number",
       "email_invalide": "The email is invalid",
-      "date_invalide": "The date is invalid"
+      "date_invalide": "Date is invalid"
 
+    },
+    "detail_personne": {
+      "total_gr": "Number GR",
+      "nombre_evenement": "Number event",
+      "suivi": "Spiritual care",
+      "evenemement": "Assisted events",
+      "evenemement_absent": "Unattended events",
+      "aucun_suivi": "No follow-up was recorded",
+      "aucun_evenement": "No events have been recorded",
+      "ajouter_suivi": "Add a follow-up",
+      "description_suivi": "Add the description of the follow-up here",
+      "sucess_message_suivi":"Recording was successful",
+      "error_message_suivi": "Registration failed",
+      "titre": "Mass spiritual follow-up",
+      "gr_assiste": "Assisted GR",
+      "aucun_gr_suivi": "No GR follow-up",
+      "description_page": "This page allows you to define a follow-up for a large number of people."
+    },
+    "liste_gr": {
+      "nom": "Last name",
+      "details": "Details",
+      "responsable": "Responsible person(s)",
+      "taille": "Size",
+      "action": "Action",
+      "date_creation": "Date of creation",
+      "info": {
+        "afficher_details": "Show GR details",
+        "creer_gr": "Create a new GR",
+        "ajouter_au_gr": "Add this person to this GR",
+        "retirer_du_gr": "Remove this person from this GR"
+      },
+      "text": {
+        "personne_gr":"People in GR",
+        "personne_hors_gr":"People outside of GR",
+        "ajouter_au_gr": "Add to GR",
+        "liste_gr": "The list of GR"
+      }
+    },
+    "creer_gr": {
+      "text": {
+        "titre": "Create a new GR",
+        "nom_gr": "Nom of the GR",
+        "creer_gr": "Create ",
+        "ajouter_responsable": "Add leader",
+        "responsables": "Leaders",
+        "sucess_message": "The GR has been successfully created",
+        "error_message": "The creation of the GR has failed"
+
+
+      },
+      "info": {
+        "definir_responsable": "Define the GR leaders",
+        "creer_gr": "Validate the creation of the GR",
+        "valider": "Validate the chosen leaders"
+      }
+    },
+    "bienvenue": {
+      "texte": {
+        "bienvenue": "Welcome",
+        "precedent": "Previous",
+        "suivant": "Next",
+        "sauvegarder": "Save",
+        "titre": "Create login and password",
+        "mot_de_passe_manquant": "Please enter a password",
+        "mot_de_passe_non_conforme": "The 2 passwords do not match.",
+        "email_incorrect": "The email entered is incorrect.",
+        "login_manquant": "Enter a login.",
+        "nom": "Last name",
+        "prenom": "First name",
+        "login": "Login",
+        "email": "Email (recovery)",
+        "mot_de_passe": "Password",
+        "retaper_mot_de_passe": "Retype password",
+        "error_message": "There is an error in the account creation",
+        "explication": "Create your account to access the application later.",
+        "pour": "To access",
+        "login_existe_deja": "The login already exists"
+      }
+    },
+    "login": {
+      "login": "Login",
+      "mot_de_passe": "Password",
+      "code": "Access code",
+      "titre_connection": "Login",
+      "titre_connection_code_acces": "Log in for the first time",
+      "se_connecter": "Login",
+      "reinitialiser": "Reset password",
+      "valider_code": "Validate code",
+      "error_message": {
+        "connexion": "The login or the password is incorrect",
+        "login_inexistant": "The login does not exist",
+        "login_vide": "Please enter your login",
+        "email_inexistant": "No recovery email is attached to this account, Contact the administrator: ",
+        "code_invalide": "The code you have entered is invalid."
+      },
+      "success_message": "The reset link has been sent to you by email."
+    },
+    "events": {
+      "titre": "Events",
+      "nom": "Name",
+      "date": "Date",
+      "predicateur": "Preacher",
+      "titre_message": "Title of message",
+      "total": "Total",
+      "action": "Action",
+      "details": "Details",
+      "info":{
+        "afficher_details":"Show details",
+        "add_event": "Add new event"
+      }
+    },
+    "add_event":{
+      "titre": "Add event",
+      "error_message":"The recording failed, try again",
+      "success_message":"The event has been registered.",
+      "nom":"Name",
+      "nom_placeholder":"For example: Le grand Live",
+      "predicateur":"Preacher",
+      "date_event": "Date of event",
+      "heure_event": "Time",
+      "titre_message":"Title of message",
+      "date":"Date",
+      "date_invalide":"Date is invalid (expected format: DD/MM/YYYY)",
+      "heure_invalide":"Time is invalid (expected format: HH:MM)",
+      "nom_titre_manquant": "Fill in the name or title"
+
+    },
+    "themes": {
+      "titre": "Meeting topics GR",
+      "semaine": "Week",
+      "message": "Message",
+      "annonce": "Announcement",
+      "action": "Action",
+      "info":{
+        "add_theme": "Add a new theme"
+
+      }
+    },
+    "reunion": {
+      "titre": "GR's meetings",
+      "semaine":"Week",
+      "message":"Message",
+      "annonce":"Announcement",
+      "gr":"Gr",
+      "action":"Action",
+      "titre_message": "Title of message",
+      "date_reunion": "Date of meeting",
+      "tout_reseau": "All network",
+      "aucun_absent": "No one was absent",
+      "aucun_present": "No one was present",
+      "invite": "Guest",
+      "status_libelle": "Status",
+      "date": "Date",
+      "status":{
+        "en_cours": "In progress",
+        "valide": "Validated"
+      }
+    },
+    "details_event": {
+      "personne_presente": "Attendance",
+      "personne_absente": "Absences",
+      "evenement": "Event",
+      "predicateur": "Preacher",
+      "titre_message": "Title of message",
+      "date_event": "Date of event",
+      "heure_event": "Time of day",
+      "aucun_participant": "No one was present",
+      "aucun_absent": "No one was absent",
+      "rapport": "Generate report"
+    },
+    "accueil": {
+      "nouvelle_reunion": "New meeting",
+      "modifier_reunion": "Modify current meeting",
+      "pas_de_donnees_trouve": "No data found",
+      "gr_vide": "There are no people in your GR"
+    },
+    "add_reunion": {
+      "semaine":"Week",
+      "semaine_en_cours": "Current week",
+      "semaine_precedente": "Previous week",
+      "semaine_suivante": "Next week",
+      "titre_message":"Title of the message",
+      "titre_page":"GR's meeting",
+      "annonce":"Announcement",
+      "titre_valider": "No modification will be possible after validation",
+      "retour":"Back",
+      "enregistrer":"Save",
+      "valider":"Validate",
+      "heure_debut":"Start time",
+      "heure_fin":"End time",
+      "date_gr":"Date of the GR",
+      "date_invalide":"The date entered is incorrect",
+      "heure_fin_superieur":" End time must be greater",
+      "heure_invalide":"Invalid time",
+      "minute_invalide":"Invalid minute",
+      "titre_participants":"Participants",
+      "nom_invite":"Guest name",
+      "ajouter_invite":"Add guest",
+      "libelle_invite":"Guest",
+      "error_saving_invite":"An error has occurred, please try again later",
+      "nom_invite_vide":"Please enter the name",
+      "modification_impossible": "No changes are possible after validation"
     }
   }
 }

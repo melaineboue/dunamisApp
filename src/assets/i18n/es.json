@@ -1,73 +1,300 @@
 {
   "langage": {
-    "francais":"Francés",
-    "anglais":"Inglés",
-    "espagnol":"Español",
-    "italien":"Italiano",
-    "allemand":"Alemán",
-    "portugais":"Portugués"
+    "francais": "Francés",
+    "anglais": "Inglés",
+    "espagnol": "Español",
+    "italien": "Italiano",
+    "allemand": "Alemán",
+    "portugais": "Portugués"
   },
-  "menu":{
-    "liste":"Lista de personas",
-    "culte":"Asistencia al culto",
-    "liste_gr":"Lista de GR",
-    "liste_reseau":"Lista de redes"
+  "menu": {
+    "liste": "Lista de personas",
+    "culte": "Asistencia a los servicios",
+    "liste_gr": "Lista de grupos GR",
+    "liste_reseau": "Lista de redes",
+    "suivi": "Seguimiento de personas",
+    "liste_evenement": "Eventos",
+    "theme_gr": "Temas de GR",
+    "reunion_gr": "Reunión de GR",
+    "accueil": "En casa",
+    "deconnecter": "Desconectar"
   },
   "common": {
-    "retour": "Volver"
+    "retour": "Atrás",
+    "copier": "Copiar",
+    "copie": "Copiar",
+    "masquer": "Escóndete",
+    "rapport": "Informe",
+    "tout_cocher": "Comprueba todo",
+    "aucun_gr": "No GR",
+    "rapport_suivi": "Informe de seguimiento",
+    "annuler":"Cancela",
+    "enregistrer":"Ahorra",
+    "definir_present":"Definir presente",
+    "afficher_rapport":"Informe del espectáculo",
+    "saved_success_message":"La información se ha guardado",
+    "valider_success_message":"La información ha sido validada",
+    "error_message":"El registro ha fallado, inténtelo de nuevo",
+    "generer_rapport":"Generar informe"
   },
   "page": {
     "liste_personnes": {
-      "rechercher": "Buscar en",
-
       "listeParGr": "Miembros por GR",
-      "liste": "Todos los miembros",
+      "liste": "Todos los miembros ",
+      "rechercher": "Buscar",
       "total": "Total",
       "regulier": "Regular",
       "fidelisation": "Lealtad",
       "irregulier": "Irregular",
       "details": "Detalles",
-      "status":{
-        "responsable":"Responsable",
+      "status": {
+        "responsable": "Responsable",
         "potentiel": "Potencial",
         "regulier": "Regular",
         "en_cours_fidelisation": "En el proceso de fidelización",
         "irregulier": "Irregular",
         "fantome": "Fantasma"
       },
-      "tableau":{
-        "entete":{
-          "nom":"Apellido",
-          "prenom":"El nombre",
-          "gr":"GR",
-          "status":"Estado",
-          "action":"Acción"
+      "tableau": {
+        "entete": {
+          "nom": "Apellido",
+          "prenom": "Primer nombre",
+          "gr": "GR",
+          "ville": "ViCiudadlle",
+          "pays": "País",
+          "date_ajout": "Fecha de adición",
+          "status": "Estado",
+          "action": "Acción"
         }
       },
       "info": {
         "add_personne": "Añade una nueva persona",
-        "afficher_details": "Añade una nueva persona"
+        "afficher_details": "Mostrar detalles"
       }
     },
     "add_personne": {
       "nom": "Apellido",
-      "prenom": "El nombre",
+      "prenom":  "Primer nombre",
       "date_naissance": "Fecha de nacimiento",
       "date_evangelisation": "Fecha de evangelización",
       "date_ajout": "Fecha de adición",
       "numero": "Número",
       "email": "Correo electrónico",
+      "ville": "Ciudad",
+      "pays": "País",
       "status": "Estado",
       "annuler": "Cancela",
       "enregistrer": "Ahorra",
-      "titre": "Añade una nueva persona",
-      "sucess_message": " se ha registrado",
+      "titre": "Añadir una nueva persona",
+      "sucess_message": " ha sido registrado",
       "error_message": "Registro fallido, inténtelo de nuevo",
-      "nom_prenom_manquant": "Debe rellenar el nombre o los apellidos",
+      "nom_prenom_manquant": "Tiene que rellenar el nombre o el apellido",
       "numero_manquant": "Tienes que rellenar el número",
       "email_invalide": "El correo electrónico no es válido",
       "date_invalide": "La fecha no es válida"
 
+    },
+    "detail_personne": {
+      "total_gr": "Número GR",
+      "nombre_evenement": "Evento de número",
+      "suivi": "Atención espiritual",
+      "evenemement": "Eventos asistidos",
+      "evenemement_absent": "Eventos sin asistencia",
+      "aucun_suivi": "No se registró ningún seguimiento",
+      "aucun_evenement": "No se ha registrado ningún evento",
+      "ajouter_suivi": "Añade un seguimiento",
+      "description_suivi": "Añada aquí la descripción del seguimiento",
+      "sucess_message_suivi":"La grabación se ha realizado con éxito",
+      "error_message_suivi": "Registro fallido",
+      "titre": "Seguimiento espiritual masivo",
+      "gr_assiste": "Gr asistido",
+      "aucun_gr_suivi": "No hay seguimiento de GR",
+      "description_page": "Esta página le permite definir un seguimiento para un gran número de personas."
+    },
+    "liste_gr": {
+      "nom": "Nombre",
+      "details": "Detalles",
+      "responsable": "Persona(s) responsable(s)",
+      "taille": "Tamaño",
+      "action": "Acción",
+      "date_creation": "Fecha de creación",
+      "info": {
+        "afficher_details": "Muestra los detalles de GR",
+        "creer_gr": "Crear un nuevo GR",
+        "ajouter_au_gr": "Añade a esta persona a este GR",
+        "retirer_du_gr": "Retire a esta persona de este GR"
+      },
+      "text": {
+        "personne_gr":"Personas en GR",
+        "personne_hors_gr":"Gente de fuera de GR",
+        "ajouter_au_gr": "Añadir a GR",
+        "liste_gr": "La lista de GR"
+      }
+    },
+    "creer_gr": {
+      "text": {
+        "titre": "Crear un nuevo GR",
+        "nom_gr": "Nombre del GR",
+        "creer_gr": "Crear ",
+        "ajouter_responsable": "Añadir líder",
+        "responsables": "Líderes",
+        "sucess_message": "El RG ha sido creado con éxito",
+        "error_message": "La creación de la RG ha fracasado"
+
+
+      },
+      "info": {
+        "definir_responsable": "Definir los líderes de GR",
+        "creer_gr": "Validar la creación del GR",
+        "valider": "Validar a los líderes elegidos"
+      }
+    },
+    "bienvenue": {
+      "texte": {
+        "bienvenue": "Bienvenido",
+        "precedent": "Anteriormente",
+        "suivant": "Siguiente",
+        "sauvegarder": "Ahorra",
+        "titre": "Cree un nombre de usuario y una contraseña",
+        "mot_de_passe_manquant": "Por favor, introduzca una contraseña",
+        "mot_de_passe_non_conforme": "Las dos contraseñas no coinciden.",
+        "email_incorrect": "El correo electrónico introducido es incorrecto.",
+        "login_manquant": "Introduce un nombre de usuario.",
+        "nom": "Apellido",
+        "prenom": "El nombre",
+        "login": "Inicie sesión",
+        "email": "Correo electrónico (recuperación)",
+        "mot_de_passe": "Contraseña",
+        "retaper_mot_de_passe": "Vuelve a escribir la contraseña",
+        "error_message": "Hay un error en la creación de la cuenta",
+        "explication": "Cree su cuenta para acceder a la aplicación más tarde.",
+        "pour": "Para acceder",
+        "login_existe_deja": "El inicio de sesión ya existe"
+      }
+    },
+    "login": {
+      "login": "Inicie sesión",
+      "mot_de_passe": "Contraseña",
+      "code": "Código de acceso",
+      "titre_connection": "Inicie sesión",
+      "titre_connection_code_acces": "Inicie la sesión por primera vez",
+      "se_connecter": "Entra en el sistema",
+      "reinitialiser": "Restablecer contraseña",
+      "valider_code": "Valida el código",
+      "error_message": {
+        "connexion": "El nombre de usuario o la contraseña son incorrectos",
+        "login_inexistant": "El inicio de sesión no existe",
+        "login_vide": "Por favor, introduzca su nombre de usuario",
+        "email_inexistant": "No hay ningún correo electrónico de recuperación en esta cuenta, póngase en contacto con el administrador: ",
+        "code_invalide": "El código que ha introducido no es válido."
+      },
+      "success_message": "El enlace de restablecimiento le ha sido enviado por correo electrónico."
+    },
+    "events": {
+      "titre": "Eventos",
+      "nom": "Nombre",
+      "date": "La fecha",
+      "predicateur": "Predicador",
+      "titre_message": "Título del mensaje",
+      "total": "Total",
+      "action": "Acción",
+      "details": "Detalles",
+      "info":{
+        "afficher_details":"Mostrar detalles",
+        "add_event": "Añade un nuevo evento"
+      }
+    },
+    "add_event":{
+      "titre": "Añadir evento",
+      "error_message":"La grabación ha fallado, inténtalo de nuevo",
+      "success_message":"El evento ha sido registrado.",
+      "nom":"Nombre",
+      "nom_placeholder":"Por ejemplo : Le grand Live",
+      "predicateur":"Predicador",
+      "date_event": "Fecha del evento",
+      "heure_event": "La hora",
+      "titre_message":"Título del mensaje",
+      "date":"La fecha",
+      "date_invalide":"La fecha no es válida (formato esperado: DD/MM/AAAA)",
+      "heure_invalide":"La hora no es válida (formato esperado: HH:MM)",
+      "nom_titre_manquant": "Rellena el nombre o el título"
+
+    },
+    "themes": {
+      "titre": "Temas de la reunión GR",
+      "semaine": "Semana",
+      "message": "Mensaje",
+      "annonce": "Anuncio",
+      "action": "Acción",
+      "info":{
+        "add_theme": "Añadir un nuevo tema"
+
+      }
+    },
+    "reunion": {
+      "titre": "Reuniones de GR",
+      "semaine":"Semana",
+      "message":"Mensaje",
+      "annonce":"Anuncio",
+      "gr":"Gr",
+      "action":"Acción",
+      "titre_message": "Título del mensaje",
+      "date_reunion": "Fecha de la reunión",
+      "tout_reseau": "Toda la red",
+      "aucun_absent": "No faltó nadie",
+      "aucun_present": "No había nadie presente",
+      "invite": "Invitado",
+      "status_libelle": "Estado",
+      "date": "La fecha",
+      "status":{
+        "en_cours": "En curso",
+        "valide": "Liberado"
+      }
+    },
+    "details_event": {
+      "personne_presente": "Asistencia",
+      "personne_absente": "Ausencias",
+      "evenement": "Evento",
+      "predicateur": "Predicador",
+      "titre_message": "Título del mensaje",
+      "date_event": "Fecha del evento",
+      "heure_event": "Hora",
+      "aucun_participant": "No había nadie presente",
+      "aucun_absent": "No faltó nadie",
+      "rapport": "Generar informe"
+    },
+    "accueil": {
+      "nouvelle_reunion": "Nueva reunión",
+      "modifier_reunion": "Modificar la reunión actual",
+      "pas_de_donnees_trouve": "No se han encontrado datos",
+      "gr_vide": "No hay gente en su GR"
+    },
+    "add_reunion": {
+      "semaine":"Semana",
+      "semaine_en_cours": "La semana actual",
+      "semaine_precedente": "La semana anterior",
+      "semaine_suivante": "La próxima semana",
+      "titre_message":"Título del mensaje",
+      "titre_page":"Reunión de GR",
+      "annonce":"Anuncio",
+      "titre_valider": "No será posible realizar ninguna modificación después de la validación",
+      "retour":"Atrás",
+      "enregistrer":"Ahorra",
+      "valider":"Validar",
+      "heure_debut":"Hora de inicio",
+      "heure_fin":"Hora de finalización",
+      "date_gr":"Fecha de la GR",
+      "date_invalide":"La fecha introducida es incorrecta",
+      "heure_fin_superieur":" el tiempo final debe ser mayor",
+      "heure_invalide":"Hora inválida",
+      "minute_invalide":"Minuto inválido",
+      "titre_participants":"Participantes",
+      "nom_invite":"Nombre del invitado",
+      "ajouter_invite":"Añade un invitado",
+      "libelle_invite":"Invitado",
+      "error_saving_invite":"Se ha producido un error, inténtelo de nuevo más tarde",
+      "nom_invite_vide":"Por favor, introduzca el nombre",
+      "modification_impossible": "No es posible realizar cambios después de la validación"
     }
   }
 }
