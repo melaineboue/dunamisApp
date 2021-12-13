@@ -127,6 +127,7 @@
       "text": {
         "personne_gr":"Persone in GR",
         "personne_hors_gr":"Persone al di fuori di GR",
+        "personne_pas_gr": "Persona senza GR",
         "ajouter_au_gr": "Aggiungere a GR",
         "liste_gr": "L'elenco di GR"
       }

@@ -76,7 +76,7 @@ export class DetailsPersonneComponent implements OnInit {
           this.error = false;
 
           let ladate = new Date();
-          this.suivis.push({
+          this.suivis.unshift({
             id: 0,
             libelle: this.suivi,
             libelle_html: this.suivi,

@@ -72,11 +72,15 @@
     </div>
 
     <div class="col-md-6 col-sm-12 mb-3 form-group">
-      <label for="status">GR</label>
+      <label for="gr-value">GR</label>
       <div>
-        <select class="form-select" aria-label="Default select example" [formControl]="gr">
+        <select
+          *ngIf="currentUserRole !== role_responsable_gr"
+          class="form-select" aria-label="Default select example" [formControl]="gr">
           <option *ngFor="let gr of grs" [value]="gr.id">{{ gr.libelle }}</option>
         </select>
+
+        <input *ngIf="currentUserRole === role_responsable_gr" type="text" class="form-control" disabled [value]="grName" />
       </div>
     </div>
 

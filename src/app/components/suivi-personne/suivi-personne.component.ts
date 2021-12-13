@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PersonneSuivi } from 'src/app/models/personneSuivi';
 import { CommonService } from 'src/app/services/common.service';
+import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
 import { PersonneService } from 'src/app/services/personne.service';
+import { getGr, getIdGr } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-suivi-personne',
@@ -20,8 +22,8 @@ export class SuiviPersonneComponent implements OnInit {
 
   toutCocher = false;
 
-  constructor(private personneService: PersonneService, private commonService: CommonService) {
-    this.personneService.getPersonneReseau().subscribe(listePersonne => this.personnes = listePersonne.map(personne => ({
+  constructor(private personneService: PersonneService, private grService: GrService, private commonService: CommonService) {
+    this.grService.getPersonnesGR(getIdGr()).subscribe(listePersonne => this.personnes = listePersonne.map(personne => ({
       id: personne.id,
       nom: personne.nom,
       prenom: personne.prenom,

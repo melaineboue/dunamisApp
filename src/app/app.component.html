@@ -8,22 +8,23 @@
 
 <body class="preload">
   <header class="header row" [ngStyle]="{'background': backgroundColor, 'color':'white'}">
-    <div class="col-9">
 
+    <div class="col-6">
       <button class="header__button" id="btnNav" type="button" (click)="showMenu()" *ngIf="userExiste">
         <i class="material-icons">menu</i>
       </button>
 
-      <button class="header__button mr-sm-2" type="button" [ngClass]="{'ms-5': !userExiste }" (click)="cliquerNomReseau()">
+      <button class="header__button mr-sm-2 hover-gris" type="button" [ngClass]="{'ms-5': !userExiste }" (click)="cliquerNomReseau()">
         {{ nomReseau | uppercase }}
       </button>
     </div>
-
-    <div class="col-3" *ngIf="username" (click)="userSetup()">
-      <span class="user-setup">
-        <i class="material-icons account mt-2 me-2">account_circle</i>
-        <span >{{ username }}</span>
-      </span>
+    <div class="col-6">
+      <div class="d-flex flex-row-reverse">
+        <span class="user-setup hover-gris">
+          <i class="material-icons account mt-2 me-2">account_circle</i>
+          <span >{{ username }}</span>
+        </span>
+      </div>
     </div>
 
   </header>

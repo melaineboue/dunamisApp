@@ -49,6 +49,12 @@ export class GrService {
     return this.http.get<Personne[]>(url).pipe(map(response => response));
   }
 
+  getPersonnesSansGR(id: number): Observable<Personne[]> {
+    // service = gr / action = getGrHorsById
+    let url = `${environment.host}?service=gr&action=getPersonnesSansGr&id_reseau=${id}`;
+    return this.http.get<Personne[]>(url).pipe(map(response => response));
+  }
+
   getSuiviByGr(idGr: number): Observable<Suivi[]>{
     // service = gr / action = suiviGr
     let url = `${environment.host}?service=gr&action=suiviGr&id_gr=${idGr}`;

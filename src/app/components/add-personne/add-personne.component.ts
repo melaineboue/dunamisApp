@@ -1,6 +1,7 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserRole } from 'src/app/enums/user-role';
 import { menuItemsClass } from 'src/app/models/const';
 import { GR } from 'src/app/models/gr';
 import { Personne } from 'src/app/models/personne';
@@ -9,6 +10,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
 import { PersonneService } from 'src/app/services/personne.service';
+import { getGr, getGrForUser } from 'src/app/utils/utils';
 import { titleCase } from 'title-case';
 
 
@@ -19,7 +21,10 @@ import { titleCase } from 'title-case';
 })
 export class AddPersonneComponent implements OnInit {
 
-  backRoute = menuItemsClass.LISTE_PERSONNE;
+  currentUserRole = UserRole.Gr;
+  role_responsable_gr = UserRole.Gr;
+
+  backRoute = menuItemsClass.ACCUEIL;
   personne: Personne;
 
   nom = '';
@@ -78,12 +83,15 @@ export class AddPersonneComponent implements OnInit {
   back() {
     this.backRoute = this.commonService.getBackRoute(true);
     if(! this.backRoute){
-      this.backRoute = menuItemsClass.LISTE_PERSONNE;
+      this.backRoute = menuItemsClass.ACCUEIL;
     }
     this.router.navigate([this.backRoute]);
   }
 
   sauvegarder() {
+
+    const gr = ((this.currentUserRole === this.role_responsable_gr) ? getGrForUser() : { id: this.gr.value }) as GR;
+
 
     this.personne = {
       nom: this.nom,
@@ -93,7 +101,7 @@ export class AddPersonneComponent implements OnInit {
       date_ajout: "",
       telephone: this.numero.value,
       email: this.email.value,
-      gr: { id: this.gr.value } as GR,
+      gr: gr,
       photo: "",
       status: this.statusPersonne.value,
       ville: this.ville,
@@ -106,6 +114,9 @@ export class AddPersonneComponent implements OnInit {
     let dateValide = this.dateValide();
 
     if (nomPrenomValide && emailValide && dateValide) {
+
+      console.log('this.personne', this.personne);
+
 
       this.personneService.ajouterPersonne(this.personne).subscribe(
         enregistre => {
@@ -224,5 +235,7 @@ export class AddPersonneComponent implements OnInit {
       return titleCase(text);
   }
 
-
+  get grName(){
+    return getGr();
+  }
 }

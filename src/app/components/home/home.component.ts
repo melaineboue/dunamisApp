@@ -7,19 +7,24 @@ import { Suivi } from 'src/app/models/suivi';
 import { CommonService } from 'src/app/services/common.service';
 import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
+import { getIdReseau } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
+
+  routeAddPersonne = `/${menuItemsClass.ADD_PERSONNE}`;
 
   gr: GR = { id:0, idreseau:0, libelle:'' };
 
   personnesGR: Personne[] = [];
-  personnesHorsGR: Personne[] = [];
+  personnesSansGR: Personne[] = [];
   suivis: Suivi[] = [];
+
+  hover = false;
 
   statusResponsable = Status.RESPONSABLE;
 
@@ -44,7 +49,7 @@ export class HomeComponent implements OnInit {
           this.gr = gr;
 
           this.grService.getPersonnesGR(idGr).subscribe(personnes => this.personnesGR = personnes);
-          this.grService.getPersonnesHorsGR(idGr).subscribe(personnes => this.personnesHorsGR = personnes);
+          this.grService.getPersonnesSansGR(getIdReseau()).subscribe(personnes => this.personnesSansGR = personnes);
           this.grService.getSuiviByGr(idGr).subscribe(suivis => this.suivis = suivis)
         }
       })
@@ -53,9 +58,6 @@ export class HomeComponent implements OnInit {
     }
 
 
-  }
-
-  ngOnInit(): void {
   }
 
   goToNouvelleModifierReunion() {
@@ -72,7 +74,7 @@ export class HomeComponent implements OnInit {
     this.grService.ajouterPersonne(personne, this.gr.id).subscribe(response => {
       if(response){
         this.personnesGR.push(personne);
-        this.personnesHorsGR = this.personnesHorsGR.filter(currentPersonne => currentPersonne.id !== personne.id);
+        this.personnesSansGR = this.personnesSansGR.filter(currentPersonne => currentPersonne.id !== personne.id);
       }
     });
   }
@@ -84,10 +86,20 @@ export class HomeComponent implements OnInit {
   retirerDuGR(personne: Personne) {
     this.grService.retirerPersonne(personne).subscribe(response => {
       if(response){
-        this.personnesHorsGR.push(personne);
+        personne.gr.id = 0;
+        personne.gr.libelle = 'aucun_gr';
+        this.personnesSansGR.push(personne);
         this.personnesGR = this.personnesGR.filter(currentPersonne => currentPersonne.id !== personne.id);
       }
     });
+  }
+
+  ajouterPersonneOver() {
+    this.hover = true;
+  }
+
+  ajouterPersonneBlur() {
+    this.hover = false;
   }
 
 
@@ -114,12 +126,16 @@ export class HomeComponent implements OnInit {
     ));
   }
 
-  get personnesHorsGrRecherches(): Personne[] {
+  get personnesSansGrRecherches(): Personne[] {
 
-    return this.personnesHorsGR.filter(personne => this.commonService.rechercher(
+    return this.personnesSansGR.filter(personne => this.commonService.rechercher(
       this.rechercheHorsGr,
       personne.nom, personne.prenom, personne.telephone, personne.status, personne.gr?.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout
     ));
+  }
+
+  get backgroundButtonAdd(): string {
+    return this.hover ? ParameterService.configuration.secondaryColor : ParameterService.configuration.primaryColor;
   }
 
 }

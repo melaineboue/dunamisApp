@@ -124,6 +124,8 @@ export class LoginService implements CanActivate{
   }
 
   destroyUserSession(){
+    console.log("ici");
+
     localStorage.clear();
   }
 

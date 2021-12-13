@@ -11,6 +11,7 @@ import { LoginService } from 'src/app/services/login.service';
 export class DeconnecterComponent {
 
   constructor(private router: Router, private loginService: LoginService) {
+    console.log("ici 0");
     this.loginService.destroyUserSession();
     this.router.navigate([`/${menuItemsClass.LOGIN}`])
   }

@@ -16,114 +16,27 @@ import { ThemeService } from './theme.service';
 })
 export class ReunionGrService {
 
-  reunionsGr: ReunionGr[] = [
-    {
-      id: 1,
-      annonce: 'blabla bla bla',
-      semaine: 'S40',
-      annee: 2021,
-      titre: 'Titre',
-      gr_libelle: 'Gr Franckie',
-      gr_id: 1,
-      date: '12/05/2020',
-      enregistre: true,
-      valide: false,
-      heure_debut: '',
-      heure_fin: ''
-    },
-    {
-      id: 2,
-      annonce: 'bla car bla bla',
-      semaine: 'S2',
-      annee: 2021,
-      titre: 'Titre 2',
-      gr_libelle: 'Gr Christellyne',
-      gr_id: 3,
-      date: '21/10/2021',
-      enregistre: true,
-      valide: true,
-      heure_debut: '',
-      heure_fin: ''
-    }
-  ];
+  reunionsGr: ReunionGr[] = [];
 
-  personnesAssiste: Personne[]=[
-    {
-      id:1,
-      nom: 'BOUE',
-      prenom:'Mélaine',
-      date_ajout: '04/08/2021',
-      telephone: '0769089717',
-      status: Status.RESPONSABLE,
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1,
+  personnesAssiste: Personne[]=[];
 
-      }
-    },
+  personnesNonAssiste: Personne[]=[];
 
-    {
-      id:3,
-      nom: 'Birat',
-      prenom:'Christellyne',
-      date_ajout: '04/08/2021',
-      telephone: '0745859652',
-      status: Status.RESPONSABLE,
-      gr: {
-        id:2,
-        libelle: 'GR Christellyne',
-        idreseau: 1
-      }
-    }
-  ];
+  personnesInvitees: Personne[]=[]
 
-  personnesNonAssiste: Personne[]=[
-    {
-      id:4,
-      nom: 'Nzimbou',
-      prenom:'Ludmila',
-      date_ajout: '04/08/2021',
-      telephone: '0623521452',
-      status: Status.POTENTIEL,
-      gr: {
-        id:2,
-        libelle: 'GR Christellyne',
-        idreseau: 1
-      }
-    }
-  ];
-
-  personnesInvitees: Personne[]=[
-    {
-      id:1,
-      nom: 'BOUE',
-      prenom:'Brice',
-      date_ajout: '04/08/2021',
-      telephone: '0769089717',
-      status: Status.INVITE,
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1
-      }
-    }
-  ]
-
-  participants: ParticipantGr[]= [
-    {
-      id_gr: 1,
-      semaine: 'S40',
-      personne_ids: [1,2,3],
-      valide: true
-    }
-  ]
+  participants: ParticipantGr[]= []
 
   constructor(private http: HttpClient, private grService: GrService, private reunionService: ReunionGrService, private themeService: ThemeService) { }
 
-  getReunions(): Observable<ReunionGr[]>{
+  getReunionsReseau(): Observable<ReunionGr[]>{
     // service = event , action = saveEvent
-    let url = encodeURI(`${environment.host}?service=reunion&action=listeReunion&id_reseau=${getIdReseau()}`);
+    let url = encodeURI(`${environment.host}?service=reunion&action=listeReunionReseau&id_reseau=${getIdReseau()}`);
+    return this.http.get<ReunionGr[]>(url).pipe();
+  }
+
+  getReunionsGr(): Observable<ReunionGr[]>{
+    // service = event , action = saveEvent
+    let url = encodeURI(`${environment.host}?service=reunion&action=listeReunionGr&id_gr=${getIdGr()}`);
     return this.http.get<ReunionGr[]>(url).pipe();
   }
 

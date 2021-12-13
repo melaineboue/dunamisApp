@@ -4,7 +4,8 @@
 
 export const environment = {
   production: true,
-  host: 'http://localhost/acer_api/'
+  host: 'https://api-acer.melaineboue.com/'
+  // host: 'http://localhost/acer_api/'
 };
 
 /*

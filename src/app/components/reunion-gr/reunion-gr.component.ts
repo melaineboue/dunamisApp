@@ -37,7 +37,7 @@ export class ReunionGrComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.reunionService.getReunions().subscribe(response => this.reunions = response);
+    this.reunionService.getReunionsGr().subscribe(response => this.reunions = response);
     this.grService.getList().subscribe(grs => {
       this.grs = grs;
       this.grsActive = grs.map(gr => ({

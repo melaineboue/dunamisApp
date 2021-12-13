@@ -55,11 +55,14 @@ export class LoginComponent implements OnInit {
       }
     },
       error => {
-
+        this.errorInconnue = true;
+        this.loginMotDePasseIncorrect = false;
+        this.loginInexistant = false;
+        this.codeAccesInvalide = false;
+        this.emailRecuperationNonRattache = false;
+        this.loginVide = false;
+        this.initSent = false;
       })
-
-
-
   }
 
   reinitialiser() {

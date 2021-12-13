@@ -30,6 +30,13 @@
 
 
   <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-5">{{ 'page.liste_gr.text.personne_gr' | translate }}</div>
+  <div>
+      <a [routerLink]="routeAddPersonne" [ngStyle]="{'background': backgroundButtonAdd }"
+      (mouseover)="ajouterPersonneOver()" (mouseleave)="ajouterPersonneBlur()" class="btn btn-secondary"
+      title="{{ 'page.liste_personnes.info.add_personne'| translate }}">
+      <i class="bi bi-person-plus"></i>
+    </a>
+  </div>
   <div class="row">
     <div class="mb-3 mt-3 col-12">
       <input type="text" class="form-control" id="recherche"
@@ -77,12 +84,12 @@
   <app-rapport [rapport]="rapport" (generer)="genererRapport()" [buttonLibelle]="'rapport_suivi'" ></app-rapport>
   <hr />
 
-  <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-5">{{ 'page.liste_gr.text.personne_hors_gr' | translate }}</div>
+  <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-5">{{ 'page.liste_gr.text.personne_pas_gr' | translate }}</div>
   <div class="mb-3 mt-3 col-12">
     <input type="text" class="form-control" id="recherche"
       placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="rechercheHorsGr">
   </div>
-  <table class="table table-striped" *ngIf="personnesHorsGrRecherches.length > 0">
+  <table class="table table-striped" *ngIf="personnesSansGrRecherches.length > 0">
     <thead>
       <tr [ngStyle]="{'color': secondaryColor }">
         <th scope="col">#</th>
@@ -94,7 +101,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let personne of personnesHorsGrRecherches; let numero = index">
+      <tr *ngFor="let personne of personnesSansGrRecherches; let numero = index">
         <th scope="row">{{ numero + 1 }}</th>
         <td> {{ personne.nom }} </td>
         <td> {{ personne.prenom }} </td>
@@ -115,12 +122,8 @@
     </tbody>
   </table>
 
-  <div *ngIf="personnesHorsGrRecherches.length <= 0" class="text-center">
+  <div *ngIf="personnesSansGrRecherches.length <= 0" class="text-center">
     {{ 'page.accueil.pas_de_donnees_trouve' | translate }}
   </div>
-
-  <span class="flag-icon flag-icon-gr flag-icon-squared">l</span>
-
-  <img src="assets/images/flags/small/fr.svg" width="50" height="50"/>
 
 </div>
