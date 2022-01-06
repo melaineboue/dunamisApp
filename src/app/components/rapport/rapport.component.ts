@@ -9,6 +9,7 @@ import { ClipboardService } from 'ngx-clipboard';
 export class RapportComponent{
 
   @Output() generer : EventEmitter<void> = new EventEmitter();
+  @Output() textChanged : EventEmitter<string> = new EventEmitter();
   @Input() rapport = '';
   @Input() buttonLibelle = 'generer_rapport';
   @Input() readonly = false;
@@ -16,7 +17,9 @@ export class RapportComponent{
   rapportMode = false;
   estCopie = false;
 
-  constructor(private clipboardService: ClipboardService) { }
+  constructor(private clipboardService: ClipboardService) {
+    this.rapportMode = (this.rapport.trim()==='') ? false : true;
+  }
 
   generate(){
     this.rapportMode = true;
@@ -30,6 +33,10 @@ export class RapportComponent{
 
   masquer(){
     this.rapportMode = false;
+  }
+
+  texteAchange(){
+    this.textChanged.emit(this.rapport);
   }
 
 }

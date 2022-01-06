@@ -24,6 +24,7 @@ import { ListEventsComponent } from './components/list-events/list-events.compon
 import { DetailsReunionComponent } from './components/details-reunion/details-reunion.component';
 import { HomeComponent } from './components/home/home.component';
 import { AddReunionComponent } from './components/add-reunion/add-reunion.component';
+import { SuggestionComponent } from './components/suggestion/suggestion.component';
 
 const routes: Routes = [
   { path:menuItemsClass.ACCUEIL , component: HomeComponent, canActivate: [ LoginService ] },
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path:menuItemsClass.REUNION_GR_LIST , component: ReunionGrComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.THEME_GR_LIST , component: ThemeGrComponent, canActivate: [ LoginService ]  },
   { path:menuItemsClass.DETAILS_REUNION_GR , component: DetailsReunionComponent, canActivate: [ LoginService ]  },
+  { path:menuItemsClass.SUGGESTION_BUG , component: SuggestionComponent, canActivate: [ LoginService ]   },
   { path:menuItemsClass.LOGIN , component: LoginComponent  },
   { path:menuItemsClass.BIENVENUE , component: BienvenueComponent },
   { path:menuItemsClass.DECONNECTER , component: DeconnecterComponent, canActivate: [ LoginService ]  },

@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Status } from '../models/const';
 import { GR } from '../models/gr';
 import { Personne } from '../models/personne';
 import { PersonneSuivi } from '../models/personneSuivi';
 import { Suivi } from '../models/suivi';
+import { getIdReseau, getUrlId } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +27,7 @@ export class GrService {
   getList(): Observable<GR[]> {
     // service = gr / action = listgr
     let id_reseau = localStorage.getItem('idReseau');
-    let url = `${environment.host}?service=gr&action=listgr&id_reseau=${id_reseau}`;
+    let url = `${environment.host}?service=gr&action=listgr${getUrlId()}`;
     return this.http.get<GR[]>(url).pipe();
   }
 
@@ -74,12 +74,29 @@ export class GrService {
     return this.http.get<boolean>(url).pipe();
   }
 
-  creerGr(responsables: PersonneSuivi[]): Observable<boolean>{
+  creerGr(gr: GR, responsables: PersonneSuivi[]): Observable<boolean>{
     // service = gr / action = retirerPersonne
-    let libelle_gr = responsables.map(personne => personne.prenom).join(' - ');
+    let libelle_gr = gr.libelle;
     const responsableToSend = responsables.map(responsable => this.toString(responsable)).join('||');
-    let url = `${environment.host}?service=gr&action=creerGr&libelle_gr=${encodeURI(libelle_gr)}&responsables=${encodeURI(responsableToSend)}&id_reseau=${localStorage.getItem('idReseau')}`;
+    const urlResponsable = responsables.length === 0 ? '' : `&responsables=${encodeURI(responsableToSend)}`;
+    let url = `${environment.host}?service=gr&action=creerGr&libelle_gr=${encodeURI(libelle_gr)}${urlResponsable}${getUrlId()}`;
     return this.http.get<boolean>(url).pipe();
+  }
+
+  getFuturResponsable(): Observable<PersonneSuivi[]> {
+    let url = encodeURI(`${environment.host}?service=gr&action=getFuturResponsable&id_reseau=${getIdReseau()}`);
+    return this.http.get<PersonneSuivi[]>(url).pipe();
+  }
+
+  fermerGr(): Observable<boolean>{
+    return of(true);
+  }
+
+  definirReponsable(idPersonne: number, idGr: number){
+    let url = `${environment.host}?service=gr&action=setResponsableGr&id_gr=${idGr}&id_personne=${idPersonne}`;
+    console.log(url);
+
+
   }
 
   generateAccessCode(nombre: number): string {

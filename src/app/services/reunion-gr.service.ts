@@ -70,8 +70,10 @@ export class ReunionGrService {
     const idsInviteChaine = idsInvite.join('-');
     const idsInvitePresentChaine = idsInvitePresent.join('-');
     let url = encodeURI(`${environment.host}?service=reunion&action=saveReunion&invite=${idsInviteChaine}&invitePresent=${idsInvitePresentChaine}&participants=${ids}${this.reunionToString(reunion)}`);
+    const formData: FormData = new FormData();
+    formData.append('rapport', reunion.rapport);
 
-    return this.http.get<number>(url).pipe();
+    return this.http.post<number>(url, formData).pipe();
   }
 
   validerReunion(idReunion: number):Observable<number>{
@@ -90,6 +92,6 @@ export class ReunionGrService {
     const date_debut=`${dates[2]}-${dates[1]}-${dates[0]} ${reunion.heure_debut}:00`;
     const date_fin=`${dates[2]}-${dates[1]}-${dates[0]} ${reunion.heure_fin}:00`;
 
-    return `&semaine=${reunion.semaine}&annonce=${reunion.annonce.trim()}&id_gr=${reunion.gr_id}&message=${reunion.titre.trim()}&date_fin=${date_fin.trim()}&date_debut=${date_debut.trim()}&id_reunion=${reunion.id ? reunion.id : 0 }&rapport=${reunion.rapport.replace('&',' ')}`;
+    return `&semaine=${reunion.semaine}&annonce=${reunion.annonce.trim()}&id_gr=${reunion.gr_id}&message=${reunion.titre.trim()}&date_fin=${date_fin.trim()}&date_debut=${date_debut.trim()}&id_reunion=${reunion.id ? reunion.id : 0 }`;
   }
 }

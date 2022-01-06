@@ -1,5 +1,6 @@
 export interface Menu {
   class: string,
   icone: string,
-  libelle: string
+  libelle: string,
+  habilitation?: string[]
 }

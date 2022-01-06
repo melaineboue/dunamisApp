@@ -21,8 +21,8 @@ import { titleCase } from 'title-case';
 })
 export class AddPersonneComponent implements OnInit {
 
-  currentUserRole = UserRole.Gr;
-  role_responsable_gr = UserRole.Gr;
+  currentUserRole = UserRole.ResponsableGr;
+  role_responsable_gr = UserRole.ResponsableGr;
 
   backRoute = menuItemsClass.ACCUEIL;
   personne: Personne;

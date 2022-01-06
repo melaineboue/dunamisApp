@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { menuItemsClass } from 'src/app/models/const';
 import { Personne } from 'src/app/models/personne';
+import { User } from 'src/app/models/user';
 import { CommonService } from 'src/app/services/common.service';
 import { LoginService } from 'src/app/services/login.service';
 import { PersonneService } from 'src/app/services/personne.service';
@@ -63,13 +64,13 @@ export class BienvenueComponent implements OnInit {
       this.user.pwd = this.motDePasse;
       this.user.login = this.login;
 
-      this.personneService.creerCompte(this.user).subscribe(returnValue=>{
-        if(returnValue){
+      this.personneService.creerCompte(this.user).subscribe(userResponse =>{
+        if(userResponse){
 
           this.saved = true;
           this.error = false;
           this.loginService.destroySessionProvisoire();
-          this.loginService.setUserSession(this.user);
+          this.loginService.setUserSession(userResponse);
           this.router.navigate([`/${menuItemsClass.ACCUEIL}`])
         } else {
           this.errorLoginExiste = true;

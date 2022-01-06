@@ -17,6 +17,7 @@
     "theme_gr": "Temas de GR",
     "reunion_gr": "Reunión de GR",
     "accueil": "En casa",
+    "suggestion_bug": "Sugerencia o error",
     "deconnecter": "Desconectar"
   },
   "common": {
@@ -129,7 +130,9 @@
         "personne_hors_gr":"Gente de fuera de GR",
         "personne_pas_gr":"Persona sin GR ",
         "ajouter_au_gr": "Añadir a GR",
-        "liste_gr": "La lista de GR"
+        "liste_gr": "La lista de GR",
+        "liste_responsable_pas_valide_gr": "Gerentes que aún no han validado",
+        "afficher_responsable": "Mostrar futuros gerentes"
       }
     },
     "creer_gr": {
@@ -140,7 +143,8 @@
         "ajouter_responsable": "Añadir líder",
         "responsables": "Líderes",
         "sucess_message": "El RG ha sido creado con éxito",
-        "error_message": "La creación de la RG ha fracasado"
+        "error_message": "La creación de la RG ha fracasado",
+        "nom_gr_obligatoire": "Se requiere el nombre del GR"
 
 
       },
@@ -296,6 +300,16 @@
       "error_saving_invite":"Se ha producido un error, inténtelo de nuevo más tarde",
       "nom_invite_vide":"Por favor, introduzca el nombre",
       "modification_impossible": "No es posible realizar cambios después de la validación"
+    },
+    "details_gr": {
+      "definir_responsable": "Definir a los responsables",
+      "fermer_gr": "Cierre el GR",
+      "confirmer_fermeture": "Confirmar el cierre del GR",
+      "annuler_fermeture": "Anular"
+    },
+    "suggestion": {
+      "titre":"Hacer sugerencias o informar de un error",
+      "libelle_suggestion":"Sugerencia"
     }
   }
 }

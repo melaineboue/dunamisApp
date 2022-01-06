@@ -8,7 +8,8 @@ import { CommonService } from 'src/app/services/common.service';
 import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
 import { PersonneService } from 'src/app/services/personne.service';
-import { getIdGr } from 'src/app/utils/utils';
+import { ReseauService } from 'src/app/services/reseau.service';
+import { getIdGr, getIdReseau } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-liste-personnes',
@@ -42,12 +43,17 @@ export class ListePersonnesComponent implements OnInit {
   routeDetailsPersonne = `/${menuItemsClass.DETAILS_PERSONNE}`;
   routeHere = `/${menuItemsClass.LISTE_PERSONNE}`;
 
-  constructor(private personneService: PersonneService, private grService: GrService, private commonService: CommonService, private router: Router) {
+  constructor(
+    private personneService: PersonneService,
+    private grService: GrService,
+    private reseauService: ReseauService,
+    private commonService: CommonService,
+    private router: Router) {
     commonService.setBackRoute(menuItemsClass.LISTE_PERSONNE);
   }
 
   ngOnInit(): void {
-    this.grService.getPersonnesGR(getIdGr()).subscribe(response => this.personnes = response);
+    this.reseauService.getPersonneReseau(getIdReseau()).subscribe(response => this.personnes = response);
   }
 
   ajouterPersonneOver() {

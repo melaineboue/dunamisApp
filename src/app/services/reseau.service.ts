@@ -15,4 +15,10 @@ export class ReseauService {
     let url = encodeURI(`${environment.host}?service=reseau&action=getResponsable&id_reseau=${id_reseau}`);
     return this.http.get<Personne[]>(url).pipe();
   }
+
+  getPersonneReseau(id_reseau: number): Observable<Personne[]> {
+    let url = encodeURI(`${environment.host}?service=reseau&action=getPersonne&id_reseau=${id_reseau}`);
+    return this.http.get<Personne[]>(url).pipe();
+  }
+
 }

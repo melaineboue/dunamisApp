@@ -47,5 +47,47 @@
     </tbody>
   </table>
 
+  <div class="mt-5 mb-5"></div>
+  <hr>
+  <button class="btn btn-secondary" (click)="afficherFuturResponsable = true" *ngIf="!afficherFuturResponsable"> {{ 'page.liste_gr.text.afficher_responsable' | translate }} </button>
+  <button class="btn btn-secondary" (click)="afficherFuturResponsable = false" *ngIf="afficherFuturResponsable"> {{ 'common.masquer' | translate }} </button>
+
+  <div class="row" *ngIf="afficherFuturResponsable && futurResponsables.length > 0">
+    <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-2">{{ 'page.liste_gr.text.liste_responsable_pas_valide_gr' | translate }}</div>
+
+
+    <table class="table table-striped mb-3">
+      <thead>
+        <tr [ngStyle]="{'color': secondaryColor }">
+          <th scope="col">#</th>
+          <th scope="col">{{ "page.liste_gr.nom" | translate }}</th>
+          <th scope="col">{{ "page.creer_gr.text.nom_gr" | translate }}</th>
+          <th scope="col">{{ "page.login.code" | translate }}</th>
+          <th scope="col">{{ "page.liste_gr.action" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let responsable of futurResponsables; let numero = index">
+          <th scope="row">{{ numero + 1 }}</th>
+          <td> {{ responsable.prenom + ' '+ responsable.nom }} </td>
+          <td> {{ responsable.gr_libelle }} </td>
+          <td> {{ responsable.code }} </td>
+          <td>
+            <div class="col-2" *ngIf="!responsable.copier">
+              <button (click)="copierCodeInClipboard(responsable)" class="btn btn-light bouton-copier"
+                [ngStyle]="{'background': secondaryColor }">
+                <i class="bi bi-files"></i>
+              </button>
+            </div>
+            <div class="col-1" *ngIf="responsable.copier"><button class="btn btn-light bouton-copier"
+                [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button></div>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
+
+  </div>
+
 
 </div>

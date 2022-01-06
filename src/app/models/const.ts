@@ -23,6 +23,7 @@ export const menuItemsClass = {
   BIENVENUE: "bienvenue",
   DECONNECTER: "logout",
   DASHBOARD: "dashboard",
+  SUGGESTION_BUG: "suggestionBugs",
   HISTORY: ""
 }
 

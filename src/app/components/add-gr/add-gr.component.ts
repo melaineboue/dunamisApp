@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ClipboardService } from 'ngx-clipboard';
 import { menuItemsClass } from 'src/app/models/const';
+import { DataGrEdition } from 'src/app/models/data-gr-edition';
 import { GR } from 'src/app/models/gr';
 import { PersonneSuivi } from 'src/app/models/personneSuivi';
 import { CommonService } from 'src/app/services/common.service';
@@ -17,23 +18,22 @@ import { PersonneService } from 'src/app/services/personne.service';
 })
 export class AddGrComponent implements OnInit {
 
-  gr: GR = {
-
-  } as GR;
   saved = false;
   error = false;
-  selectionEnCoursResponsable = false;
+  errorGrNomVide = false;
+
+  gr: GR = {} as GR;
 
   personnes: PersonneSuivi[] = [];
   responsables: PersonneSuivi[] = [];
 
+
+
   constructor(
     private http: HttpClient,
     private router: Router,
-    private commonService: CommonService,
     private grService: GrService,
-    private personneService: PersonneService,
-    private clipboardService: ClipboardService
+    private personneService: PersonneService
   ) {
     this.personneService.getPersonneReseauNonResponsable().subscribe(listePersonnes => {
       this.personnes = listePersonnes.map(personne => ({
@@ -52,65 +52,31 @@ export class AddGrComponent implements OnInit {
     this.router.navigate([`/${menuItemsClass.LISTE_GR}`]);
   }
 
-  definirResponsable() {
 
-  }
-
-  ajouterResponsable() {
-    this.selectionEnCoursResponsable = true;
-  }
-
-  validerResponsable() {
-
-    this.selectionEnCoursResponsable = false;
-    this.responsables = this.personnes.filter(personne => personne.checked).map(personne => ({
-      id: personne.id,
-      nom: personne.nom,
-      prenom: personne.prenom,
-      checked: personne.checked,
-      code: this.grService.generateAccessCode(10),
-      copier: false
-    } as PersonneSuivi));
-
-    this.gr = {
-      idreseau: 1,
-      libelle: 'GR ' + this.responsables.map(personne => personne.prenom).join(' - '),
-      responsables: this.responsables.map(personne => personne.prenom).join(' - '),
-      taille: 0,
-    } as GR;
-
-  }
-
-  genererCode(responsable: PersonneSuivi) {
-    responsable.code = this.grService.generateAccessCode(10);
-    responsable.copier = false;
-  }
-
-  copierCodeInClipboard(responsable: PersonneSuivi) {
-    this.responsables.forEach(responsable => responsable.copier = false);
-    this.clipboardService.copy(responsable.code);
-    responsable.copier = true;
-  }
 
   creerGR(){
-    this.grService.creerGr(this.responsables).subscribe(envoye => {
-      this.error = false;
-      this.saved = true;
-    },
-    error => {
-      this.saved = true;
-      this.error = true;
-    })
+
+    if(!this.gr?.libelle || this.gr?.libelle?.trim().length === 0) {
+      this.errorGrNomVide = true;
+    }
+    else {
+      this.errorGrNomVide = false;
+      this.grService.creerGr(this.gr, this.responsables).subscribe(envoye => {
+        this.error = false;
+        this.saved = true;
+      },
+      error => {
+        this.saved = true;
+        this.error = true;
+      });
+    }
+
   }
 
+  dataGrChanged(data: DataGrEdition){
+    console.log(data.gr);
 
-
-
-  get personneCoches(): PersonneSuivi[] {
-    return this.personnes.filter(personne => personne.checked);
-  }
-
-  get secondaryColor(): string {
-    return ParameterService.configuration.secondaryColor;
+    this.gr = data.gr;
+    this.responsables = data.responsables;
   }
 }

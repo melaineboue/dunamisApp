@@ -22,7 +22,7 @@
       </button>
     </div>
 
-    <textarea [(ngModel)]="rapport" class="form-control" id="rapport" rows="20" [readonly]="readonly"
+    <textarea [(ngModel)]="rapport" (keyup)="texteAchange()" class="form-control" id="rapport" rows="20" [readonly]="readonly"
       placeholder="{{ 'common.rapport' | translate }}">
     </textarea>
   </div>

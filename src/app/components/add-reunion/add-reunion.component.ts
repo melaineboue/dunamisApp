@@ -4,7 +4,6 @@ import { defaultRedirectNotAuth, menuItemsClass } from 'src/app/models/const';
 import { ParameterService } from 'src/app/services/parameter.service';
 import { ReunionGr } from 'src/app/models/reunion-gr';
 import { ReunionGrService } from 'src/app/services/reunion-gr.service';
-import { PersonneService } from 'src/app/services/personne.service';
 import { CommonService } from 'src/app/services/common.service';
 import { PersonneSuivi } from 'src/app/models/personneSuivi';
 import { deuxChiffre } from 'src/app/utils/utils';
@@ -86,6 +85,7 @@ export class AddReunionComponent implements OnInit {
     this.reunionService.getReunionEnCours(Number(idGr)).subscribe(reunion =>{
       if(reunion){
           // Il y a une reunion en cours
+         this.rapport = reunion.rapport;
          this.reunion = reunion;
          this.reunion.enregistre = true;
          this.reunion.semaine = reunion.semaine;
@@ -123,7 +123,9 @@ export class AddReunionComponent implements OnInit {
     this.reunion.gr_libelle = localStorage.getItem('gr');
 
     const laDate = new Date();
-    this.laDate = `${deuxChiffre(laDate.getDate())}/${deuxChiffre(laDate.getMonth())}/${laDate.getFullYear()}`;
+    console.log('yes', laDate.getMonth());
+
+    this.laDate = `${deuxChiffre(laDate.getDate())}/${deuxChiffre(laDate.getMonth()+1)}/${laDate.getFullYear()}`;
     this.reunion.date = this.laDate;
 
   }
@@ -167,7 +169,8 @@ export class AddReunionComponent implements OnInit {
       this.reunion.heure_fin = `${deuxChiffre(heure_fin)}:${deuxChiffre(minute_fin)}`;;
       this.reunion.date = this.laDate;
 
-      this.genererRapport();
+      //this.genererRapport();
+
       this.reunion.rapport = this.rapport;
 
       // Si pas d'heure ou de date incorrecte
@@ -226,6 +229,10 @@ export class AddReunionComponent implements OnInit {
 
   }
 
+  setRapport(rapport: string){
+    this.rapport = rapport;
+  }
+
   resetError() {
     this.heure_debut_invalide = false;
     this.heure_fin_invalide = false;
@@ -249,22 +256,35 @@ export class AddReunionComponent implements OnInit {
   }
 
   genererRapport() {
-    this.rapport = `Bonsoir mes Pasteurs, mes CE, ma Respo et les 12 🥰🥰\nMerci à l'Apôtre, au pasteur Elvis et à ${this.notreRespo}🔥\n\n`;
-    this.rapport += `🟧Le Rapport du Gr DUNAMIS \n🔶Respo du réseau : Respo ${this.respos} \n🔸Respo du Gr : ${getGr()}\n`;
-    this.rapport += `🟠 ${this.reunion.date}  \n ${this.reunion.heure_debut.replace(':','h')} - ${this.reunion.heure_fin.replace(':','h')}\n\n`;
-    const presents = this.personnesGr.filter(personne => personne.checked);
-    const absents = this.personnesGr.filter(personne => !personne.checked);
-    const invites = this.invites.filter(invite => invite.checked);
-    const invitesAbsent = this.invites.filter(invite => !invite.checked);
-    const textPresents = presents.map(personne=> `- `+personne.prenom).join('\n');
+    if(this.rapport.trim() === ''){
 
-    this.rapport += `Liste des présents (${ presents.length })\n${textPresents}\n`;
+      let heure_debut = (this.reunion?.heure_debut) ? this.reunion.heure_debut : `${this.heure_debut}:${this.minute_debut}`;
+      let heure_fin = (this.reunion?.heure_fin) ? this.reunion.heure_fin : `${this.heure_fin}:${this.minute_fin}`;
+      let date_gr = (this.reunion?.date) ? this.reunion.date : this.laDate;
 
-    this.rapport += invites.length > 0 ? `Invités (${ invites.length })\n${invites.map(invite => '- '+ invite.nom ).join('\n')}\n`: '';
-    this.rapport += `\nAbsents (${ absents.length + invitesAbsent.length })\n${absents.map(personne=> `- `+personne.prenom).join('\n')}`;
-    this.rapport += invitesAbsent.length > 0 ? `\n${invitesAbsent.map(invite => '- '+ invite.nom + ' (invité)').join('\n')}\n`: '';
-    this.rapport += `\nNotre GR a porté sur ${this.reunion.titre}`;
+      this.rapport = `Bonsoir mes Pasteurs, mes CE, ma Respo et les 12 \nMerci à l'Apôtre, au pasteur Elvis et à ${this.notreRespo}\n\n`;
+      this.rapport += `Le Rapport du Gr DUNAMIS \nRespo du réseau : Respo ${this.respos} \nRespo du Gr : ${getGr()}\n`;
+      this.rapport += `${date_gr}  \n ${heure_debut.replace(':','h')} - ${heure_fin.replace(':','h')}\n\n`;
+
+      const presents = this.personnesGr.filter(personne => personne.checked);
+      const absents = this.personnesGr.filter(personne => !personne.checked);
+      const invites = this.invites.filter(invite => invite.checked);
+      const invitesAbsent = this.invites.filter(invite => !invite.checked);
+      const textPresents = presents.map(personne=> `- `+personne.prenom).join('\n');
+
+      let rapportSuite = "";
+      rapportSuite += `Liste des présents (${ presents.length })\n${textPresents}\n`;
+
+      rapportSuite += invites.length > 0 ? `Invités (${ invites.length })\n${invites.map(invite => '- '+ invite.nom ).join('\n')}\n`: '';
+      rapportSuite += `\nAbsents (${ absents.length + invitesAbsent.length })\n${absents.map(personne=> `- `+personne.prenom).join('\n')}`;
+      rapportSuite += invitesAbsent.length > 0 ? `\n${invitesAbsent.map(invite => '- '+ invite.nom + ' (invité)').join('\n')}\n`: '';
+      rapportSuite += `\nNotre GR a porté sur ${this.reunion.titre}`;
+
+      this.rapport += rapportSuite;
+
+    }
   }
+
 
   getWeek(week?: number) {
     // 0 : cette semaine; 1: semaine prochaine; -1 semaine précedente
@@ -274,7 +294,7 @@ export class AddReunionComponent implements OnInit {
     let semaine;
 
     if(!week){
-      let semaine = Math.floor((currentdate.getTime() - oneJan.getTime()) / 1000 / 60 / 60 / 24 / 7);
+      let semaine = Math.floor((currentdate.getTime() - oneJan.getTime()) / 1000 / 60 / 60 / 24 / 7) + 1;
       this.reunion.semaine = `${semaine}`;
     } else {
 
@@ -310,7 +330,7 @@ export class AddReunionComponent implements OnInit {
   }
 
   estInferieur(minute_debut, heure_debut, minute_fin, heure_fin): boolean {
-    return (heure_debut == heure_fin && minute_debut < minute_fin) || heure_debut < heure_fin;
+    return (heure_fin === 0 && minute_fin === 0) || (heure_debut == heure_fin && minute_debut < minute_fin) || heure_debut < heure_fin;
   }
 
   estChiffre(nombre: number): boolean {

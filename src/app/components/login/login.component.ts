@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { defaultConnectedPage, menuItemsClass } from 'src/app/models/const';
 import { Personne } from 'src/app/models/personne';
+import { User } from 'src/app/models/user';
 import { CommonService } from 'src/app/services/common.service';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -25,7 +26,12 @@ export class LoginComponent implements OnInit {
   login = '';
   code = '';
 
-  constructor(private router: Router, private loginService: LoginService, private commonService: CommonService) {
+  constructor(
+    private router: Router,
+    private loginService: LoginService,
+    private commonService: CommonService,
+    private route: ActivatedRoute
+    ) {
 
     if( localStorage.getItem('user')
         && localStorage.getItem('idUser')
@@ -37,6 +43,12 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe(urlParams => {
+      if(urlParams?.validation){
+        this.validerCodeByUrl(urlParams.validation)
+      }
+    });
+
   }
 
   connexion() {
@@ -133,7 +145,29 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  setUserSession(user: Personne){
+  validerCodeByUrl(codeUrl: string){
+    this.loginService.getUserFromUrl(codeUrl).subscribe(user => {
+      if(user){
+        this.setUserSessionProvisoire(user);
+        this.router.navigate([`/${menuItemsClass.BIENVENUE}`])
+      } else {
+        this.codeAccesInvalide = true;
+      }
+    },
+    error => {
+      this.errorInconnue = true;
+      this.initSent = false;
+      this.loginMotDePasseIncorrect = false;
+      this.loginInexistant = false;
+      this.codeAccesInvalide = false;
+      this.emailRecuperationNonRattache = false;
+      this.loginVide = false;
+    });
+
+
+  }
+
+  setUserSession(user: User){
     this.loginService.setUserSession(user);
   }
 

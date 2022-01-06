@@ -37,6 +37,15 @@ import { DetailsReunionComponent } from './components/details-reunion/details-re
 import { HomeComponent } from './components/home/home.component';
 import { AddReunionComponent } from './components/add-reunion/add-reunion.component';
 import { ParticipantComponent } from './components/subcomponents/participant/participant.component';
+import { HomeResponsableReseauComponent } from './components/home-responsable-reseau/home-responsable-reseau.component';
+import { HomeResponsableGrComponent } from './components/home-responsable-gr/home-responsable-gr.component';
+import { HomeAdministrateurComponent } from './components/home-administrateur/home-administrateur.component';
+import { HomePasteurComponent } from './components/home-pasteur/home-pasteur.component';
+import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
+import { GenererGrComponent } from './components/generer-gr/generer-gr.component';
+import { CreationModificationGrComponent } from './components/creation-modification-gr/creation-modification-gr.component';
+import { UpdateGrComponent } from './components/update-gr/update-gr.component';
+import { SuggestionComponent } from './components/suggestion/suggestion.component';
 
 
 export function translateLoaderHttp(http: HttpClient) {
@@ -69,7 +78,16 @@ export function translateLoaderHttp(http: HttpClient) {
     DetailsReunionComponent,
     HomeComponent,
     AddReunionComponent,
-    ParticipantComponent
+    ParticipantComponent,
+    HomeResponsableReseauComponent,
+    HomeResponsableGrComponent,
+    HomeAdministrateurComponent,
+    HomePasteurComponent,
+    AccessDeniedComponent,
+    GenererGrComponent,
+    CreationModificationGrComponent,
+    UpdateGrComponent,
+    SuggestionComponent
   ],
   imports: [
     MatSelectModule,

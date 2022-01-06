@@ -10,69 +10,15 @@ import { Personne } from '../models/personne';
 import { ReunionGr } from '../models/reunion-gr';
 import { StatusModel } from '../models/status';
 import { Suivi } from '../models/suivi';
+import { User } from '../models/user';
+import { getIdReseau, getUrlId } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonneService {
 
-  personnes: Personne[] = [
-    {
-      id:1,
-      nom: 'BOUE',
-      prenom:'Mélaine',
-      date_ajout: '04/08/2021',
-      telephone: '0769089717',
-      status: Status.RESPONSABLE,
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1
-      }
-    },
-
-    {
-      id:3,
-      nom: 'Birat',
-      prenom:'Christellyne',
-      date_ajout: '04/08/2021',
-      telephone: '0745859652',
-      status: Status.RESPONSABLE,
-      gr: {
-        id:2,
-        libelle: 'GR Christellyne',
-        idreseau: 1
-      }
-    },
-
-    {
-      id:4,
-      nom: 'Nzimbou',
-      prenom:'Ludmila',
-      date_ajout: '04/08/2021',
-      telephone: '0623521452',
-      status: Status.POTENTIEL,
-      gr: {
-        id:2,
-        libelle: 'GR Christellyne',
-        idreseau: 1
-      }
-    },
-
-    {
-      id:2,
-      nom: 'BOUE',
-      prenom:'Arnaud',
-      date_ajout: '05/08/2021',
-      telephone: '0769089717',
-      status: Status.REGULIER,
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1
-      }
-    }
-  ];
+  personnes: Personne[] = [];
 
   status: StatusModel[] = [
     { id: 1, libelle: Status.RESPONSABLE, selected: true},
@@ -114,14 +60,14 @@ export class PersonneService {
 
   getPersonneReseau(): Observable<Personne[]> {
     // service = personne ** action = personneNonResponsable
-    let url = `${environment.host}?service=personne&action=personneReseau&id_reseau=${localStorage.getItem('idReseau')}`;
+    let url = `${environment.host}?service=personne&action=personneReseau${getUrlId()}`;
     return this.http.get<Personne[]>(url).pipe();
   }
 
 
   getPersonneReseauNonResponsable(): Observable<Personne[]> {
     // service = personne ** action = personneNonResponsable
-    let url = `${environment.host}?service=personne&action=personneNonResponsable&id_reseau=${localStorage.getItem('idReseau')}`;
+    let url = `${environment.host}?service=personne&action=personneNonResponsable${getUrlId()}`;
     return this.http.get<Personne[]>(url).pipe();
   }
 
@@ -135,7 +81,7 @@ export class PersonneService {
   ajouterPersonne(personne: Personne): Observable<boolean>{
     // service = personne ** action = ajouterPersonne
     this.personnes.push(personne);
-    let url = encodeURI(`${environment.host}?service=personne&action=ajouterPersonne&id_reseau=${localStorage.getItem('idReseau')}${this.toStringPersonne(personne)}`);
+    let url = encodeURI(`${environment.host}?service=personne&action=ajouterPersonne&id_reseau=${getIdReseau()}${this.toStringPersonne(personne)}`);
     return this.http.get<boolean>(url).pipe();
   }
 
@@ -179,18 +125,12 @@ export class PersonneService {
     return this.http.get<Evenement[]>(url).pipe();
   }
 
-  creerCompte(personne:Personne): Observable<boolean>{
+  creerCompte(personne:Personne): Observable<User>{
     //service=creerGr, service=login
     let url = `${environment.host}?action=creerGr&service=login&id_personne=${personne.id}&email=${personne.email}&login=${personne.login}&password=${personne.pwd}`;
     console.log(url);
 
-    return this.http.get<boolean>(url).pipe(map(response=>{
-      if(response){
-        return true;
-      } else {
-        return false;
-      }
-    }));
+    return this.http.get<User>(url).pipe();
 
   }
 

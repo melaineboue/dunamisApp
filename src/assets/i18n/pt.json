@@ -17,6 +17,7 @@
     "theme_gr": "Temas do GR",
     "reunion_gr": "Reunião do GR",
     "accueil": "Início",
+    "suggestion_bug": "Sugestão ou bug",
     "deconnecter": "Desligar"
   },
   "common": {
@@ -129,7 +130,9 @@
         "personne_hors_gr":"Pessoas fora do GR",
         "personne_pas_gr": "Pessoa sem GR",
         "ajouter_au_gr": "Acrescentar ao GR",
-        "liste_gr": "A lista de GR"
+        "liste_gr": "A lista de GR",
+        "liste_responsable_pas_valide_gr": "Gestores que ainda não validaram",
+        "afficher_responsable": "Mostrar futuros gerentes"
       }
     },
     "creer_gr": {
@@ -140,7 +143,8 @@
         "ajouter_responsable": "Adicionar líder",
         "responsables": "Líderes",
         "sucess_message": "O RG foi criado com sucesso",
-        "error_message": "A criação do RG falhou"
+        "error_message": "A criação do RG falhou",
+        "nom_gr_obligatoire": "O nome do GR é obrigatório"
 
 
       },
@@ -290,12 +294,22 @@
       "heure_invalide":"Tempo inválido",
       "minute_invalide":"Minuto inválido",
       "titre_participants":"Participantes",
-      "nom_invite":"Nome do hóspede",
+      "nom_inviteb":"Nome do hóspede",
       "ajouter_invite":"Adicionar convidado",
       "libelle_invite":"Convidado",
       "error_saving_invite":"Ocorreu um erro, por favor tente novamente mais tarde",
       "nom_invite_vide":"Por favor, introduza o nome",
       "modification_impossible": "Não são possíveis alterações após validação"
+    },
+    "details_gr": {
+      "definir_responsable": "Defina os responsáveis",
+      "fermer_gr": "Feche o GR",
+      "confirmer_fermeture": "Confirme o fechamento do GR",
+      "annuler_fermeture": "Cancelar"
+    },
+    "suggestion": {
+      "titre":"Faça sugestões ou relate um bug",
+      "libelle_suggestion":"Sugestão"
     }
   }
 }

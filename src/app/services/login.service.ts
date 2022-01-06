@@ -7,61 +7,28 @@ import { Status } from '../models/const';
 import { Personne } from '../models/personne';
 import { ResponseAPI } from '../models/response';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService implements CanActivate{
 
-  users: Personne[] = [
-    {
-      id:1,
-      nom: 'BOUE',
-      prenom:'Mélaine',
-      date_ajout: '04/08/2021',
-      telephone: '0769089717',
-      status: Status.RESPONSABLE,
-      login: 'mboue',
-      pwd: '123456',
-      email: 'melaineboue@gmail.com',
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1
-      }
-    },
-    {
-      id:2,
-      nom: 'BOUE',
-      prenom:'Arnaud',
-      date_ajout: '04/08/2021',
-      telephone: '0769089718',
-      status: Status.RESPONSABLE,
-      login: 'aboue',
-      pwd: '123456',
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1,
-
-      }
-    }
-  ]
-
   constructor(private http: HttpClient) { }
 
 
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
-    return localStorage.getItem('idUser') !== null && localStorage.getItem('idGr') !== null && localStorage.getItem('idReseau') !== null;
+    const user = JSON.parse(localStorage.getItem('user')) as User;
+    return user !== null && user.role !== null;
   }
 
-  login(login: string, password: string): Observable<Personne>{
+  login(login: string, password: string): Observable<User>{
     // service = login
     // action = connection
     let url = `${environment.host}?action=connection&service=login&login=${login}&password=${password}`;
 
-    return this.http.get<Personne>(url).pipe(map(user => {
+    return this.http.get<User>(url).pipe(map(user => {
       return user;
     }));
 
@@ -70,7 +37,7 @@ export class LoginService implements CanActivate{
   reinit(login: string): Observable<ResponseAPI<string>>{
     // service = login
     // action = init password
-    let url = `${environment.host}?service=login&action=initpassword&login=${login}`;
+    /*let url = `${environment.host}?service=login&action=initpassword&login=${login}`;
     // TO DO
 
 
@@ -85,7 +52,8 @@ export class LoginService implements CanActivate{
     if(user.email){
       return of({ body: ''} as ResponseAPI<string>)
     }
-    return of({error: {code: '404', message: 'Message'}} as ResponseAPI<string>)
+    return of({error: {code: '404', message: 'Message'}} as ResponseAPI<string>)*/
+    return of();
   }
 
 
@@ -101,12 +69,19 @@ export class LoginService implements CanActivate{
     return this.http.get<Personne>(url).pipe(map(response => response))
   }
 
+  getUserFromUrl(code: string): Observable<Personne>{
+    // service = login
+    // action = validercode
+    let url = `${environment.host}?service=login&action=validercode&code=${code}`;
+    return this.http.get<Personne>(url).pipe(map(response => response))
+  }
+
   /*getUserFromCode(code: string): Observable<Personne>{
     return
     return of(this.users[1]);
   }*/
 
-  setUserSession(user: Personne){
+  setUserSession(user: User){
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('idUser', user.id + '');
     localStorage.setItem('idGr', user.gr.id + '');
@@ -124,8 +99,6 @@ export class LoginService implements CanActivate{
   }
 
   destroyUserSession(){
-    console.log("ici");
-
     localStorage.clear();
   }
 

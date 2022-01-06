@@ -20,6 +20,8 @@ export class DetailsGrComponent implements OnInit {
 
   statusResponsable = Status.RESPONSABLE;
 
+  suppressionEnCours = false;
+
   rechercheGr = '';
   rechercheHorsGr = '';
   routeHere = `/${menuItemsClass.DETAILS_GR}`;
@@ -69,6 +71,20 @@ export class DetailsGrComponent implements OnInit {
       this.personnesHorsGR.push(personne);
       this.personnesGR = this.personnesGR.filter(currentPersonne => currentPersonne.id !== personne.id);
     });
+  }
+
+  fermerGr(){
+    this.grService.fermerGr().subscribe(result => {
+      if(result){
+        this.router.navigate([`/${menuItemsClass.ACCUEIL}`])
+      } else {
+
+      }
+    })
+  }
+
+  definirReponsable(idPersonne: number){
+    this.grService.definirReponsable(idPersonne, this.gr.id);
   }
 
 

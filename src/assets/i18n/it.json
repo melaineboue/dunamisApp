@@ -17,6 +17,7 @@
     "theme_gr": "Temi GR",
     "reunion_gr": "Riunione GR",
     "accueil": "Casa",
+    "suggestion_bug": "Suggerimento o bug",
     "deconnecter": "Scollegare"
   },
   "common": {
@@ -129,7 +130,9 @@
         "personne_hors_gr":"Persone al di fuori di GR",
         "personne_pas_gr": "Persona senza GR",
         "ajouter_au_gr": "Aggiungere a GR",
-        "liste_gr": "L'elenco di GR"
+        "liste_gr": "L'elenco di GR",
+        "liste_responsable_pas_valide_gr": "Manager che non hanno ancora convalidato",
+        "afficher_responsable": "Mostra futuri manager"
       }
     },
     "creer_gr": {
@@ -140,7 +143,8 @@
         "ajouter_responsable": "Aggiungere leader",
         "responsables": "I leader",
         "sucess_message": "Il GR è stato creato con successo",
-        "error_message": "La creazione del GR è fallita"
+        "error_message": "La creazione del GR è fallita",
+        "nom_gr_obligatoire": "Il nome del GR è obbligatorio"
 
 
       },
@@ -296,6 +300,16 @@
       "error_saving_invite":"Si è verificato un errore, si prega di riprovare più tardi",
       "nom_invite_vide":"Si prega di inserire il nome",
       "modification_impossible": "Nessuna modifica è possibile dopo la convalida"
+    },
+    "details_gr": {
+      "definir_responsable": "Definire i responsabili",
+      "fermer_gr": "Chiudere il GR",
+      "confirmer_fermeture": "Confermare la chiusura del GR",
+      "annuler_fermeture": "Per cancellare"
+    },
+    "suggestion": {
+      "titre":"Dare suggerimenti o segnalare un bug",
+      "libelle_suggestion":"Suggerimento"
     }
   }
 }

@@ -1,4 +1,7 @@
 import { GR } from "../models/gr";
+import { User } from "../models/user";
+import { RoleU } from "../models/role"
+import { UserRole } from "../enums/user-role";
 
 export function deuxChiffre(number: number){
   return number < 10 ? '0'+number : number;
@@ -33,12 +36,19 @@ return Number(heures[0]) >= 0 && Number(heures[0]) < 24 &&
 }
 
 export function getIdReseau(): number {
-return Number(localStorage.getItem('idReseau'));
+  const user = JSON.parse(localStorage.getItem('user')) as User;
+  return Number(user.reseau.id);
 }
 
 
 export function getIdGr(): number {
-return Number(localStorage.getItem('idGr'));
+  const user = JSON.parse(localStorage.getItem('user')) as User;
+  return Number(user.gr?.id);
+}
+
+export function getIdUser(): number {
+  const user = JSON.parse(localStorage.getItem('user')) as User;
+  return Number(user?.id);
 }
 
 export function getGr(): string {
@@ -48,3 +58,23 @@ export function getGr(): string {
 export function getGrForUser(): GR {
   return JSON.parse(localStorage.getItem('user')).gr;
 }
+
+export function getUserRole(): RoleU {
+  let user = JSON.parse(localStorage.getItem('user')) as User;
+  return user?.role;
+}
+
+export function getUrlId(): string {
+  let url = "";
+  let user = JSON.parse(localStorage.getItem('user')) as User;
+  if(user?.role.role_libelle_court === UserRole.ResponsableReseau || user?.role.role_libelle_court === UserRole.ResponsableReseauReadOnly){
+    url = `&id_reseau=${user.reseau.id}`;
+  }
+  else if(user?.role.role_libelle_court === UserRole.ResponsableGr || user?.role.role_libelle_court === UserRole.ResponsableGrReadOnly){
+    url = `&id_gr=${user.gr.id}`;
+  }
+
+  return url;
+}
+
+

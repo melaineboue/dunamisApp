@@ -17,6 +17,7 @@
     "theme_gr": "GR's themes",
     "reunion_gr": "GR Meeting",
     "accueil": "Home",
+    "suggestion_bug": "Suggestion or bug",
     "deconnecter": "Logout"
   },
   "common": {
@@ -129,18 +130,21 @@
         "personne_hors_gr":"People outside of GR",
         "personne_pas_gr":"Person without GR",
         "ajouter_au_gr": "Add to GR",
-        "liste_gr": "The list of GR"
+        "liste_gr": "The list of GR",
+        "liste_responsable_pas_valide_gr": "Managers who have not yet validated",
+        "afficher_responsable": "Show future managers"
       }
     },
     "creer_gr": {
       "text": {
         "titre": "Create a new GR",
-        "nom_gr": "Nom of the GR",
+        "nom_gr": "Name of the GR",
         "creer_gr": "Create ",
         "ajouter_responsable": "Add leader",
         "responsables": "Leaders",
         "sucess_message": "The GR has been successfully created",
-        "error_message": "The creation of the GR has failed"
+        "error_message": "The creation of the GR has failed",
+        "nom_gr_obligatoire": "Le nom du GR est obligatoire"
 
 
       },
@@ -296,6 +300,16 @@
       "error_saving_invite":"An error has occurred, please try again later",
       "nom_invite_vide":"Please enter the name",
       "modification_impossible": "No changes are possible after validation"
+    },
+    "details_gr": {
+      "definir_responsable": "Define those responsible",
+      "fermer_gr": "Close the GR",
+      "confirmer_fermeture": "Confirm the closure of the GR",
+      "annuler_fermeture": "Cancel"
+    },
+    "suggestion": {
+      "titre":"Make suggestions or report a bug",
+      "libelle_suggestion":"Suggestion"
     }
   }
 }
