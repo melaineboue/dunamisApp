@@ -299,7 +299,8 @@
       "libelle_invite":"Convidado",
       "error_saving_invite":"Ocorreu um erro, por favor tente novamente mais tarde",
       "nom_invite_vide":"Por favor, introduza o nome",
-      "modification_impossible": "Não são possíveis alterações após validação"
+      "modification_impossible": "Não são possíveis alterações após validação",
+      "description_complement_rapport": "Suplemento de relatório"
     },
     "details_gr": {
       "definir_responsable": "Defina os responsáveis",

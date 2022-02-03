@@ -73,14 +73,21 @@
           <td> {{ responsable.gr_libelle }} </td>
           <td> {{ responsable.code }} </td>
           <td>
-            <div class="col-2" *ngIf="!responsable.copier">
-              <button (click)="copierCodeInClipboard(responsable)" class="btn btn-light bouton-copier"
+              <button *ngIf="!responsable.copier" (click)="copierCodeInClipboard(responsable)" class="btn btn-light bouton-copier"
                 [ngStyle]="{'background': secondaryColor }">
                 <i class="bi bi-files"></i>
               </button>
-            </div>
-            <div class="col-1" *ngIf="responsable.copier"><button class="btn btn-light bouton-copier"
-                [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button></div>
+              <button *ngIf="responsable.copier" class="btn btn-light bouton-copier"
+                [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button>
+
+              <button  *ngIf="!responsable.copier_lien" (click)="copierLinkInClipboard(responsable)" class="btn btn-light bouton-copier"
+                [ngStyle]="{'background': secondaryColor }">
+                <i class="bi bi-link"></i>
+              </button>
+
+              <button *ngIf="responsable.copier_lien" class="btn btn-light bouton-copier"
+                [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button>
+
           </td>
         </tr>
 

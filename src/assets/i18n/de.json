@@ -299,7 +299,8 @@
       "libelle_invite":"Gast",
       "error_saving_invite":"Es ist ein Fehler aufgetreten, versuchen Sie es später noch einmal",
       "nom_invite_vide":"Bitte geben Sie den Namen ein",
-      "modification_impossible": "Nach der Bestätigung sind keine Änderungen mehr möglich"
+      "modification_impossible": "Nach der Bestätigung sind keine Änderungen mehr möglich",
+      "description_complement_rapport": "Berichtsergänzung"
     },
     "details_gr": {
       "definir_responsable": "Definieren Sie die Verantwortlichen",

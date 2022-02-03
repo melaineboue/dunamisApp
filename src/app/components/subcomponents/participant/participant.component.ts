@@ -61,6 +61,7 @@ export class ParticipantComponent implements OnInit {
 
           this.invites.push(invite);
           this.nomInvite = '';
+          this.changerPresence.emit({personnes: this.personnes, invites: this.invites} as participantEmitObject)
         } else {
           this.errorSavingInvite = true;
         }

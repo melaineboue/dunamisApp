@@ -299,7 +299,8 @@
       "libelle_invite":"Ospite",
       "error_saving_invite":"Si è verificato un errore, si prega di riprovare più tardi",
       "nom_invite_vide":"Si prega di inserire il nome",
-      "modification_impossible": "Nessuna modifica è possibile dopo la convalida"
+      "modification_impossible": "Nessuna modifica è possibile dopo la convalida",
+      "description_complement_rapport": "Supplemento rapporto"
     },
     "details_gr": {
       "definir_responsable": "Definire i responsabili",

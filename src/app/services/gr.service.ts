@@ -27,50 +27,50 @@ export class GrService {
   getList(): Observable<GR[]> {
     // service = gr / action = listgr
     let id_reseau = localStorage.getItem('idReseau');
-    let url = `${environment.host}?service=gr&action=listgr${getUrlId()}`;
+    let url = `${environment.api}?service=gr&action=listgr${getUrlId()}`;
     return this.http.get<GR[]>(url).pipe();
   }
 
   getGrById(id: number): Observable<GR>{
     // service = login / action = getGrById
-    let url = `${environment.host}?service=gr&action=getGrById&id=${id}`;
+    let url = `${environment.api}?service=gr&action=getGrById&id=${id}`;
     return this.http.get<GR>(url).pipe(map(response => response));
   }
 
   getPersonnesGR(id: number): Observable<Personne[]> {
     // service = gr / action = getGrById
-    let url = `${environment.host}?service=gr&action=getPersonnesGr&id_gr=${id}`;
+    let url = `${environment.api}?service=gr&action=getPersonnesGr&id_gr=${id}`;
     return this.http.get<Personne[]>(url).pipe(map(response => response));
   }
 
   getPersonnesHorsGR(id: number): Observable<Personne[]> {
     // service = gr / action = getGrHorsById
-    let url = `${environment.host}?service=gr&action=getPersonnesHorsGr&id_gr=${id}`;
+    let url = `${environment.api}?service=gr&action=getPersonnesHorsGr&id_gr=${id}`;
     return this.http.get<Personne[]>(url).pipe(map(response => response));
   }
 
   getPersonnesSansGR(id: number): Observable<Personne[]> {
     // service = gr / action = getGrHorsById
-    let url = `${environment.host}?service=gr&action=getPersonnesSansGr&id_reseau=${id}`;
+    let url = `${environment.api}?service=gr&action=getPersonnesSansGr&id_reseau=${id}`;
     return this.http.get<Personne[]>(url).pipe(map(response => response));
   }
 
   getSuiviByGr(idGr: number): Observable<Suivi[]>{
     // service = gr / action = suiviGr
-    let url = `${environment.host}?service=gr&action=suiviGr&id_gr=${idGr}`;
+    let url = `${environment.api}?service=gr&action=suiviGr&id_gr=${idGr}`;
     return this.http.get<Suivi[]>(url).pipe(map(response => response));
   }
 
   ajouterPersonne(personne: Personne, id_gr: number): Observable<boolean> {
     // service = gr / action = ajouterPersonne
-    let url = `${environment.host}?service=gr&action=ajouterPersonne&id_personne=${personne.id}&id_gr=${id_gr}`;
+    let url = `${environment.api}?service=gr&action=ajouterPersonne&id_personne=${personne.id}&id_gr=${id_gr}`;
     return this.http.get<boolean>(url).pipe();
   }
 
 
   retirerPersonne(personne: Personne): Observable<boolean> {
     // service = gr / action = retirerPersonne
-    let url = `${environment.host}?service=gr&action=retirerPersonne&id_personne=${personne.id}`;
+    let url = `${environment.api}?service=gr&action=retirerPersonne&id_personne=${personne.id}`;
     return this.http.get<boolean>(url).pipe();
   }
 
@@ -79,12 +79,12 @@ export class GrService {
     let libelle_gr = gr.libelle;
     const responsableToSend = responsables.map(responsable => this.toString(responsable)).join('||');
     const urlResponsable = responsables.length === 0 ? '' : `&responsables=${encodeURI(responsableToSend)}`;
-    let url = `${environment.host}?service=gr&action=creerGr&libelle_gr=${encodeURI(libelle_gr)}${urlResponsable}${getUrlId()}`;
+    let url = `${environment.api}?service=gr&action=creerGr&libelle_gr=${encodeURI(libelle_gr)}${urlResponsable}${getUrlId()}`;
     return this.http.get<boolean>(url).pipe();
   }
 
   getFuturResponsable(): Observable<PersonneSuivi[]> {
-    let url = encodeURI(`${environment.host}?service=gr&action=getFuturResponsable&id_reseau=${getIdReseau()}`);
+    let url = encodeURI(`${environment.api}?service=gr&action=getFuturResponsable&id_reseau=${getIdReseau()}`);
     return this.http.get<PersonneSuivi[]>(url).pipe();
   }
 
@@ -93,7 +93,7 @@ export class GrService {
   }
 
   definirReponsable(idPersonne: number, idGr: number){
-    let url = `${environment.host}?service=gr&action=setResponsableGr&id_gr=${idGr}&id_personne=${idPersonne}`;
+    let url = `${environment.api}?service=gr&action=setResponsableGr&id_gr=${idGr}&id_personne=${idPersonne}`;
     console.log(url);
 
 

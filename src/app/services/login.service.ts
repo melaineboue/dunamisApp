@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Status } from '../models/const';
 import { Personne } from '../models/personne';
 import { ResponseAPI } from '../models/response';
 import { map } from 'rxjs/operators';
@@ -26,7 +25,7 @@ export class LoginService implements CanActivate{
   login(login: string, password: string): Observable<User>{
     // service = login
     // action = connection
-    let url = `${environment.host}?action=connection&service=login&login=${login}&password=${password}`;
+    let url = `${environment.api}?action=connection&service=login&login=${login}&password=${password}`;
 
     return this.http.get<User>(url).pipe(map(user => {
       return user;
@@ -37,7 +36,7 @@ export class LoginService implements CanActivate{
   reinit(login: string): Observable<ResponseAPI<string>>{
     // service = login
     // action = init password
-    /*let url = `${environment.host}?service=login&action=initpassword&login=${login}`;
+    /*let url = `${environment.api}?service=login&action=initpassword&login=${login}`;
     // TO DO
 
 
@@ -65,14 +64,14 @@ export class LoginService implements CanActivate{
    getUserFromCode(code: string): Observable<Personne>{
     // service = login
     // action = validercode
-    let url = `${environment.host}?service=login&action=validercode&code=${code}`;
+    let url = `${environment.api}?service=login&action=validercode&code=${code}&mode=code`;
     return this.http.get<Personne>(url).pipe(map(response => response))
   }
 
-  getUserFromUrl(code: string): Observable<Personne>{
+  getUserFromUrl(codeMd5: string): Observable<Personne>{
     // service = login
     // action = validercode
-    let url = `${environment.host}?service=login&action=validercode&code=${code}`;
+    let url = `${environment.api}?service=login&action=validercode&code=${codeMd5}&mode=url`;
     return this.http.get<Personne>(url).pipe(map(response => response))
   }
 

@@ -60,74 +60,77 @@ export class PersonneService {
 
   getPersonneReseau(): Observable<Personne[]> {
     // service = personne ** action = personneNonResponsable
-    let url = `${environment.host}?service=personne&action=personneReseau${getUrlId()}`;
+    let url = `${environment.api}?service=personne&action=personneReseau${getUrlId()}`;
     return this.http.get<Personne[]>(url).pipe();
   }
 
 
   getPersonneReseauNonResponsable(): Observable<Personne[]> {
     // service = personne ** action = personneNonResponsable
-    let url = `${environment.host}?service=personne&action=personneNonResponsable${getUrlId()}`;
+    let url = `${environment.api}?service=personne&action=personneNonResponsable${getUrlId()}`;
     return this.http.get<Personne[]>(url).pipe();
   }
 
 
   getStatus(): Observable<StatusModel[]> {
     // service = personne ** action = listeStatus
-    let url = `${environment.host}?service=personne&action=listeStatus`;
+    let url = `${environment.api}?service=personne&action=listeStatus`;
     return this.http.get<StatusModel[]>(url).pipe();
   }
 
   ajouterPersonne(personne: Personne): Observable<boolean>{
     // service = personne ** action = ajouterPersonne
     this.personnes.push(personne);
-    let url = encodeURI(`${environment.host}?service=personne&action=ajouterPersonne&id_reseau=${getIdReseau()}${this.toStringPersonne(personne)}`);
+    let url = encodeURI(`${environment.api}?service=personne&action=ajouterPersonne&id_reseau=${getIdReseau()}${this.toStringPersonne(personne)}`);
     return this.http.get<boolean>(url).pipe();
   }
 
   getVilles(): Observable<string[]>{
-    let url = `${environment.host}?service=personne&action=personneVilles`;
+    let url = `${environment.api}?service=personne&action=personneVilles`;
     return this.http.get<string[]>(url).pipe();
   }
 
   getPays(): Observable<string[]>{
-    let url = `${environment.host}?service=personne&action=personnePays`;
+    let url = `${environment.api}?service=personne&action=personnePays`;
     return this.http.get<string[]>(url).pipe();
   }
 
   getPersonne(personneId: number): Observable<Personne>{
     // service = personne ** action = personneDetails
-    let url = encodeURI(`${environment.host}?service=personne&action=personneDetails&id_personne=${personneId}`);
+    let url = encodeURI(`${environment.api}?service=personne&action=personneDetails&id_personne=${personneId}`);
     return this.http.get<Personne>(url).pipe();
   }
 
   getSuivis(personneId: number): Observable<Suivi[]>{
     // service = personne ** action = suivis
-    let url = encodeURI(`${environment.host}?service=personne&action=suivis&id_personne=${personneId}`);
+    let url = encodeURI(`${environment.api}?service=personne&action=suivis&id_personne=${personneId}`);
     return this.http.get<Suivi[]>(url).pipe();
   }
 
   sauvegarderSuivi(suivi: string, idPersonnes: number[]): Observable<boolean>{
     // service = personne ** action = sauvegardeSuivi
-    let url = encodeURI(`${environment.host}?service=personne&action=sauvegardeSuivi&id_personnes=${idPersonnes.join('***')}&suivi=${suivi}`);
+    let url = encodeURI(`${environment.api}?service=personne&action=sauvegardeSuivi&id_personnes=${idPersonnes.join('***')}&suivi=${suivi}`);
     return this.http.get<boolean>(url).pipe();
   }
 
   getEvenementsAssistes(personneId: number): Observable<Evenement[]>{
     // service = personne ** action = events
-    let url = encodeURI(`${environment.host}?service=personne&action=events&id_personne=${personneId}`);
+    let url = encodeURI(`${environment.api}?service=personne&action=events&id_personne=${personneId}`);
     return this.http.get<Evenement[]>(url).pipe();
   }
 
   getEvenementsNonAssistes(personneId: number): Observable<Evenement[]>{
     // service = personne ** action = eventsNot
-    let url = encodeURI(`${environment.host}?service=personne&action=eventsNot&id_personne=${personneId}`);
+    let url = encodeURI(`${environment.api}?service=personne&action=eventsNot&id_personne=${personneId}`);
     return this.http.get<Evenement[]>(url).pipe();
+    let a = 1;
+    a+=a;
+
   }
 
   creerCompte(personne:Personne): Observable<User>{
     //service=creerGr, service=login
-    let url = `${environment.host}?action=creerGr&service=login&id_personne=${personne.id}&email=${personne.email}&login=${personne.login}&password=${personne.pwd}`;
+    let url = `${environment.api}?action=creerGr&service=login&id_personne=${personne.id}&email=${personne.email}&login=${personne.login}&password=${personne.pwd}`;
     console.log(url);
 
     return this.http.get<User>(url).pipe();
@@ -136,7 +139,7 @@ export class PersonneService {
 
   getGrAssiste(personneId: number): Observable<ReunionGr[]>{
     // service = personne ** action = grAssiste
-    let url = encodeURI(`${environment.host}?service=personne&action=grAssiste&id_personne=${personneId}`);
+    let url = encodeURI(`${environment.api}?service=personne&action=grAssiste&id_personne=${personneId}`);
     return this.http.get<ReunionGr[]>(url).pipe();
   }
 

@@ -5,5 +5,6 @@ export interface PersonneSuivi {
   checked?: boolean,
   code?: string,
   copier?: boolean,
+  copier_lien?: boolean,
   gr_libelle?: string
 }

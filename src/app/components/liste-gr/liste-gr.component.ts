@@ -7,6 +7,8 @@ import { PersonneSuivi } from 'src/app/models/personneSuivi';
 import { CommonService } from 'src/app/services/common.service';
 import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
+import md5 from 'crypto-js/md5';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-liste-gr',
@@ -19,6 +21,7 @@ export class ListeGrComponent implements OnInit {
   recherche = '';
   nouveauGr = false;
   afficherFuturResponsable = false;
+  lienValidation = `${environment.host}?validation=`;
 
   futurResponsables: PersonneSuivi[] = [];
 
@@ -46,9 +49,23 @@ export class ListeGrComponent implements OnInit {
   }
 
   copierCodeInClipboard(responsable: PersonneSuivi) {
-    this.futurResponsables.forEach(responsable => responsable.copier = false);
+    this.futurResponsables.forEach(responsable => {
+      responsable.copier = false;
+      responsable.copier_lien = false;
+    });
     this.clipboardService.copy(responsable.code);
     responsable.copier = true;
+  }
+
+  copierLinkInClipboard(responsable: PersonneSuivi) {
+    this.futurResponsables.forEach(responsable => {
+      responsable.copier = false;
+      responsable.copier_lien = false;
+    });
+
+    const link = `${this.lienValidation}${md5(responsable.code)}`;
+    this.clipboardService.copy(link);
+    responsable.copier_lien = true;
   }
 
   get secondaryColor(): string {

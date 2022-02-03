@@ -6,6 +6,8 @@ import { PersonneSuivi } from 'src/app/models/personneSuivi';
 import { CommonService } from 'src/app/services/common.service';
 import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
+import { environment } from 'src/environments/environment';
+import md5 from 'crypto-js/md5';
 
 @Component({
   selector: 'app-creation-modification-gr',
@@ -22,7 +24,7 @@ export class CreationModificationGrComponent {
 
   afficherResponsable = false;
   nomGrEstSaisi = false;
-
+  lienValidation = `${environment.host}?validation=`;
 
   constructor(
     private commonService: CommonService,
@@ -84,9 +86,23 @@ export class CreationModificationGrComponent {
   }
 
   copierCodeInClipboard(responsable: PersonneSuivi) {
-    this.responsables.forEach(responsable => responsable.copier = false);
+    this.responsables.forEach(responsable => {
+      responsable.copier = false;
+      responsable.copier_lien = false;
+    });
     this.clipboardService.copy(responsable.code);
     responsable.copier = true;
+  }
+
+  copierLinkInClipboard(responsable: PersonneSuivi) {
+    this.responsables.forEach(responsable => {
+      responsable.copier = false;
+      responsable.copier_lien = false;
+    });
+
+    const link = `${this.lienValidation}${md5(responsable.code)}`;
+    this.clipboardService.copy(link);
+    responsable.copier_lien = true;
   }
 
   get secondaryColor(): string {

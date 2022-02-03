@@ -57,30 +57,49 @@
 
     <div class="row mt-5 mb-3" *ngIf="responsables.length > 0">
       <hr />
-      <div class="col-12">{{ 'page.creer_gr.text.responsables' | translate }}</div>
+      <div class="col-12 surligner">{{ 'page.creer_gr.text.responsables' | translate }}</div>
     </div>
 
     <div class="row mb-3" *ngFor="let responsable of responsables">
-      <div class="col-5"><input type="text" class="form-control" [(ngModel)]="responsable.prenom+' '+responsable.nom"
-          readonly></div>
-      <div class="col-5">
-        <div class="input-group">
-          <input type="text" class="form-control" [(ngModel)]="responsable.code" readonly>
-          <div class="input-group-append bouton-generer" (click)="genererCode(responsable)">
-            <span class="input-group-text btn btn-secondary" id="basic-addon2"><i
-                class="bi bi-arrow-clockwise"></i></span>
+      <div class="col-12">{{ responsable.prenom+' '+responsable.nom }}</div>
+      <div class="col-md-6 col-sm-12">
+
+        <div class="row">
+          <div class="col-8">
+            <div class="input-group">
+              <input type="text" class="form-control" [(ngModel)]="responsable.code" readonly>
+              <div class="input-group-append bouton-generer" (click)="genererCode(responsable)">
+                <span class="input-group-text btn btn-secondary" id="basic-addon2"><i
+                    class="bi bi-arrow-clockwise"></i></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-1" *ngIf="!responsable.copier">
+            <button (click)="copierCodeInClipboard(responsable)" class="btn btn-light bouton-copier"
+              [ngStyle]="{'background': secondaryColor }">
+              <i class="bi bi-files"></i>
+            </button>
+          </div>
+
+          <div class="col-1" *ngIf="responsable.copier"><button class="btn btn-light bouton-copier"
+            [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button>
+          </div>
+
+          <div class="col-1" *ngIf="!responsable.copier_lien">
+            <button (click)="copierLinkInClipboard(responsable)" class="btn btn-light bouton-copier"
+              [ngStyle]="{'background': secondaryColor }">
+              <i class="bi bi-link"></i>
+            </button>
+          </div>
+
+          <div class="col-1" *ngIf="responsable.copier_lien"><button class="btn btn-light bouton-copier"
+            [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button>
           </div>
         </div>
+
       </div>
 
-      <div class="col-2" *ngIf="!responsable.copier">
-        <button (click)="copierCodeInClipboard(responsable)" class="btn btn-light bouton-copier"
-          [ngStyle]="{'background': secondaryColor }">
-          <i class="bi bi-files"></i>
-        </button>
-      </div>
-      <div class="col-1" *ngIf="responsable.copier"><button class="btn btn-light bouton-copier"
-          [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button></div>
     </div>
 
 

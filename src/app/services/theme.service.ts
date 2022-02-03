@@ -13,12 +13,12 @@ export class ThemeService {
 
   getThemes(): Observable<Theme[]> {
     // service = event , action = saveEvent
-    let url = encodeURI(`${environment.host}?service=theme&action=listeTheme`);
+    let url = encodeURI(`${environment.api}?service=theme&action=listeTheme`);
     return this.http.get<Theme[]>(url).pipe();
   }
 
   getThemeBySemaine(semaine: number, annee: number): Observable<Theme> {
-    let url = encodeURI(`${environment.host}?service=theme&action=getThemeBySemaine&semaine=${semaine}&annee=${annee}`);
+    let url = encodeURI(`${environment.api}?service=theme&action=getThemeBySemaine&semaine=${semaine}&annee=${annee}`);
     return this.http.get<Theme>(url).pipe();
   }
 }

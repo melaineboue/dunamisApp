@@ -84,6 +84,8 @@ export class AddReunionComponent implements OnInit {
     //Recuperation du Gr en cours
     this.reunionService.getReunionEnCours(Number(idGr)).subscribe(reunion =>{
       if(reunion){
+        console.log('yeeeesss',reunion);
+
           // Il y a une reunion en cours
          this.rapport = reunion.rapport;
          this.reunion = reunion;
@@ -110,6 +112,7 @@ export class AddReunionComponent implements OnInit {
 
          });
       } else {
+        this.reunion.complement_rapport = `Notre GR a porté sur ${this.reunion.titre}`;
         this.grService.getPersonnesGR(Number(idGr)).subscribe(personnes => this.personnesGr = personnes.map(personne => ({
           id: personne.id,
           nom: personne.nom,
@@ -139,6 +142,9 @@ export class AddReunionComponent implements OnInit {
   changerPresence(participants: participantEmitObject){
     this.invites = participants.invites;
     this.personnesGr = participants.personnes;
+    this.genererRapport();
+    console.log('change');
+
   }
 
   back() {
@@ -169,7 +175,7 @@ export class AddReunionComponent implements OnInit {
       this.reunion.heure_fin = `${deuxChiffre(heure_fin)}:${deuxChiffre(minute_fin)}`;;
       this.reunion.date = this.laDate;
 
-      //this.genererRapport();
+      this.genererRapport();
 
       this.reunion.rapport = this.rapport;
 
@@ -256,7 +262,6 @@ export class AddReunionComponent implements OnInit {
   }
 
   genererRapport() {
-    if(this.rapport.trim() === ''){
 
       let heure_debut = (this.reunion?.heure_debut) ? this.reunion.heure_debut : `${this.heure_debut}:${this.minute_debut}`;
       let heure_fin = (this.reunion?.heure_fin) ? this.reunion.heure_fin : `${this.heure_fin}:${this.minute_fin}`;
@@ -273,16 +278,15 @@ export class AddReunionComponent implements OnInit {
       const textPresents = presents.map(personne=> `- `+personne.prenom).join('\n');
 
       let rapportSuite = "";
-      rapportSuite += `Liste des présents (${ presents.length })\n${textPresents}\n`;
+      rapportSuite += `Liste des présents (${ presents.length + invites.length })\n${textPresents}\n`;
 
       rapportSuite += invites.length > 0 ? `Invités (${ invites.length })\n${invites.map(invite => '- '+ invite.nom ).join('\n')}\n`: '';
       rapportSuite += `\nAbsents (${ absents.length + invitesAbsent.length })\n${absents.map(personne=> `- `+personne.prenom).join('\n')}`;
       rapportSuite += invitesAbsent.length > 0 ? `\n${invitesAbsent.map(invite => '- '+ invite.nom + ' (invité)').join('\n')}\n`: '';
-      rapportSuite += `\nNotre GR a porté sur ${this.reunion.titre}`;
+      rapportSuite += `\n\n${this.reunion.complement_rapport}`;
 
       this.rapport += rapportSuite;
 
-    }
   }
 
 

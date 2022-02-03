@@ -75,18 +75,18 @@ export class EventService {
   getEvents(): Observable<Evenement[]> {
     // service = event
     // action = listeEvent
-    let url = `${environment.host}?service=event&action=listeEvent`;
+    let url = `${environment.api}?service=event&action=listeEvent`;
     return this.http.get<Evenement[]>(url).pipe();
   }
 
   getPredicateurs(): Observable<Predicateur[]>{
-    let url = encodeURI(`${environment.host}?service=event&action=listePredicateur`);
+    let url = encodeURI(`${environment.api}?service=event&action=listePredicateur`);
     return this.http.get<Predicateur[]>(url).pipe();
   }
 
   saveEvent(event: Evenement): Observable<boolean>{
     // service = event , action = saveEvent
-    let url = encodeURI(`${environment.host}?service=event&action=saveEvent&${this.eventToString(event)}`);
+    let url = encodeURI(`${environment.api}?service=event&action=saveEvent&${this.eventToString(event)}`);
 
     return this.http.get<number | boolean>(url).pipe(map(response => {
       if(response){
@@ -100,27 +100,27 @@ export class EventService {
 
   getEventById(id: number): Observable<Evenement> {
     // service = event , action = saveEvent
-    let url = encodeURI(`${environment.host}?service=event&action=getEventById&id_event=${id}`);
+    let url = encodeURI(`${environment.api}?service=event&action=getEventById&id_event=${id}`);
     return this.http.get<Evenement>(url).pipe();
   }
 
   getPersonnesAssiste(idEvent: number): Observable<Personne[]>{
-    let url = encodeURI(`${environment.host}?service=event&action=getPersonnesAssiste&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
+    let url = encodeURI(`${environment.api}?service=event&action=getPersonnesAssiste&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
     return this.http.get<Personne[]>(url).pipe();
   }
 
   getPersonnesNonAssiste(idEvent: number): Observable<Personne[]>{
-    let url = encodeURI(`${environment.host}?service=event&action=getPersonnesNonAssiste&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
+    let url = encodeURI(`${environment.api}?service=event&action=getPersonnesNonAssiste&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
     return this.http.get<Personne[]>(url).pipe();
   }
 
   getPersonneGrUser(idEvent: number): Observable<PersonneSuivi[]>{
-    let url = encodeURI(`${environment.host}?service=event&action=personnes&id_event=${idEvent}&id_gr=${getIdGr()}`);
+    let url = encodeURI(`${environment.api}?service=event&action=personnes&id_event=${idEvent}&id_gr=${getIdGr()}`);
     return this.http.get<PersonneSuivi[]>(url).pipe();
   }
 
   getEventInvites(idEvent: number): Observable<Invite[]>{
-    let url = encodeURI(`${environment.host}?service=event&action=listeInvite&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
+    let url = encodeURI(`${environment.api}?service=event&action=listeInvite&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
     return this.http.get<Invite[]>(url).pipe();
   }
 
@@ -144,7 +144,7 @@ export class EventService {
     const ids = idsParticipant.join('-');
     const idsInviteChaine = idsInvite.join('-');
     const idsInvitePresentChaine = idsInvitePresent.join('-');
-    let url = encodeURI(`${environment.host}?service=event&action=saveParticipantEvent&invite=${idsInviteChaine}&invitePresent=${idsInvitePresentChaine}&participants=${ids}&id_event=${event.id}`);
+    let url = encodeURI(`${environment.api}?service=event&action=saveParticipantEvent&invite=${idsInviteChaine}&invitePresent=${idsInvitePresentChaine}&participants=${ids}&id_event=${event.id}`);
 
     return this.http.get<number>(url).pipe();
   }

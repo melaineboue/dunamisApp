@@ -30,59 +30,62 @@ export class ReunionGrService {
 
   getReunionsReseau(): Observable<ReunionGr[]>{
     // service = event , action = saveEvent
-    let url = encodeURI(`${environment.host}?service=reunion&action=listeReunionReseau&id_reseau=${getIdReseau()}`);
+    let url = encodeURI(`${environment.api}?service=reunion&action=listeReunionReseau&id_reseau=${getIdReseau()}`);
     return this.http.get<ReunionGr[]>(url).pipe();
   }
 
   getReunionsGr(): Observable<ReunionGr[]>{
     // service = event , action = saveEvent
-    let url = encodeURI(`${environment.host}?service=reunion&action=listeReunionGr&id_gr=${getIdGr()}`);
+    let url = encodeURI(`${environment.api}?service=reunion&action=listeReunionGr&id_gr=${getIdGr()}`);
     return this.http.get<ReunionGr[]>(url).pipe();
   }
 
   getReunionById(reunionId: number): Observable<ReunionGr>{
-    let url = encodeURI(`${environment.host}?service=reunion&action=getReunionById&id_reunion=${reunionId}`);
+    let url = encodeURI(`${environment.api}?service=reunion&action=getReunionById&id_reunion=${reunionId}`);
     return this.http.get<ReunionGr>(url).pipe();
   }
 
   getPersonnesAssiste(idReunion: number): Observable<Personne[]>{
-    let url = encodeURI(`${environment.host}?service=reunion&action=getPersonnesReunion&id_reunion=${idReunion}`);
+    let url = encodeURI(`${environment.api}?service=reunion&action=getPersonnesReunion&id_reunion=${idReunion}`);
     return this.http.get<Personne[]>(url).pipe();
   }
 
   getPersonnesNonAssiste(idReunion: number): Observable<Personne[]>{
-    let url = encodeURI(`${environment.host}?service=reunion&action=getPersonnesNonAssisteReunion&id_reunion=${idReunion}`);
+    let url = encodeURI(`${environment.api}?service=reunion&action=getPersonnesNonAssisteReunion&id_reunion=${idReunion}`);
     return this.http.get<Personne[]>(url).pipe();
   }
 
   /*getReunionInvites(idReunion: number): Observable<Invite[]>{
-    let url = encodeURI(`${environment.host}?service=invite&action=getInviteByReunion&id_reunion=${idReunion}`);
+    let url = encodeURI(`${environment.api}?service=invite&action=getInviteByReunion&id_reunion=${idReunion}`);
     return this.http.get<Invite[]>(url).pipe();
   }*/
 
   saveInvite(idReunion: number,nomInvite: string): Observable<number> {
-    let url = encodeURI(`${environment.host}?service=reunion&action=saveInvite&id_reunion=${idReunion}&nom=${nomInvite}`);
+    let url = encodeURI(`${environment.api}?service=reunion&action=saveInvite&id_reunion=${idReunion}&nom=${nomInvite}`);
     return this.http.get<number>(url).pipe();
   }
 
   save(idsParticipant:number[], idsInvite:number[], idsInvitePresent:number[], reunion?: ReunionGr): Observable<number>{
+    console.log('reunion',reunion);
+
     const ids = idsParticipant.join('-');
     const idsInviteChaine = idsInvite.join('-');
     const idsInvitePresentChaine = idsInvitePresent.join('-');
-    let url = encodeURI(`${environment.host}?service=reunion&action=saveReunion&invite=${idsInviteChaine}&invitePresent=${idsInvitePresentChaine}&participants=${ids}${this.reunionToString(reunion)}`);
+    let url = encodeURI(`${environment.api}?service=reunion&action=saveReunion&invite=${idsInviteChaine}&invitePresent=${idsInvitePresentChaine}&participants=${ids}${this.reunionToString(reunion)}`);
     const formData: FormData = new FormData();
     formData.append('rapport', reunion.rapport);
+    formData.append('rapport_complement', reunion.complement_rapport);
 
     return this.http.post<number>(url, formData).pipe();
   }
 
   validerReunion(idReunion: number):Observable<number>{
-    let url = encodeURI(`${environment.host}?service=reunion&action=validerReunionEnCours&id_reunion=${idReunion}&id_gr=${getIdGr()}`);
+    let url = encodeURI(`${environment.api}?service=reunion&action=validerReunionEnCours&id_reunion=${idReunion}&id_gr=${getIdGr()}`);
     return this.http.get<number>(url).pipe();
   }
 
   getReunionEnCours(idGr: number): Observable<ReunionGr> {
-    let url = encodeURI(`${environment.host}?service=reunion&action=getReunionEnCours&id_gr=${idGr}`);
+    let url = encodeURI(`${environment.api}?service=reunion&action=getReunionEnCours&id_gr=${idGr}`);
 
     return this.http.get<ReunionGr>(url).pipe();
   }

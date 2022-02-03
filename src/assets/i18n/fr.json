@@ -298,7 +298,8 @@
       "libelle_invite":"invité",
       "error_saving_invite":"Une erreur est survenue, réessayez plus tard",
       "nom_invite_vide":"Veuillez saisir le nom",
-      "modification_impossible": "Aucune modification n'est possible après validation"
+      "modification_impossible": "Aucune modification n'est possible après validation",
+      "description_complement_rapport": "Complément de rapport"
     },
     "details_gr": {
       "definir_responsable": "Définir les responsables",

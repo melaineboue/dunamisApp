@@ -13,17 +13,17 @@ export class InviteService {
   constructor(private http: HttpClient) { }
 
   saveInviteReunion(nomInvite: string): Observable<number>{
-    const url = encodeURI(`${environment.host}?service=invite&action=saveInvite&nom=${nomInvite}&id_gr=${getIdGr()}`);
+    const url = encodeURI(`${environment.api}?service=invite&action=saveInvite&nom=${nomInvite}&id_gr=${getIdGr()}`);
     return this.http.get<number>(url).pipe();
   }
 
   getInvitesFromReunion(idReunion: number): Observable<Invite[]>{
-    const url = encodeURI(`${environment.host}?service=invite&action=getInviteByReunion&id_reunion=${idReunion}`);
+    const url = encodeURI(`${environment.api}?service=invite&action=getInviteByReunion&id_reunion=${idReunion}`);
     return this.http.get<Invite[]>(url).pipe();
   }
 
   getInvitesFromEvent(idEvent: number): Observable<Invite[]>{
-    const url = encodeURI(`${environment.host}?service=invite&action=getInvitesFromEvent&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
+    const url = encodeURI(`${environment.api}?service=invite&action=getInvitesFromEvent&id_event=${idEvent}&id_reseau=${getIdReseau()}`);
     return this.http.get<Invite[]>(url).pipe();
   }
 }

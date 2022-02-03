@@ -11,5 +11,6 @@ export interface ReunionGr {
   valide?: boolean,
   heure_debut?: string,
   heure_fin?: string,
+  complement_rapport?: string,
   rapport?: string
 }

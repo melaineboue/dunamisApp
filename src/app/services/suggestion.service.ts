@@ -17,7 +17,7 @@ export class SuggestionService {
     let formData = new FormData();
     formData.append("suggestion", suggestion);
 
-    const url = encodeURI(`${environment.host}?service=suggestion&action=addSuggestion&id_personne=${getIdUser()}`);
+    const url = encodeURI(`${environment.api}?service=suggestion&action=addSuggestion&id_personne=${getIdUser()}`);
     return this.http.post<boolean>(url, formData).pipe();
   }
 }
