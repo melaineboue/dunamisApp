@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { menuItemsClass } from 'src/app/models/const';
 import { Evenement } from 'src/app/models/evenement';
 import { Predicateur } from 'src/app/models/predicateur';
-import { estDate, estHeure } from 'src/app/utils/utils';
+import { estDate, estHeure, getUserRole } from 'src/app/utils/utils';
 import { CommonService } from 'src/app/services/common.service';
 import { EventService } from 'src/app/services/event.service';
 import { ParameterService } from 'src/app/services/parameter.service';
+import { UserRole } from 'src/app/enums/user-role';
 
 @Component({
   selector: 'app-add-event',
@@ -30,9 +31,13 @@ export class AddEventComponent implements OnInit {
   error: boolean = false;
   saved: boolean = false;
 
+  niveauRole = 1;
+
   nomTitreManquant = false;
   dateInvalide = false;
   heureInvalide = false;
+
+  portee = 1;
 
   constructor(
     private eventService: EventService,
@@ -45,6 +50,33 @@ export class AddEventComponent implements OnInit {
 
 
   ngOnInit(): void {
+    const role = getUserRole();
+
+    if(
+      role.role_libelle_court === UserRole.Pasteur ||
+      role.role_libelle_court === UserRole.PasteurReadOnly
+    ){
+      this.niveauRole = 2;
+    }
+
+    if(
+      role.role_libelle_court === UserRole.ResponsableReseau ||
+      role.role_libelle_court === UserRole.ResponsableReseauReadOnly
+    ){
+      this.niveauRole = 3;
+    }
+
+    if(
+      role.role_libelle_court === UserRole.ResponsableGr ||
+      role.role_libelle_court === UserRole.ResponsableGrReadOnly
+    ){
+      this.niveauRole = 4;
+    }
+
+  }
+
+  changerPortee(portee){
+    this.portee = portee;
   }
 
   get secondaryColor(): string {
@@ -72,7 +104,7 @@ export class AddEventComponent implements OnInit {
 
     if (nomTitreValide && dateValide && heureValide) {
 
-      this.eventService.saveEvent(this.event).subscribe(
+      this.eventService.saveEvent(this.event, this.portee).subscribe(
         enregistre => {
           if(enregistre){
             this.error = false;

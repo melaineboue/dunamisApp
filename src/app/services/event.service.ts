@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { UserRole } from '../enums/user-role';
 import { Status } from '../models/const';
 import { Evenement } from '../models/evenement';
 import { Invite } from '../models/invite';
 import { Personne } from '../models/personne';
 import { PersonneSuivi } from '../models/personneSuivi';
 import { Predicateur } from '../models/predicateur';
-import { getIdGr, getIdReseau } from '../utils/utils';
+import { getFullUrlId, getIdEglise, getIdGr, getIdReseau, getUserRole } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -18,51 +19,9 @@ export class EventService {
 
   events: Evenement[] = [];
 
-  personnesAssiste: Personne[]=[
-    {
-      id:1,
-      nom: 'BOUE',
-      prenom:'Mélaine',
-      date_ajout: '04/08/2021',
-      telephone: '0769089717',
-      status: Status.RESPONSABLE,
-      gr: {
-        id:1,
-        libelle: 'GR Franckie',
-        idreseau: 1
-      }
-    },
+  personnesAssiste: Personne[]=[];
 
-    {
-      id:3,
-      nom: 'Birat',
-      prenom:'Christellyne',
-      date_ajout: '04/08/2021',
-      telephone: '0745859652',
-      status: Status.RESPONSABLE,
-      gr: {
-        id:2,
-        libelle: 'GR Christellyne',
-        idreseau: 1
-      }
-    }
-  ];
-
-  personnesNonAssiste: Personne[]=[
-    {
-      id:4,
-      nom: 'Nzimbou',
-      prenom:'Ludmila',
-      date_ajout: '04/08/2021',
-      telephone: '0623521452',
-      status: Status.POTENTIEL,
-      gr: {
-        id:2,
-        libelle: 'GR Christellyne',
-        idreseau: 1
-      }
-    }
-  ];
+  personnesNonAssiste: Personne[]=[];
 
   personnesInvitees: Personne[]=[]
 
@@ -75,7 +34,12 @@ export class EventService {
   getEvents(): Observable<Evenement[]> {
     // service = event
     // action = listeEvent
-    let url = `${environment.api}?service=event&action=listeEvent`;
+    let url = `${environment.api}?service=event&action=listeEvent${getFullUrlId()}`;
+    return this.http.get<Evenement[]>(url).pipe();
+  }
+
+  getEventsAvenir(): Observable<Evenement[]> {
+    let url = `${environment.api}?service=event&action=listeEventAvenir${getFullUrlId()}`;
     return this.http.get<Evenement[]>(url).pipe();
   }
 
@@ -84,9 +48,22 @@ export class EventService {
     return this.http.get<Predicateur[]>(url).pipe();
   }
 
-  saveEvent(event: Evenement): Observable<boolean>{
+  saveEvent(event: Evenement, portee: number): Observable<boolean>{
     // service = event , action = saveEvent
-    let url = encodeURI(`${environment.api}?service=event&action=saveEvent&${this.eventToString(event)}`);
+    let urlComplement = "";
+
+    if(portee == 2){
+      urlComplement = `${urlComplement}&id_eglise=${getIdEglise()}`;
+    }
+    if(portee == 3){
+      urlComplement = `${urlComplement}&id_reseau=${getIdReseau()}`;
+    }
+    if(portee == 4){
+      urlComplement = `${urlComplement}&id_gr=${getIdGr()}`;
+    }
+
+    let url = encodeURI(`${environment.api}?service=event&action=saveEvent&${this.eventToString(event)}${urlComplement}`);
+    console.log(url);
 
     return this.http.get<number | boolean>(url).pipe(map(response => {
       if(response){

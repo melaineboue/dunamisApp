@@ -64,12 +64,16 @@
         <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
         <td> {{ personne.date_ajout }} </td>
         <td>
-          <button>
+          <button class="btn btn-secondary">
             <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
               (click)="details(personne.id)"></i>
           </button>
-
-          <button (click)="retirerDuGR(personne)" *ngIf="personne.status !== statusResponsable">
+          |
+          <button class="btn btn-outline-secondary" (click)="modifierPersonne(personne)">
+            <i class="bi bi-pencil" title="{{ 'common.modifier' | translate }}" ></i>
+          </button>
+          <span *ngIf="personne.status !== statusResponsable"> | </span>
+          <button class="btn btn-outline-danger" (click)="retirerDuGR(personne)" *ngIf="personne.status !== statusResponsable">
             <i class="bi bi-x-square" title="{{ 'page.liste_gr.info.retirer_du_gr' | translate }}"></i>
           </button>
         </td>
@@ -110,12 +114,11 @@
         <td> {{ (personne.gr.libelle == 'aucun_gr' ? 'common.aucun_gr' : personne.gr.libelle) | translate }} </td>
         <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
         <td>
-          <button>
-            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
-              (click)="details(personne.id)"></i>
+          <button class="btn btn-secondary" (click)="details(personne.id)">
+            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"></i>
           </button>
-
-          <button (click)="ajouterGR(personne)" *ngIf="personne.status !== 'responsable'">
+          <span  *ngIf="personne.status !== 'responsable'"> | </span>
+          <button class="btn btn-outline-secondary" (click)="ajouterGR(personne)" *ngIf="personne.status !== 'responsable'">
             <i class="bi bi-plus-square" title="{{ 'page.liste_gr.info.ajouter_au_gr' | translate }}"></i>
           </button>
         </td>

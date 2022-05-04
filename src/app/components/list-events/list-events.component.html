@@ -7,55 +7,112 @@
   </div>
 
 
-  <div class="row">
+
+  <div class="mb-2">
+
+    <a [routerLink]="routeAddEvent" [ngStyle]="{'background': backgroundButtonAdd }" (mouseover)="ajouterPersonneOver()"
+      (mouseleave)="ajouterPersonneBlur()" class="btn btn-secondary"
+      title="{{ 'page.events.info.add_event'| translate }}">
+      <i class="bi bi-calendar-plus"></i>
+    </a>
+  </div>
+
+
+
+  <div class="row mt-2">
     <div class="mb-5 col-12">
       <input type="text" class="form-control" id="recherche"
         placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [formControl]="recherche">
     </div>
   </div>
 
-  <a [routerLink]="routeAddEvent" [ngStyle]="{'background': backgroundButtonAdd }"
-    (mouseover)="ajouterPersonneOver()" (mouseleave)="ajouterPersonneBlur()" class="btn btn-secondary"
-    title="{{ 'page.events.info.add_event'| translate }}">
-    <i class="bi bi-calendar-plus"></i>
-  </a>
-  <hr />
-  <div class="row">
-    <div class="col-3"> {{ 'page.events.total' | translate }} : <span [ngStyle]="{'color': secondaryColor }">{{ events.length}}</span></div>
-    <div class="col-9"></div>
+  <p class="mt-2 p-2 titre-event">{{ 'page.events.event_a_venir' | translate }}</p>
+
+  <div *ngIf="eventsRecherchesAvenir.length > 0">
+    <div class="row">
+      <div class="col-3"> {{ 'page.events.total' | translate }} : <span [ngStyle]="{'color': secondaryColor }">{{
+          eventsAvenir.length}}</span></div>
+      <div class="col-9"></div>
+    </div>
+    <hr />
+
+
+
+    <table class="table table-striped">
+      <thead>
+        <tr [ngStyle]="{'color': secondaryColor }">
+          <th scope="col">#</th>
+          <th scope="col">{{ "page.events.nom" | translate }}</th>
+          <th scope="col">{{ "page.events.predicateur" | translate }}</th>
+          <th scope="col">{{ "page.events.titre_message" | translate }}</th>
+          <th scope="col">{{ "page.events.date" | translate }}</th>
+          <th scope="col">{{ "page.events.action" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of eventsRecherchesAvenir; let numero = index">
+          <th scope="row">{{ numero + 1 }}</th>
+          <td> {{ event.libelle }} </td>
+          <td> {{ event.predicateur }} </td>
+          <td> {{ event.titre_message }} </td>
+          <td> {{ event.date_evenement }}</td>
+          <td>
+            <i class="bi bi-card-text details" title="{{ 'page.events.info.afficher_details' | translate }}"
+              (click)="details(event.id)"> {{ 'page.events.details' | translate }}</i>
+          </td>
+        </tr>
+
+      </tbody>
+    </table>
   </div>
+  <div class="mt-4 mb-2 text-center" *ngIf="eventsRecherchesAvenir.length == 0">{{
+    'page.detail_personne.aucun_evenement' | translate }}
+  </div>
+
+
   <hr />
 
+  <div *ngIf="events.length > 0">
 
+    <p class="mt-5 p-2 titre-event">{{ 'page.events.titre' | translate }}</p>
 
-  <table class="table table-striped">
-    <thead>
-      <tr [ngStyle]="{'color': secondaryColor }">
-        <th scope="col">#</th>
-        <th scope="col">{{ "page.events.nom" | translate }}</th>
-        <th scope="col">{{ "page.events.predicateur" | translate }}</th>
-        <th scope="col">{{ "page.events.titre_message" | translate }}</th>
-        <th scope="col">{{ "page.events.date" | translate }}</th>
-        <th scope="col">{{ "page.events.action" | translate }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let event of eventsRecherches; let numero = index">
-        <th scope="row">{{ numero + 1 }}</th>
-        <td> {{ event.libelle }} </td>
-        <td> {{ event.predicateur }} </td>
-        <td> {{ event.titre_message }} </td>
-        <td> {{ event.date_evenement }}</td>
-        <td>
-          <i class="bi bi-card-text details" title="{{ 'page.events.info.afficher_details' | translate }}"
-            (click)="details(event.id)"> {{ 'page.events.details' | translate }}</i>
-        </td>
-      </tr>
+    <div class="row">
+      <div class="col-3"> {{ 'page.events.total' | translate }} : <span [ngStyle]="{'color': secondaryColor }">{{
+          events.length}}</span></div>
+      <div class="col-9"></div>
+    </div>
+    <hr />
 
-    </tbody>
-  </table>
+    <table class="table table-striped">
+      <thead>
+        <tr [ngStyle]="{'color': secondaryColor }">
+          <th scope="col">#</th>
+          <th scope="col">{{ "page.events.nom" | translate }}</th>
+          <th scope="col">{{ "page.events.predicateur" | translate }}</th>
+          <th scope="col">{{ "page.events.titre_message" | translate }}</th>
+          <th scope="col">{{ "page.events.date" | translate }}</th>
+          <th scope="col">{{ "page.events.action" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let event of eventsRecherches; let numero = index">
+          <th scope="row">{{ numero + 1 }}</th>
+          <td> {{ event.libelle }} </td>
+          <td> {{ event.predicateur }} </td>
+          <td> {{ event.titre_message }} </td>
+          <td> {{ event.date_evenement }}</td>
+          <td>
+            <i class="bi bi-card-text details" title="{{ 'page.events.info.afficher_details' | translate }}"
+              (click)="details(event.id)"> {{ 'page.events.details' | translate }}</i>
+          </td>
+        </tr>
 
+      </tbody>
+    </table>
+  </div>
+  <div class="mt-4 mb-2 text-center" *ngIf="eventsRecherches.length == 0">{{
+    'page.events.aucun_evenement_trouve' | translate }}
+  </div>
 
 
 </div>
-

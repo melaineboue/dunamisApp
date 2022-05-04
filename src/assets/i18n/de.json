@@ -16,8 +16,10 @@
     "liste_evenement": "Veranstaltungen",
     "theme_gr": "Themen von GR",
     "reunion_gr": "Treffen von GR",
+    "synergie_megagr": "Synergie - Mega GR",
     "accueil": "Startseite",
     "suggestion_bug": "Vorschlag oder Fehler",
+    "gestion_rapport": "Berichte",
     "deconnecter": "Melden Sie sich ab"
   },
   "common": {
@@ -36,7 +38,16 @@
     "saved_success_message":"Die Informationen wurden gespeichert",
     "valider_success_message":"Die Informationen wurden bestätigt",
     "error_message":"Die Registrierung ist fehlgeschlagen, Erneut versuchen",
-    "generer_rapport":"Bericht erstellen"
+    "generer_rapport":"Bericht erstellen",
+    "afficher_rapport_suivi":"Tracking-Bericht anzeigen",
+    "afficher_rapport_one_soul_jesus":"Zeige Bericht \"One soul for Jesus\"",
+    "afficher_rapport_evangelisation":"Evangelisationsbericht ansehen",
+    "type": "Art"
+  },
+  "type_reunion": {
+    "gr": "GR",
+    "synergie": "Synergie",
+    "mega_gr": "Mega GR"
   },
   "page": {
     "liste_personnes": {
@@ -204,6 +215,8 @@
       "total": "Total",
       "action": "Aktion",
       "details": "Details",
+      "event_a_venir": "Kommende Veranstaltungen",
+      "event_non_trouve": "Keine Veranstaltungen gefunden",
       "info":{
         "afficher_details":"Details anzeigen",
         "add_event": "Neues Evangement hinzufügen"

@@ -4,10 +4,11 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { GR } from '../models/gr';
+import { Invite } from '../models/invite';
 import { Personne } from '../models/personne';
 import { PersonneSuivi } from '../models/personneSuivi';
 import { Suivi } from '../models/suivi';
-import { getIdReseau, getUrlId } from '../utils/utils';
+import { getIdGr, getIdReseau, getUrlId } from '../utils/utils';
 
 @Injectable({
   providedIn: 'root'
@@ -16,19 +17,32 @@ export class GrService {
 
   grs: GR[] = [];
 
-  autorizedCaracter = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ$_1234567890';
 
   personnesGR: Personne[] = [];
   personnesHorsGR: Personne[] = [];
 
-
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient) { }
 
   getList(): Observable<GR[]> {
     // service = gr / action = listgr
     let id_reseau = localStorage.getItem('idReseau');
     let url = `${environment.api}?service=gr&action=listgr${getUrlId()}`;
     return this.http.get<GR[]>(url).pipe();
+  }
+
+  /**
+   *
+   * @param id Recupère les personnes qui ont été ajouté dans cette période
+   * @param date la date d'effet
+   * @returns
+   *
+   */
+  getPersonneNouveau(id: number, date: string): Observable<Invite[]>{
+    let url = encodeURI(`${environment.api}?service=gr&action=getNouveauGr&id_gr=${id}&date=${date}`);
+    // url = encodeURI(`${environment.api}?service=gr&action=getNouveauGr&id_gr=${id}&date=2022-01-01`);
+    console.log(url);
+
+    return this.http.get<Invite[]>(url).pipe(map(response => response));
   }
 
   getGrById(id: number): Observable<GR>{
@@ -88,8 +102,11 @@ export class GrService {
     return this.http.get<PersonneSuivi[]>(url).pipe();
   }
 
-  fermerGr(): Observable<boolean>{
-    return of(true);
+  fermerGr(id_gr: number): Observable<boolean>{
+    let url = encodeURI(`${environment.api}?service=gr&action=fermer&id_gr=${id_gr}`);
+    console.log(url);
+
+    return this.http.get<boolean>(url).pipe();
   }
 
   definirReponsable(idPersonne: number, idGr: number){
@@ -97,15 +114,6 @@ export class GrService {
     console.log(url);
 
 
-  }
-
-  generateAccessCode(nombre: number): string {
-    let code ='';
-    for(let i= 0; i< nombre; i++){
-      let index = Math.floor(Math.random()* this.autorizedCaracter.length );
-      code += this.autorizedCaracter[index];
-    }
-    return code;
   }
 
   setReunionEnCours(idGr: number, idReunion: number){

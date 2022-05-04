@@ -1,42 +1,76 @@
 {
   "langage": {
-    "francais": "Français",
+    "allemand": "Allemand",
     "anglais": "Anglais",
     "espagnol": "Espagnol",
+    "francais": "Français",
     "italien": "Italien",
-    "allemand": "Allemand",
     "portugais": "Portugais"
   },
   "menu": {
-    "liste": "Liste des personnes",
+    "accueil": "Accueil",
     "culte": "Présence aux cultes",
+    "deconnecter": "Déconnecter",
+    "gestion_rapport": "Rapports",
+    "liste": "Liste des personnes",
     "liste_gr": "Liste des groupes de GR",
     "liste_reseau": "Liste des Reseaux",
-    "suivi": "Suivi des personnes",
     "liste_evenement": "Evênements",
-    "theme_gr": "Thèmes de GR",
     "reunion_gr": "Reunion de GR",
-    "accueil": "Accueil",
+    "suivi": "Suivi des personnes",
     "suggestion_bug": "Suggestion ou bug",
-    "deconnecter": "Déconnecter"
+    "synergie_megagr": "Synergie - Méga GR",
+    "theme_gr": "Thèmes de GR"
   },
   "common": {
-    "retour": "Retour",
+    "action": "Action",
+    "a_ete_creer": "a été crée",
+    "afficher_rapport":"Afficher rapport",
+    "afficher_rapport_suivi":"Afficher rapport de suivi",
+    "afficher_rapport_one_soul_jesus":"Afficher rapport One soul for Jesus",
+    "afficher_rapport_evangelisation":"Afficher rapport évangelisation",
+    "aucun_membre_trouve": "Aucun membre trouvé",
+    "aucun_gr": "Aucun GR",
     "copier": "Copier",
     "copie": "Copié",
+    "details": "Détails",
+    "effectif": "Effectif",
+    "en_cours_fidelisation": "En cours de fidélisation",
+    "est_deja_responsable": "est déjà responsable",
     "masquer": "Masquer",
-    "rapport": "Rapport",
-    "tout_cocher": "Tout cocher",
-    "aucun_gr": "Aucun GR",
-    "rapport_suivi": "Rapport de suivi",
+    "modifier": "Modifier",
     "annuler":"Annuler",
     "enregistrer":"Enregistrer",
+    "date_creation":"Date création",
+    "date_dernier_ajout_membre":"Date dernier membre ajouté",
     "definir_present":"Définir les présents",
-    "afficher_rapport":"Afficher rapport",
-    "saved_success_message":"Les informations ont été enregistrées",
-    "valider_success_message":"Les informations ont été validé",
     "error_message":"L'enregistrement a échoué, Réessayer",
-    "generer_rapport":"Générer rapport"
+    "fermer": "Fermer",
+    "generer_rapport":"Générer rapport",
+    "irregulier":"Irrégulier",
+    "potentiel":"Potentiel",
+    "va_perdre_droit":" va perdre ses droits de responsable.",
+    "vont_perdre_droit":" vont perdre leur droits de responsable.",
+    "retour": "Retour",
+    "regulier": "Regulier",
+    "rechercher": "Rechercher",
+    "responsables_reseau": "Responsable(s)",
+    "responsables_gr": "Responsables GR",
+    "reseau": "Le réseau",
+    "rapport": "Rapport",
+    "rapport_suivi": "Rapport de suivi",
+    "tout_cocher": "Tout cocher",
+    "taille": "Taille",
+    "type": "Type",
+    "saved_success_message":"Les informations ont été enregistrées",
+    "ses_droits_seront_retire": "Ses droits de responsable seront retirés",
+    "valider_success_message":"Les informations ont été validé",
+    "nom": "Nom"
+  },
+  "type_reunion": {
+    "gr": "GR",
+    "synergie": "Synergie",
+    "mega_gr": "Méga GR"
   },
   "page": {
     "liste_personnes": {
@@ -53,6 +87,7 @@
         "potentiel": "Potentiel",
         "regulier": "Régulier",
         "en_cours_fidelisation": "En cours de fidelisation",
+        "nouveau": "Nouveau",
         "irregulier": "Irrégulier",
         "fantome": "Fantôme"
       },
@@ -94,6 +129,11 @@
       "email_invalide": "L'email est invalide",
       "date_invalide": "La date est invalide"
 
+    },
+    "modifier_personne": {
+      "titre": "Modification de la personne ",
+      "error_message":"La modification a échoué, Ressayer plus tard.",
+      "success_message":"La modification a été effectuée."
     },
     "detail_personne": {
       "total_gr": "Nombre GR",
@@ -203,6 +243,8 @@
       "total": "Total",
       "action": "Action",
       "details": "Détails",
+      "event_a_venir": "Événements à vénir",
+      "event_non_trouve": "Aucun événement trouvé",
       "info":{
         "afficher_details":"Afficher détails",
         "add_event": "Ajouter un nouvel evênement"
@@ -310,6 +352,23 @@
     "suggestion": {
       "titre":"Faire des suggestions ou signaler un bug",
       "libelle_suggestion":"Suggestion"
+    },
+    "reseau": {
+      "ajouter_reseau": "Ajouter un nouveau reseau",
+      "creer_reseau": "Création de nouveau reseau",
+      "confirmer_fermeture_reseau": "Confirmer la fermeture du Réseau",
+      "copier_code":"Copier le code d'activation",
+      "copier_lien":"Copier le lien d'activation",
+      "commentaire_bouton_modifier":"Modifier le nom et les définir rédefinir les responsables du réseau",
+      "definir_responsables": "Définir responsable du réseau",
+      "fermer_reseau": "Fermer le réseau",
+      "liste_membre": "Liste des membres du reseau",
+      "liste_reseau": "Liste des reseaux",
+      "modifier":"Modifier le reseau",
+      "nom_reseau_obligatoire":"Le nom du réseau est obligatoire",
+      "nom_reseau": "Nom du réseau",
+      "nombre_gr": "Nombre GR",
+      "reseau_ferme": "Le réseau a été fermé avec succès"
     }
   }
 }

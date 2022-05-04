@@ -1,0 +1,328 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col-2  mt-3">
+      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> {{ 'common.retour' | translate }} </button>
+    </div>
+    <div class="col-10">
+      <app-titre [libelle]="reseau.nom"></app-titre>
+    </div>
+  </div>
+
+
+  <hr />
+
+  <div class="row">
+    <div class="col-6">
+      <button class="btn btn-light bordure-gris"
+        title="{{ 'page.reseau.commentaire_bouton_modifier' | translate }}"
+        (click)="modifierReseau()"
+        >
+        {{ 'page.reseau.modifier' | translate }}
+      </button>
+    </div>
+    <div class="col-6 d-flex flex-row-reverse">
+      <div *ngIf="suppressionEnCours" class="row">
+        <div class="col-lg-3 col-md-12 mb-md-1 mb-sm-1 mb-xs-1">
+          <button class="btn btn-light bordure-gris col-12" (click)="suppressionEnCours = false">{{ 'page.details_gr.annuler_fermeture' | translate }}</button>
+        </div>
+        <div class="col-lg-9 col-md-12">
+          <button class="btn btn-danger ms-3 col-12 bouton-confirmer-fermeture" (click)="fermerReseau()">{{ 'page.reseau.confirmer_fermeture_reseau' | translate }}</button>
+        </div>
+
+      </div>
+      <button *ngIf="!suppressionEnCours" class="btn btn-danger" (click)="suppressionEnCours = true">{{ 'page.reseau.fermer_reseau' | translate }}</button>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="row">
+    <div class="col-md-6 col-sm-12">
+      <table class="table table-striped .tableau-donnees">
+        <tbody>
+          <tr>
+            <td> {{ 'common.responsables_reseau' | translate }} </td>
+            <td class="text-end" [ngStyle]="{'color': secondaryColor }"> {{ responsables }} </td>
+          </tr>
+          <tr>
+            <td> {{ 'common.effectif' | translate }} </td>
+            <td class="text-end" [ngStyle]="{'color': secondaryColor }"> {{ reseau.taille }} </td>
+          </tr>
+          <tr [title]="responsablesGRList">
+            <td> {{ 'common.responsables_gr' | translate }} </td>
+            <td class="text-end" [ngStyle]="{'color': secondaryColor }"> {{ reseau.infos.responsablesGR }} </td>
+          </tr>
+          <tr>
+            <td> {{ 'common.potentiel' | translate }} </td>
+            <td class="text-end" [ngStyle]="{'color': secondaryColor }"> {{ reseau.infos.potentiel }} </td>
+          </tr>
+          <tr>
+            <td> {{ 'common.regulier' | translate }} </td>
+            <td class="text-end" [ngStyle]="{'color': secondaryColor }"> {{ reseau.infos.regulier }} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="col-md-6 col-sm-12">
+      <table class="table table-striped .tableau-donnees">
+        <tbody>
+          <tr>
+            <td> {{ 'common.en_cours_fidelisation' | translate }} </td>
+            <td class="text-end" [ngStyle]="{'color': secondaryColor }"> {{ reseau.infos.en_cours_fidelisation }} </td>
+          </tr>
+          <tr>
+            <td> {{ 'common.irregulier' | translate }} </td>
+            <td class="text-end" [ngStyle]="{'color': secondaryColor }"> {{ reseau.infos.irregulier }} </td>
+          </tr>
+          <tr>
+            <td> {{ 'common.date_creation' | translate }} </td>
+            <td class="text-end" [ngStyle]="{'color': secondaryColor }"> {{ reseau.date_creation }} </td>
+          </tr>
+          <tr>
+            <td> {{ 'common.date_dernier_ajout_membre' | translate }} </td>
+            <td class="text-end" [ngStyle]="{'color': secondaryColor }"> {{ reseau.infos.date_dernier_ajout }} </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+
+
+
+
+  <div class="col-sm-12 col-md-12">
+
+    <div class="row">
+
+
+      <div class="accordion" id="accordionExample">
+
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
+              aria-expanded="true" aria-controls="collapseOne">
+              {{ 'page.liste_gr.text.liste_gr' | translate }}
+            </button>
+          </h2>
+
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+            data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+
+              <table class="table table-striped mb-3" *ngIf="reseau.membres.grs.length > 0">
+                <thead>
+                  <tr [ngStyle]="{'color': secondaryColor }">
+                    <th scope="col">#</th>
+                    <th scope="col">{{ "page.liste_gr.nom" | translate }}</th>
+                    <th scope="col">{{ "page.liste_gr.taille" | translate }}</th>
+                    <th scope="col">{{ "page.liste_gr.date_creation" | translate }}</th>
+                    <!--Couleur de fond Rouge: pas régulier, orange: en cours de fidélisation/ pas regulier-->
+                    <th scope="col">{{ "page.liste_gr.action" | translate }}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let gr of reseau.membres.grs; let numero = index">
+                    <th scope="row">{{ numero + 1 }}</th>
+                    <td> {{ gr.libelle }} </td>
+                    <td> {{ gr.taille }} </td>
+                    <td> {{ gr.date_creation }} </td>
+                    <td>
+                      <i class="details-gr" title="{{ 'page.liste_gr.info.afficher_details' | translate }}"
+                        (click)="detailsGR(gr.id)"> {{ 'page.liste_gr.details' | translate }}</i>
+                    </td>
+                  </tr>
+
+                </tbody>
+              </table>
+
+              <div class="text-center fst-italic" *ngIf="reseau.membres.grs.length <= 0"> {{ 'common.aucun_gr' | translate |
+                translate}} </div>
+
+            </div>
+          </div>
+        </div> <!-- FIN ACCORDION ITEM -->
+
+
+
+        <br />
+
+      <!-- ACCORDION 2 -->
+      <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            {{ 'page.reseau.liste_membre' | translate }}
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+          data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+
+            <table class="table table-striped" *ngIf="reseau.membres.personnes.length > 0">
+              <thead>
+                <tr [ngStyle]="{'color': secondaryColor }">
+                  <th scope="col">#</th>
+                  <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
+                  <th scope="col">{{ "page.liste_personnes.tableau.entete.ville" | translate }}</th>
+                  <th scope="col">{{ "page.liste_personnes.tableau.entete.gr" | translate }}</th>
+                  <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
+                  <!--Couleur de fond Rouge: pas régulier, orange: en cours de fidélisation/ pas regulier-->
+                  <th scope="col">{{ "page.liste_personnes.tableau.entete.action" | translate }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let personne of reseau.membres.personnes; let numero = index">
+                  <th scope="row">{{ numero + 1 }}</th>
+                  <td> {{ (personne.prenom | titlecase) + ' '+ (personne.nom | uppercase ) }} </td>
+                  <td> {{ personne.ville }} </td>
+                  <td> {{ (personne.gr.libelle == 'aucun_gr' ? 'common.aucun_gr' : personne.gr.libelle) | translate }}</td>
+                  <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
+                  <td>
+                    <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
+                      (click)="detailsPersonne(personne.id)"> {{ 'page.liste_personnes.details' | translate }}</i>
+                  </td>
+                </tr>
+
+              </tbody>
+            </table>
+            <div class="text-center fst-italic" *ngIf="reseau.membres.personnes.length == 0">
+              {{ 'common.aucun_membre_trouve' | translate}} </div>
+          </div>
+        </div>
+      </div> <!-- FIN ACCORDION ITEM -->
+
+      <br/>
+
+
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+<!--
+  <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-5">{{ 'page.liste_gr.text.personne_gr' | translate }}</div>
+  <div class="row">
+    <div class="mb-3 mt-3 col-12">
+      <input type="text" class="form-control" id="recherche"
+        placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="rechercheGr">
+    </div>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr [ngStyle]="{'color': secondaryColor }">
+        <th scope="col">#</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.prenom" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.ville" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.action" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let personne of personnesGrRecherches; let numero = index">
+        <th scope="row">{{ numero + 1 }}</th>
+        <td> {{ personne.nom }} </td>
+        <td> {{ personne.prenom }} </td>
+        <td> {{ personne.ville }} </td>
+        <td>
+          {{ 'page.liste_personnes.status.'+personne.status | translate }}
+          <button *ngIf="personne.status !== statusResponsable"><i class="bi bi-arrow-up-circle-fill"></i></button>
+        </td>
+        <td>
+          <button>
+            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
+              (click)="details(personne.id)"></i>
+          </button>
+
+          <button (click)="retirerDuGR(personne)" *ngIf="personne.status !== statusResponsable">
+            <i class="bi bi-x-square" title="{{ 'page.liste_gr.info.retirer_du_gr' | translate }}"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <hr />
+  <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-5">{{ 'page.liste_gr.text.personne_hors_gr' | translate }}</div>
+  <div class="mb-3 mt-3 col-12">
+    <input type="text" class="form-control" id="recherche"
+      placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="rechercheHorsGr">
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr [ngStyle]="{'color': secondaryColor }">
+        <th scope="col">#</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.prenom" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.gr" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
+        <th scope="col">{{ "page.liste_personnes.tableau.entete.action" | translate }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let personne of personnesHorsGrRecherches; let numero = index">
+        <th scope="row">{{ numero + 1 }}</th>
+        <td> {{ personne.nom }} </td>
+        <td> {{ personne.prenom }} </td>
+        <td> {{ ( personne.gr.libelle != 'aucun_gr' ? personne.gr.libelle : 'common.aucun_gr') | translate }} </td>
+        <td> {{ personne.status | translate }}</td>
+        <td>
+          <button>
+            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
+              (click)="details(personne.id)"></i>
+          </button>
+
+          <button (click)="ajouterGR(personne)">
+            <i class="bi bi-plus-square" title="{{ 'page.liste_gr.info.ajouter_au_gr' | translate }}"></i>
+          </button>
+        </td>
+      </tr>
+
+    </tbody>
+  </table> -->
+
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="definir-participant" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">{{ 'page.details_gr.definir_responsable' | translate }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+

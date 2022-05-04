@@ -16,6 +16,10 @@
     </div>
   </div>
 
+  <div class="alert alert-success alert-dismissible mt-2" *ngIf="successMessage">
+    {{ successMessage }}
+  </div>
+
   <a [routerLink]="routeAddPersonne" [ngStyle]="{'background': backgroundButtonAdd }"
     (mouseover)="ajouterPersonneOver()" (mouseleave)="ajouterPersonneBlur()" class="btn btn-secondary"
     title="{{ 'page.liste_personnes.info.add_personne'| translate }}">
@@ -52,8 +56,14 @@
         <td> {{ (personne.gr.libelle == 'aucun_gr' ? 'common.aucun_gr' : personne.gr.libelle) | translate }}</td>
         <td> {{ 'page.liste_personnes.status.'+personne.status | translate }}</td>
         <td>
-          <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
-            (click)="details(personne.id)"> {{ 'page.liste_personnes.details' | translate }}</i>
+          <button class="btn btn-secondary" (click)="details(personne.id)">
+            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"></i>
+          </button>
+          |
+         <button class="btn btn-outline-secondary" (click)="modifier(personne)">
+           <i class="bi bi-pencil details" title="{{ 'common.modifier' | translate }}"></i>
+         </button>
+
         </td>
       </tr>
 

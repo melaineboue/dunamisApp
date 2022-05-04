@@ -84,8 +84,6 @@ export class AddReunionComponent implements OnInit {
     //Recuperation du Gr en cours
     this.reunionService.getReunionEnCours(Number(idGr)).subscribe(reunion =>{
       if(reunion){
-        console.log('yeeeesss',reunion);
-
           // Il y a une reunion en cours
          this.rapport = reunion.rapport;
          this.reunion = reunion;
@@ -111,6 +109,8 @@ export class AddReunionComponent implements OnInit {
           }) as PersonneSuivi));
 
          });
+
+         this.laDate = reunion.date;
       } else {
         this.reunion.complement_rapport = `Notre GR a porté sur ${this.reunion.titre}`;
         this.grService.getPersonnesGR(Number(idGr)).subscribe(personnes => this.personnesGr = personnes.map(personne => ({
@@ -119,16 +119,18 @@ export class AddReunionComponent implements OnInit {
           prenom: personne.prenom,
           checked: false
         }) as PersonneSuivi));
+
+        const laDate = new Date();
+        this.laDate = `${deuxChiffre(laDate.getDate())}/${deuxChiffre(laDate.getMonth()+1)}/${laDate.getFullYear()}`;
       }
     })
 
     this.reunion.gr_id = Number(localStorage.getItem('idGr'));
     this.reunion.gr_libelle = localStorage.getItem('gr');
 
-    const laDate = new Date();
-    console.log('yes', laDate.getMonth());
 
-    this.laDate = `${deuxChiffre(laDate.getDate())}/${deuxChiffre(laDate.getMonth()+1)}/${laDate.getFullYear()}`;
+
+
     this.reunion.date = this.laDate;
 
   }

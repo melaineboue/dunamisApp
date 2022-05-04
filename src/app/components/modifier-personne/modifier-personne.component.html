@@ -1,0 +1,29 @@
+<div class="container">
+  <div class="row">
+    <div class="col-2  mt-3">
+      <button class="btn bouton-retour" (click)="back()"><i class="bi bi-chevron-left"></i> {{ 'common.retour' |
+        translate }}</button>
+    </div>
+    <div class="col-10">
+      <app-titre [libelle]="'page.modifier_personne.titre'" [complement]="personne.prenom+' '+personne.nom"></app-titre>
+    </div>
+  </div>
+
+  <div class="alert alert-danger alert-dismissible mt-2" *ngIf="error">
+    {{ 'page.modifier_personne.error_message' | translate }}
+  </div>
+
+
+  <app-formulaire-creer-modifier-personne [validation]="validation"></app-formulaire-creer-modifier-personne>
+
+  <div class="row mb-2 mt-3">
+    <button (click)="back()" type="submit" class="btn btn-secondary col-md-5 col-sm-12 mb-2 ms-3">{{
+      'page.add_personne.annuler' | translate }}</button>
+    <button (click)="sauvegarder()" type="submit"
+      class="btn ml-1 btn-primary bouton-enregistrer col-md-6 col-sm-12 mb-2 ms-3"
+      [ngStyle]="{'backgroundColor': secondaryColor }">{{ 'page.add_personne.enregistrer' | translate }}</button>
+  </div>
+
+
+
+</div>

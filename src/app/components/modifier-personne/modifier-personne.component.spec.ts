@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GenererGrComponent } from './generer-gr.component';
+import { ModifierPersonneComponent } from './modifier-personne.component';
 
-describe('GenererGrComponent', () => {
-  let component: GenererGrComponent;
-  let fixture: ComponentFixture<GenererGrComponent>;
+describe('ModifierPersonneComponent', () => {
+  let component: ModifierPersonneComponent;
+  let fixture: ComponentFixture<ModifierPersonneComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ GenererGrComponent ]
+      declarations: [ ModifierPersonneComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(GenererGrComponent);
+    fixture = TestBed.createComponent(ModifierPersonneComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,0 +1,12 @@
+<div class="container">
+
+  <div class="row mt-5">
+    <i>Ces rapports concernent la période à partir du {{ texte_date_origine }}</i>
+  </div>
+  <div class="row mt-5 mb-5">
+    <div><app-rapport [rapport]="rapport_one_soul_jesus" [buttonLibelle]="'afficher_rapport_one_soul_jesus'" (generer)="genererRapportOneSoulJesus()"></app-rapport></div>
+    <div><app-rapport [rapport]="rapport_evangelisation" [buttonLibelle]="'afficher_rapport_evangelisation'" (generer)="genererRapportEvangelisation()" [enabled]="false"></app-rapport></div>
+    <div><app-rapport [rapport]="rapport_suivi" [buttonLibelle]="'afficher_rapport_suivi'" (generer)="genererRapportSuivi()"></app-rapport></div>
+  </div>
+
+</div>

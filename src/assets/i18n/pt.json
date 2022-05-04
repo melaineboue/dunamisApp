@@ -16,8 +16,10 @@
     "liste_evenement": "Eventos",
     "theme_gr": "Temas do GR",
     "reunion_gr": "Reunião do GR",
+    "synergie_megagr": "Sinergia - Mega GR",
     "accueil": "Início",
     "suggestion_bug": "Sugestão ou bug",
+    "gestion_rapport": "Relatórios",
     "deconnecter": "Desligar"
   },
   "common": {
@@ -36,7 +38,16 @@
     "saved_success_message":"A informação foi guardada",
     "valider_success_message":"A informação foi validada",
     "error_message":"O registo falhou, tente novamente",
-    "generer_rapport":"Gerar relatório"
+    "generer_rapport":"Gerar relatório",
+    "afficher_rapport_suivi":"Visualizar relatório de rastreamento",
+    "afficher_rapport_one_soul_jesus":"Veja o relatório \"One soul for Jesus\"",
+    "afficher_rapport_evangelisation":"Ver Relatório de Evangelismo",
+    "type": "Tipo"
+  },
+  "type_reunion": {
+    "gr": "GR",
+    "synergie": "Synergia",
+    "mega_gr": "Mega GR"
   },
   "page": {
     "liste_personnes": {
@@ -204,6 +215,8 @@
       "total": "Total",
       "action": "Acção",
       "details": "Detalhes",
+      "event_a_venir": "Eventos por vir",
+      "event_non_trouve": "Nenhum evento encontrado",
       "info":{
         "afficher_details":"Mostrar detalhes",
         "add_event": "Acrescentar novo evento"

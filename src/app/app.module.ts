@@ -42,10 +42,18 @@ import { HomeResponsableGrComponent } from './components/home-responsable-gr/hom
 import { HomeAdministrateurComponent } from './components/home-administrateur/home-administrateur.component';
 import { HomePasteurComponent } from './components/home-pasteur/home-pasteur.component';
 import { AccessDeniedComponent } from './components/access-denied/access-denied.component';
-import { GenererGrComponent } from './components/generer-gr/generer-gr.component';
 import { CreationModificationGrComponent } from './components/creation-modification-gr/creation-modification-gr.component';
 import { UpdateGrComponent } from './components/update-gr/update-gr.component';
 import { SuggestionComponent } from './components/suggestion/suggestion.component';
+import { GestionRapportComponent } from './components/gestion-rapport/gestion-rapport.component';
+import { ListeReseauxComponent } from './components/liste-reseaux/liste-reseaux.component';
+import { AddReseauComponent } from './components/add-reseau/add-reseau.component';
+import { CreationModificationReseauComponent } from './components/creation-modification-reseau/creation-modification-reseau.component';
+import { DetailsReseauComponent } from './components/details-reseau/details-reseau.component';
+import { ModifierReseauComponent } from './components/modifier-reseau/modifier-reseau.component';
+import { ModifierPersonneComponent } from './components/modifier-personne/modifier-personne.component';
+import { FormulaireCreerModifierPersonneComponent } from './components/formulaire-creer-modifier-personne/formulaire-creer-modifier-personne.component';
+import { ModifierGrComponent } from './components/modifier-gr/modifier-gr.component';
 
 
 export function translateLoaderHttp(http: HttpClient) {
@@ -84,10 +92,18 @@ export function translateLoaderHttp(http: HttpClient) {
     HomeAdministrateurComponent,
     HomePasteurComponent,
     AccessDeniedComponent,
-    GenererGrComponent,
     CreationModificationGrComponent,
     UpdateGrComponent,
-    SuggestionComponent
+    SuggestionComponent,
+    GestionRapportComponent,
+    ListeReseauxComponent,
+    AddReseauComponent,
+    CreationModificationReseauComponent,
+    DetailsReseauComponent,
+    ModifierReseauComponent,
+    ModifierPersonneComponent,
+    FormulaireCreerModifierPersonneComponent,
+    ModifierGrComponent
   ],
   imports: [
     MatSelectModule,

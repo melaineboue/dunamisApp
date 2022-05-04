@@ -31,6 +31,7 @@
         <th scope="col">#</th>
         <th scope="col">{{ "page.reunion.date" | translate }}</th>
         <th scope="col">{{ "page.reunion.gr" | translate }}</th>
+        <th scope="col">{{ "common.type" | translate }}</th>
         <th scope="col">{{ "page.reunion.message" | translate }}</th>
         <th scope="col">{{ "page.reunion.status_libelle" | translate }}</th>
         <th scope="col">{{ "page.reunion.action" | translate }}</th>
@@ -39,8 +40,9 @@
     <tbody>
       <tr *ngFor="let reunion of reunionsRecherches; let numero = index" [title]="('page.reunion.annonce' | translate) + ':\n'+ reunion.annonce">
         <th scope="row">{{ numero + 1 }}</th>
-        <td> {{ reunion.date }} ({{ reunion.semaine }}) </td>
+        <td> {{ reunion.date }} </td>
         <td> {{ reunion.gr_libelle }} </td>
+        <td> {{ 'type_reunion.'+reunion.type | translate }}</td>
         <td> {{ reunion.titre }} </td>
         <td> {{ (reunion.valide ? 'page.reunion.status.valide' : 'page.reunion.status.en_cours') |translate }} </td>
         <td>

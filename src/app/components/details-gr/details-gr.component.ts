@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserRole } from 'src/app/enums/user-role';
 import { defaultRedirectParamNotExist, menuItemsClass, Status } from 'src/app/models/const';
 import { GR } from 'src/app/models/gr';
 import { Personne } from 'src/app/models/personne';
 import { CommonService } from 'src/app/services/common.service';
 import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
+import { getUserRole } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-details-gr',
@@ -74,7 +76,7 @@ export class DetailsGrComponent implements OnInit {
   }
 
   fermerGr(){
-    this.grService.fermerGr().subscribe(result => {
+    this.grService.fermerGr(this.gr.id).subscribe(result => {
       if(result){
         this.router.navigate([`/${menuItemsClass.ACCUEIL}`])
       } else {
@@ -87,6 +89,26 @@ export class DetailsGrComponent implements OnInit {
     this.grService.definirReponsable(idPersonne, this.gr.id);
   }
 
+  estAdministrateur(): boolean {
+    return getUserRole().role_libelle_court === UserRole.Administrator || getUserRole().role_libelle_court === UserRole.AdministratorPartial || getUserRole().role_libelle_court === UserRole.AdministratorReadOnly;
+  }
+
+  estApotre(): boolean {
+    return getUserRole().role_libelle_court === UserRole.Apotre;
+  }
+
+
+  estPasteur(): boolean {
+    return getUserRole().role_libelle_court === UserRole.Pasteur || getUserRole().role_libelle_court === UserRole.PasteurReadOnly;
+  }
+
+  estResponsableReseau(): boolean {
+    return getUserRole().role_libelle_court === UserRole.ResponsableReseau || getUserRole().role_libelle_court === UserRole.ResponsableReseauReadOnly;
+  }
+
+  estResponsableGr(): boolean {
+    return getUserRole().role_libelle_court === UserRole.ResponsableGr || getUserRole().role_libelle_court === UserRole.ResponsableGrReadOnly;
+  }
 
   get secondaryColor(): string {
     return ParameterService.configuration.secondaryColor;

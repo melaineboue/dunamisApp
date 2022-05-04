@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserRole } from 'src/app/enums/user-role';
 import { menuItemsClass } from 'src/app/models/const';
 import { Evenement } from 'src/app/models/evenement';
 import { Personne } from 'src/app/models/personne';
@@ -8,6 +9,7 @@ import { Suivi } from 'src/app/models/suivi';
 import { CommonService } from 'src/app/services/common.service';
 import { ParameterService } from 'src/app/services/parameter.service';
 import { PersonneService } from 'src/app/services/personne.service';
+import { getUserRole } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-details-personne',
@@ -32,13 +34,13 @@ export class DetailsPersonneComponent implements OnInit {
   evenementNonAssistes: Evenement[] = [];
 
 
-  routeListePersonne = `/${menuItemsClass.LISTE_PERSONNE}`;
+  routeParDefaut = `/${menuItemsClass.ACCUEIL}`;
 
   constructor(private commonService: CommonService, private router: Router, private personneService: PersonneService) {
     this.idPersonne = this.commonService.getId();
 
     if (!this.idPersonne) {
-      this.router.navigate([this.routeListePersonne]);
+      this.router.navigate([this.routeParDefaut]);
     } else {
       this.personneService.getPersonne(this.idPersonne).subscribe(personne => this.personne = personne);
       this.personneService.getSuivis(this.idPersonne).subscribe(suivis => this.suivis = suivis);
@@ -110,6 +112,29 @@ export class DetailsPersonneComponent implements OnInit {
     this.suivi = '';
     this.ajoutSuivi = false;
   }
+
+  estAdministrateur(): boolean {
+    return getUserRole().role_libelle_court === UserRole.Administrator || getUserRole().role_libelle_court === UserRole.AdministratorPartial || getUserRole().role_libelle_court === UserRole.AdministratorReadOnly;
+  }
+
+  estApotre(): boolean {
+    return getUserRole().role_libelle_court === UserRole.Apotre;
+  }
+
+
+  estPasteur(): boolean {
+    return getUserRole().role_libelle_court === UserRole.Pasteur || getUserRole().role_libelle_court === UserRole.PasteurReadOnly;
+  }
+
+  estResponsableReseau(): boolean {
+    return getUserRole().role_libelle_court === UserRole.ResponsableReseau || getUserRole().role_libelle_court === UserRole.ResponsableReseauReadOnly;
+  }
+
+  estResponsableGr(): boolean {
+    return getUserRole().role_libelle_court === UserRole.ResponsableGr || getUserRole().role_libelle_court === UserRole.ResponsableGrReadOnly;
+  }
+
+
 
 
 

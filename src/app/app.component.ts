@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ParameterService } from './services/parameter.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -8,6 +8,7 @@ import { menuItemsClass } from './models/const';
 import { Router } from '@angular/router';
 import { getUserRole } from './utils/utils';
 import { UserRole } from './enums/user-role';
+import { UserService } from './services/user.service';
 
 
 
@@ -32,7 +33,7 @@ import { UserRole } from './enums/user-role';
     ])
   ]
 })
-export class AppComponent{
+export class AppComponent  implements OnInit {
   classMenuItem = menuItemsClass;
 
   title = 'dunamisApp';
@@ -49,18 +50,20 @@ export class AppComponent{
   ] as Langue[];
 
   menuItems = [
-    { class: menuItemsClass.ACCUEIL, libelle: "menu.accueil", icone: "home", habilitation: [UserRole.ResponsableGr, UserRole.ResponsableReseau] },
+    { class: menuItemsClass.ACCUEIL, libelle: "menu.accueil", icone: "home", habilitation: [UserRole.ResponsableGr, UserRole.ResponsableReseau, UserRole.Pasteur, UserRole.Apotre, UserRole.Administrator] },
     { class: menuItemsClass.LISTE_PERSONNE, libelle: "menu.liste", icone: "groups", habilitation: [UserRole.ResponsableReseau] },
     { class: menuItemsClass.SUIVI_PERSONNE, libelle: "menu.suivi", icone: "assignment_ind", habilitation: [UserRole.ResponsableGr] },
     { class: menuItemsClass.LISTE_GR, libelle: "menu.liste_gr", icone: "local_library", habilitation: [UserRole.ResponsableReseau] },
     { class: menuItemsClass.REUNION_GR_LIST, libelle: "menu.reunion_gr", icone: "group_work", habilitation: [UserRole.ResponsableGr, UserRole.ResponsableReseau] },
+    { class: menuItemsClass.SYNERGIE_MEGA_GR, libelle: "menu.synergie_megagr", icone: "supervisor_account", habilitation: [UserRole.ResponsableReseau] },
     { class: menuItemsClass.EVENT_LIST, libelle: "menu.liste_evenement", icone: "event", habilitation: [UserRole.ResponsableGr, UserRole.ResponsableReseau] },
+    { class: menuItemsClass.GESTION_RAPPORT, libelle: "menu.gestion_rapport", icone: "summarize", habilitation: [UserRole.ResponsableReseau] },
     { class: menuItemsClass.THEME_GR_LIST, libelle: "menu.theme_gr", icone: "article", habilitation: [] },
     { class: menuItemsClass.SUGGESTION_BUG, libelle: "menu.suggestion_bug", icone: "warning_amber", habilitation: [UserRole.ResponsableReseau, UserRole.ResponsableGr] },
-    { class: menuItemsClass.DECONNECTER, libelle: "menu.deconnecter", icone: "power_settings_new", habilitation: [UserRole.ResponsableGr, UserRole.ResponsableReseau] },
+    { class: menuItemsClass.DECONNECTER, libelle: "menu.deconnecter", icone: "power_settings_new", habilitation: [UserRole.ResponsableGr, UserRole.ResponsableReseau, UserRole.Pasteur, UserRole.Apotre, UserRole.Administrator] },
+    // { class: menuItemsClass.LISTE_RESEAU, libelle: "menu.liste_reseau", icone: "local_library" },
     // { class: menuItemsClass.PRESENCE_CULTE, libelle: "menu.culte", icone: "home" },
     // { class: menuItemsClass.EVENT_LIST, libelle: "menu.liste_evenement", icone: "event" },
-    // { class: menuItemsClass.LISTE_RESEAU, libelle: "menu.liste_reseau", icone: "local_library" },
     // { class: menuItemsClass.DASHBOARD, libelle: "Dashboard", icone: "dashboard" },
     // { class: menuItemsClass.HISTORY, libelle: "History", icone: "history" },
   ] as Menu[];
@@ -72,12 +75,13 @@ export class AppComponent{
   nomReseau = "";
   secondaryColor = "#EEEEEE";
 
-  langage = 'es';
+  langage = 'fr';
 
   constructor(
     private parameterService: ParameterService,
     private translate: TranslateService,
-    private router: Router
+    private router: Router,
+    private userService: UserService
     ) {
     this.parameterService.getConfigurationReseau().subscribe(config => {
       this.backgroundColor = config.primaryColor;
@@ -87,6 +91,14 @@ export class AppComponent{
 
     this.langage = this.translate.getBrowserLang();
     this.translate.use(this.langage);
+  }
+
+  ngOnInit(): void {
+    console.log('okkkk');
+
+    this.userService.getUSer().subscribe(user=>{
+      // if(!user)
+    })
   }
 
   estResponsableGR(){

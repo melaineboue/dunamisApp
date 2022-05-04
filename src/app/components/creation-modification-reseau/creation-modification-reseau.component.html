@@ -1,0 +1,120 @@
+<div class="row mt-5">
+  <div class="col-12">{{ 'common.nom' | translate }}<span class="obligatoire">*</span></div>
+</div>
+
+
+<div class="row">
+
+  <div class="col-12">
+    <div class="row">
+      <div class="col-md-12 col-lg-6 mb-3 form-group">
+        <input type="text" class="form-control" id="nom" [(ngModel)]="reseau.nom" (input)="saisirNomReseau()">
+        <small class="message_erreur" *ngIf="errorReseauNomVide">{{ 'page.reseau.nom_reseau_obligatoire' | translate }}</small>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="col-12 mb-3 form-group">
+
+
+      <button (click)="ajouterResponsable()" class="btn btn-light bordure-gris"
+        title="{{ 'page.creer_gr.info.definir_responsable' | translate }}" *ngIf="!afficherResponsable">
+        <i class="bi bi-person-plus-fill"></i> {{ 'page.reseau.definir_responsables' | translate }}
+      </button>
+
+      <div *ngIf="afficherResponsable">
+
+        <button class="btn btn-light bouton-ajouter-responsable" (click)="masquerResponsable()">
+          {{ 'common.masquer' | translate }}
+        </button>
+        <div class="row mb-1 ">
+
+          <!-- Ajouter une zone de recherche -->
+          <div class="col-12 liste-personne">
+            <div class="col-md-12 col-lg-6">
+              <input type="text" class="form-control mb-3" id="rechercher" [(ngModel)]="recherche" [placeholder]="'common.rechercher' | translate">
+            </div>
+
+            <div class="form-check" *ngFor="let personne of personnesRecherches">
+              <input type="checkbox" class="form-check-input" [(ngModel)]="personne.checked" (change)="validerResponsable()"
+                [id]="'cocher'+personne.id">
+              <label class="form-check-label" [for]="'cocher'+personne.id"> {{ personne.prenom }} {{ personne.nom
+                }}</label>
+            </div>
+
+          </div>
+        </div>
+
+        <button class="btn btn-light bouton-ajouter-responsable mb-5" (click)="masquerResponsable()">
+          {{ 'common.masquer' | translate }}
+        </button>
+
+
+
+      </div>
+
+  </div>
+
+
+
+  <div>
+
+
+
+    <div class="row mt-5 mb-3" *ngIf="responsables.length > 0">
+      <hr />
+      <div class="col-12 surligner">{{ 'page.creer_gr.text.responsables' | translate }}</div>
+    </div>
+
+    <div class="row" *ngFor="let responsable of responsables">
+      <div class="col-12">{{ responsable.prenom+' '+responsable.nom }}</div>
+      <div class="col-md-6 col-sm-12">
+
+        <div class="row">
+          <div class="col-8">
+            <div class="input-group">
+              <input type="text" class="form-control" [ngModel]="getCodeResponsable(responsable)" readonly>
+              <div
+                class="input-group-append bouton-generer"
+                *ngIf="!estDejaResponsable(responsable)"
+                (click)="genererCode(responsable)">
+                <span class="input-group-text btn btn-secondary" id="basic-addon2"><i
+                    class="bi bi-arrow-clockwise"></i></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-1" *ngIf="!responsable.copier && !estDejaResponsable(responsable)">
+            <button (click)="copierCodeInClipboard(responsable)" class="btn btn-light bouton-copier" [title]="'page.reseau.copier_code' | translate"
+              [ngStyle]="{'background': secondaryColor }">
+              <i class="bi bi-files"></i>
+            </button>
+          </div>
+
+          <div class="col-1" *ngIf="responsable.copier"><button class="btn btn-light bouton-copier"
+            [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button>
+          </div>
+
+          <div class="col-1" *ngIf="!responsable.copier_lien && !estDejaResponsable(responsable)">
+            <button (click)="copierLinkInClipboard(responsable)" class="btn btn-light bouton-copier"  [title]="'page.reseau.copier_lien' | translate"
+              [ngStyle]="{'background': secondaryColor }">
+              <i class="bi bi-link"></i>
+            </button>
+          </div>
+
+          <div class="col-1" *ngIf="responsable.copier_lien"><button class="btn btn-light bouton-copier"
+            [ngStyle]="{'background': secondaryColor }"><i class="bi bi-clipboard-check"></i></button>
+          </div>
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>

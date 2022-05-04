@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserRole } from 'src/app/enums/user-role';
 import { menuItemsClass } from 'src/app/models/const';
 import { GR } from 'src/app/models/gr';
 import { GrActive } from 'src/app/models/gr-active';
@@ -8,6 +9,7 @@ import { CommonService } from 'src/app/services/common.service';
 import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
 import { ReunionGrService } from 'src/app/services/reunion-gr.service';
+import { getUserRole } from 'src/app/utils/utils';
 
 @Component({
   selector: 'app-reunion-gr',
@@ -37,15 +39,29 @@ export class ReunionGrComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.reunionService.getReunionsGr().subscribe(response => this.reunions = response);
-    this.grService.getList().subscribe(grs => {
-      this.grs = grs;
-      this.grsActive = grs.map(gr => ({
-        id: gr.id,
-        libelle: gr.libelle,
-        active: false
-      } as GrActive))
-    })
+    if(getUserRole().role_libelle_court == UserRole.ResponsableGr) {
+      this.reunionService.getReunionsGr().subscribe(response => this.reunions = response);
+      this.grService.getList().subscribe(grs => {
+        this.grs = grs;
+        this.grsActive = grs.map(gr => ({
+          id: gr.id,
+          libelle: gr.libelle,
+          active: false
+        } as GrActive))
+      })
+    }
+
+    else if(getUserRole().role_libelle_court == UserRole.ResponsableReseau) {
+      this.reunionService.getReunionsReseau().subscribe(response => this.reunions = response);
+      this.grService.getList().subscribe(grs => {
+        this.grs = grs;
+        this.grsActive = grs.map(gr => ({
+          id: gr.id,
+          libelle: gr.libelle,
+          active: false
+        } as GrActive))
+      })
+    }
   }
 
   ajouterPersonneOver() {
@@ -83,9 +99,13 @@ export class ReunionGrComponent implements OnInit {
   }
 
   get reunionsRecherches(): ReunionGr[] {
+    console.log('reunionssss',this.reunions);
+    console.log(this.recherche);
+
+
     return this.reunions.filter(reunion => this.commonService.rechercher(
       this.recherche,
-      reunion.semaine, reunion.titre, reunion.annonce, reunion.gr_libelle, reunion.date
+      reunion.titre, reunion.annonce, reunion.gr_libelle, reunion.date
     ));
   }
 

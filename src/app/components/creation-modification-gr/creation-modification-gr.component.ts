@@ -55,7 +55,7 @@ export class CreationModificationGrComponent {
       nom: personne.nom,
       prenom: personne.prenom,
       checked: personne.checked,
-      code: this.grService.generateAccessCode(10),
+      code: this.commonService.generateAccessCode(10),
       copier: false
     } as PersonneSuivi));
 
@@ -81,7 +81,7 @@ export class CreationModificationGrComponent {
   masquerResponsable(){ this.afficherResponsable = false }
 
   genererCode(responsable: PersonneSuivi) {
-    responsable.code = this.grService.generateAccessCode(10);
+    responsable.code = this.commonService.generateAccessCode(10);
     responsable.copier = false;
   }
 

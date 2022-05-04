@@ -19,6 +19,7 @@ export class HomeResponsableGrComponent {
 
 
   routeAddPersonne = `/${menuItemsClass.ADD_PERSONNE}`;
+  routeModifierPersonne = `/${menuItemsClass.MODIFIER_PERSONNE}`;
 
   gr: GR = { id:0, idreseau:0, libelle:'' };
 
@@ -100,6 +101,12 @@ export class HomeResponsableGrComponent {
     });
   }
 
+  modifierPersonne(personne: Personne) {
+    this.commonService.setPersonneModifier(personne);
+    this.commonService.setBackRoute(this.routeHere);
+    this.router.navigate([this.routeModifierPersonne]);
+  }
+
   ajouterPersonneOver() {
     this.hover = true;
   }
@@ -134,7 +141,7 @@ export class HomeResponsableGrComponent {
 
   get personnesSansGrRecherches(): Personne[] {
 
-    return this.personnesSansGR.filter(personne => this.commonService.rechercher(
+    return this.personnesSansGR.filter(personne => personne.status !== Status.RESPONSABLE && this.commonService.rechercher(
       this.rechercheHorsGr,
       personne.nom, personne.prenom, personne.telephone, personne.status, personne.gr?.libelle, personne.email, personne.date_naissance, personne.date_evangelisation, personne.date_ajout
     ));

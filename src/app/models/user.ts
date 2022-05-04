@@ -12,4 +12,7 @@ export interface User {
   gr: GR;
   reseau: Reseau;
   eglise: Eglise;
+  login?: string;
+  pwd?: string;
+  email?: string;
 }

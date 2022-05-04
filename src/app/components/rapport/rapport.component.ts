@@ -11,6 +11,7 @@ export class RapportComponent{
   @Output() generer : EventEmitter<void> = new EventEmitter();
   @Output() textChanged : EventEmitter<string> = new EventEmitter();
   @Input() rapport = '';
+  @Input() enabled = true;
   @Input() buttonLibelle = 'generer_rapport';
   @Input() readonly = false;
 

@@ -3,10 +3,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
+import { UserRole } from '../enums/user-role';
 import { Status } from '../models/const';
 import { Evenement } from '../models/evenement';
 import { GR } from '../models/gr';
 import { Personne } from '../models/personne';
+import { PersonneDataValidation } from '../models/personne-data-validation';
 import { ReunionGr } from '../models/reunion-gr';
 import { StatusModel } from '../models/status';
 import { Suivi } from '../models/suivi';
@@ -81,8 +83,29 @@ export class PersonneService {
   ajouterPersonne(personne: Personne): Observable<boolean>{
     // service = personne ** action = ajouterPersonne
     this.personnes.push(personne);
-    let url = encodeURI(`${environment.api}?service=personne&action=ajouterPersonne&id_reseau=${getIdReseau()}${this.toStringPersonne(personne)}`);
-    return this.http.get<boolean>(url).pipe();
+    let url = encodeURI(`${environment.api}?service=personne&action=ajouterPersonne${this.toStringPersonne(personne)}`);
+    console.log(url);
+
+    const formData: FormData = new FormData();
+    formData.append('personne', JSON.stringify(personne));
+    return this.http.post<boolean>(url, formData).pipe();
+
+
+    //return this.http.get<boolean>(url).pipe();
+  }
+
+  /**
+   * Modifie la personne passé en paramètre sans modifier le GR, Reseau, et l'eglise
+   * @param personne les nouvelles données de la personne à modifier
+   */
+  modifierPersonne(personne: Personne): Observable<boolean> {
+
+    let url = encodeURI(`${environment.api}?service=personne&action=modifierPersonne`);
+
+    const formData: FormData = new FormData();
+    formData.append('personne', JSON.stringify(personne));
+    return this.http.post<boolean>(url, formData).pipe();
+
   }
 
   getVilles(): Observable<string[]>{
@@ -128,9 +151,16 @@ export class PersonneService {
 
   }
 
-  creerCompte(personne:Personne): Observable<User>{
+  creerCompte(user:User): Observable<User>{
     //service=creerGr, service=login
-    let url = `${environment.api}?action=creerGr&service=login&id_personne=${personne.id}&email=${personne.email}&login=${personne.login}&password=${personne.pwd}`;
+    console.log('creer user', user);
+
+    let id_gr = (user.role.role_libelle_court === UserRole.ResponsableGr) ? user.gr.id: 0;
+    let id_reseau = (user.role.role_libelle_court === UserRole.ResponsableReseau) ? user.reseau.id: 0;
+    let id_eglise = (user.role.role_libelle_court === UserRole.Pasteur) ? user.eglise.id: 0;
+
+    let url = `${environment.api}?action=creerUserEtConnexion&service=login&id_personne=${user.id_personne}&email=${user.email}&login=${user.login}&password=${user.pwd}&role=${user.role.role_libelle_court}`;
+    url = encodeURI(`${url}&id_gr=${id_gr}&id_reseau=${id_reseau}&id_eglise=${id_eglise}`);
     console.log(url);
 
     return this.http.get<User>(url).pipe();
@@ -144,7 +174,8 @@ export class PersonneService {
   }
 
   toStringPersonne(personne: Personne): string {
-    return `&nom=${personne.nom}&prenom=${personne.prenom}&telephone=${personne.telephone}&email=${personne.email}&ville=${personne.ville}&pays=${personne.pays}&status=${personne.status}&id_gr=${personne.gr.id}&date_naissance=${personne.date_naissance}&date_evangelisation=${personne.date_evangelisation}`;
+    //return `&nom=${personne.nom}&prenom=${personne.prenom}&telephone=${personne.telephone}&email=${personne.email}&ville=${personne.ville}&pays=${personne.pays}&status=${personne.status}&id_gr=${personne.gr.id}&id_reseau=${personne.reseau.id}&id_eglise=${personne.eglise.id}&date_naissance=${personne.date_naissance}&date_evangelisation=${personne.date_evangelisation}`;
+    return '';
   }
 
 }

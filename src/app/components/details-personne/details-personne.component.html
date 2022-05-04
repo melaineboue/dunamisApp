@@ -98,27 +98,33 @@
               </div>
 
               <!--BOUTON AJOUTER SUIVI-->
-              <a (click)="ajouterSuivi()" [ngStyle]="{'background': 'backgroundButtonAdd' }" class="btn btn-secondary"
-                title="{{ 'page.detail_personne.ajouter_suivi'| translate }}" *ngIf="!ajoutSuivi">
-                <i class="bi bi-plus-square"></i>
-              </a>
+              <div *ngIf="estResponsableGr() && !ajoutSuivi">
+                <a
+                  (click)="ajouterSuivi()"
+                  [ngStyle]="{'background': 'backgroundButtonAdd' }"
+                  class="btn btn-secondary"
+                  title="{{ 'page.detail_personne.ajouter_suivi'| translate }}"
+                >
+                  <i class="bi bi-plus-square"></i>
+                </a>
 
-              <div class="mb-3" *ngIf="ajoutSuivi">
-                <textarea [(ngModel)]="suivi" class="form-control" id="nouveau_suivi" rows="3" placeholder="{{ 'page.detail_personne.description_suivi' | translate }}"></textarea>
+                <div class="mb-3" *ngIf="ajoutSuivi">
+                  <textarea [(ngModel)]="suivi" class="form-control" id="nouveau_suivi" rows="3" placeholder="{{ 'page.detail_personne.description_suivi' | translate }}"></textarea>
 
-                <div class="row mt-3">
-                  <button (click)="cancel()" type="submit" class="btn btn-secondary col-md-5 col-sm-12 mb-2">{{
-                    'page.add_personne.annuler' | translate }}</button>
-                  <button
-                    [disabled]="suivi.trim().length === 0"
-                    (click)="enregistrerSuivi()"
-                    type="submit"
-                    class="btn ml-1 btn-primary bouton-enregistrer col-md-6 col-sm-12 mb-2"
-                    [ngStyle]="{'backgroundColor': secondaryColor }">{{ 'page.add_personne.enregistrer' | translate }}</button>
-                </div>
+                  <div class="row mt-3">
+                    <button (click)="cancel()" type="submit" class="btn btn-secondary col-md-5 col-sm-12 mb-2">{{
+                      'page.add_personne.annuler' | translate }}</button>
+                      <button
+                      [disabled]="suivi.trim().length === 0"
+                      (click)="enregistrerSuivi()"
+                      type="submit"
+                      class="btn ml-1 btn-primary bouton-enregistrer col-md-6 col-sm-12 mb-2"
+                      [ngStyle]="{'backgroundColor': secondaryColor }">{{ 'page.add_personne.enregistrer' | translate }}</button>
+                    </div>
+                  </div>
+
+                  <hr/>
               </div>
-
-              <hr/>
               <table class="table table-striped" *ngIf="suivis.length > 0">
                 <tbody>
                   <tr *ngFor="let suivi of suivis" [title]="suivi.libelle">

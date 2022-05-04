@@ -25,30 +25,43 @@ import { DetailsReunionComponent } from './components/details-reunion/details-re
 import { HomeComponent } from './components/home/home.component';
 import { AddReunionComponent } from './components/add-reunion/add-reunion.component';
 import { SuggestionComponent } from './components/suggestion/suggestion.component';
+import { GestionRapportComponent } from './components/gestion-rapport/gestion-rapport.component';
+import { UserService } from './services/user.service';
+import { AddReseauComponent } from './components/add-reseau/add-reseau.component';
+import { DetailsReseauComponent } from './components/details-reseau/details-reseau.component';
+import { ModifierPersonneComponent } from './components/modifier-personne/modifier-personne.component';
+import { ModifierReseauComponent } from './components/modifier-reseau/modifier-reseau.component';
+import { ModifierGrComponent } from './components/modifier-gr/modifier-gr.component';
 
 const routes: Routes = [
-  { path:menuItemsClass.ACCUEIL , component: HomeComponent, canActivate: [ LoginService ] },
-  { path:menuItemsClass.LISTE_PERSONNE , component: ListePersonnesComponent, canActivate: [ LoginService ] },
-  { path:menuItemsClass.LISTE_PERSONNE_GR , component: ListePersonneByGrComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.ADD_PERSONNE , component: AddPersonneComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.ADD_GR , component: AddGrComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.ADD_EVENT , component: AddEventComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.ADD_THEME , component: AddThemeGrComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.ADD_REUNION , component: AddReunionComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.DETAILS_PERSONNE , component: DetailsPersonneComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.DETAILS_GR , component: DetailsGrComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.DETAILS_GR , component: DetailsGrComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.DETAILS_EVENT , component: DetailsEventComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.SUIVI_PERSONNE , component: SuiviPersonneComponent , canActivate: [ LoginService ] },
-  { path:menuItemsClass.LISTE_GR , component: ListeGrComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.EVENT_LIST , component: ListEventsComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.REUNION_GR_LIST , component: ReunionGrComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.THEME_GR_LIST , component: ThemeGrComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.DETAILS_REUNION_GR , component: DetailsReunionComponent, canActivate: [ LoginService ]  },
-  { path:menuItemsClass.SUGGESTION_BUG , component: SuggestionComponent, canActivate: [ LoginService ]   },
+  { path:menuItemsClass.ACCUEIL , component: HomeComponent, canActivate: [ LoginService, UserService ] },
+  { path:menuItemsClass.LISTE_PERSONNE , component: ListePersonnesComponent, canActivate: [ LoginService, UserService ] },
+  { path:menuItemsClass.LISTE_PERSONNE_GR , component: ListePersonneByGrComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.ADD_PERSONNE , component: AddPersonneComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.ADD_GR , component: AddGrComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.ADD_EVENT , component: AddEventComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.ADD_THEME , component: AddThemeGrComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.ADD_REUNION , component: AddReunionComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.ADD_RESEAU , component: AddReseauComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.DETAILS_PERSONNE , component: DetailsPersonneComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.DETAILS_GR , component: DetailsGrComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.DETAILS_GR , component: DetailsGrComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.DETAILS_EVENT , component: DetailsEventComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.DETAILS_RESEAU , component: DetailsReseauComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.SUIVI_PERSONNE , component: SuiviPersonneComponent , canActivate: [ LoginService, UserService ] },
+  { path:menuItemsClass.LISTE_GR , component: ListeGrComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.EVENT_LIST , component: ListEventsComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.REUNION_GR_LIST , component: ReunionGrComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.THEME_GR_LIST , component: ThemeGrComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.DETAILS_REUNION_GR , component: DetailsReunionComponent, canActivate: [ LoginService, UserService ]  },
+  { path:menuItemsClass.SUGGESTION_BUG , component: SuggestionComponent, canActivate: [ LoginService, UserService ]   },
   { path:menuItemsClass.LOGIN , component: LoginComponent  },
   { path:menuItemsClass.BIENVENUE , component: BienvenueComponent },
-  { path:menuItemsClass.DECONNECTER , component: DeconnecterComponent, canActivate: [ LoginService ]  },
+  { path:menuItemsClass.GESTION_RAPPORT , component: GestionRapportComponent },
+  { path:menuItemsClass.MODIFIER_PERSONNE , component: ModifierPersonneComponent },
+  { path:menuItemsClass.MODIFIER_RESEAU , component: ModifierReseauComponent },
+  { path:menuItemsClass.MODIFIER_GR , component: ModifierGrComponent },
+  { path:menuItemsClass.DECONNECTER , component: DeconnecterComponent, canActivate: [ LoginService, UserService ]  },
   { path:'**' , component: LoginComponent },
 ]
 

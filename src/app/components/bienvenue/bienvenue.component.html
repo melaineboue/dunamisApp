@@ -21,7 +21,7 @@
 
         <div class="col-md-6 col-sm-12 mb-3 form-group">
           <label > {{ 'page.bienvenue.texte.pour' | translate }}</label>
-          <input type="text" class="form-control" [(ngModel)]="user.gr.libelle" readonly>
+          <input type="text" class="form-control" [ngModel]="getDescriptionCompte(user.role.role_libelle_court)" readonly>
         </div>
 
         <div class="col-md-6 col-sm-12 mb-3 form-group">

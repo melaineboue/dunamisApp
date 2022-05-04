@@ -1,7 +1,9 @@
+import { Eglise } from "./eglise";
 import { GR } from "./gr";
+import { Reseau } from "./reseau";
 
 export interface Personne {
-  id: number;
+  id?: number;
   nom?: string;
   prenom?: string;
   date_naissance?: string;
@@ -10,6 +12,8 @@ export interface Personne {
   telephone?: string;
   email?: string;
   gr?: GR;
+  reseau?: Reseau;
+  eglise?: Eglise;
   photo?: string;
   status?: string;
   ville?: string,

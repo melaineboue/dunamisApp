@@ -25,20 +25,27 @@
 
   <hr />
 
-  <div class="row">
-    <div class="col-6">
-      <button class="btn btn-light bouton-border-gris">{{ 'page.details_gr.definir_responsable' | translate }}</button>
-    </div>
-    <div class="col-6 d-flex flex-row-reverse">
-      <div *ngIf="suppressionEnCours">
-        <button class="btn btn-light bouton-border-gris" (click)="suppressionEnCours = false">{{ 'page.details_gr.annuler_fermeture' | translate }}</button>
-        <button class="btn btn-danger ms-3" (click)="fermerGr()">{{ 'page.details_gr.confirmer_fermeture' | translate }}</button>
+  <div *ngIf="estResponsableReseau()">
+
+      <div class="row">
+        <div class="col-6">
+          <button class="btn btn-light bouton-border-gris">{{ 'page.details_gr.definir_responsable' | translate }}</button>
+        </div>
+      <div class="col-6 d-flex flex-row-reverse">
+        <div *ngIf="suppressionEnCours">
+          <button class="btn btn-light bouton-border-gris" (click)="suppressionEnCours = false">{{ 'page.details_gr.annuler_fermeture' | translate }}</button>
+          <button class="btn btn-danger ms-3" (click)="fermerGr()">{{ 'page.details_gr.confirmer_fermeture' | translate }}</button>
+        </div>
+        <button *ngIf="!suppressionEnCours" class="btn btn-danger" (click)="suppressionEnCours = true">{{ 'page.details_gr.fermer_gr' | translate }}</button>
       </div>
-      <button *ngIf="!suppressionEnCours" class="btn btn-danger" (click)="suppressionEnCours = true">{{ 'page.details_gr.fermer_gr' | translate }}</button>
+
     </div>
+
+    <hr />
   </div>
 
-  <hr />
+
+
 
 
 
@@ -71,15 +78,18 @@
         <td> {{ personne.ville }} </td>
         <td>
           {{ 'page.liste_personnes.status.'+personne.status | translate }}
-          <button *ngIf="personne.status !== statusResponsable"><i class="bi bi-arrow-up-circle-fill"></i></button>
         </td>
         <td>
-          <button>
-            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
+          <button class="btn btn-secondary" (click)="details(personne.id)">
+            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"></i>
+          </button>
+          |
+          <button class="btn btn-outline-secondary">
+            <i class="bi bi-pencil details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
               (click)="details(personne.id)"></i>
           </button>
-
-          <button (click)="retirerDuGR(personne)" *ngIf="personne.status !== statusResponsable">
+          <span  *ngIf="(estResponsableReseau() || estResponsableGr()) && personne.status !== statusResponsable"> | </span>
+          <button class="btn btn-outline-danger" (click)="retirerDuGR(personne)" *ngIf="(estResponsableReseau() || estResponsableGr()) && personne.status !== statusResponsable">
             <i class="bi bi-x-square" title="{{ 'page.liste_gr.info.retirer_du_gr' | translate }}"></i>
           </button>
         </td>
@@ -88,46 +98,48 @@
   </table>
 
 
+  <div *ngIf="estResponsableGr()">
 
-  <hr />
-  <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-5">{{ 'page.liste_gr.text.personne_hors_gr' | translate }}</div>
-  <div class="mb-3 mt-3 col-12">
-    <input type="text" class="form-control" id="recherche"
-      placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="rechercheHorsGr">
-  </div>
-  <table class="table table-striped">
-    <thead>
-      <tr [ngStyle]="{'color': secondaryColor }">
-        <th scope="col">#</th>
-        <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
-        <th scope="col">{{ "page.liste_personnes.tableau.entete.prenom" | translate }}</th>
-        <th scope="col">{{ "page.liste_personnes.tableau.entete.gr" | translate }}</th>
-        <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
-        <!--Couleur de fond Rouge: pas régulier, orange: en cours de fidélisation/ pas regulier-->
-        <th scope="col">{{ "page.liste_personnes.tableau.entete.action" | translate }}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let personne of personnesHorsGrRecherches; let numero = index">
-        <th scope="row">{{ numero + 1 }}</th>
-        <td> {{ personne.nom }} </td>
-        <td> {{ personne.prenom }} </td>
-        <td> {{ ( personne.gr.libelle != 'aucun_gr' ? personne.gr.libelle : 'common.aucun_gr') | translate }} </td>
-        <td> {{ personne.status | translate }}</td>
-        <td>
-          <button>
-            <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"
-              (click)="details(personne.id)"></i>
-          </button>
+    <hr />
+    <div class="row titre-liste-gr ps-2 pt-2 pb-2 mb-3 mt-5">{{ 'page.liste_gr.text.personne_hors_gr' | translate }}</div>
+    <div class="mb-3 mt-3 col-12">
+      <input type="text" class="form-control" id="recherche"
+        placeholder="{{ 'page.liste_personnes.rechercher' | translate}}" [(ngModel)]="rechercheHorsGr">
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr [ngStyle]="{'color': secondaryColor }">
+          <th scope="col">#</th>
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.nom" | translate }}</th>
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.prenom" | translate }}</th>
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.gr" | translate }}</th>
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.status" | translate }}</th>
+          <!--Couleur de fond Rouge: pas régulier, orange: en cours de fidélisation/ pas regulier-->
+          <th scope="col">{{ "page.liste_personnes.tableau.entete.action" | translate }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let personne of personnesHorsGrRecherches; let numero = index">
+          <th scope="row">{{ numero + 1 }}</th>
+          <td> {{ personne.nom }} </td>
+          <td> {{ personne.prenom }} </td>
+          <td> {{ ( personne.gr.libelle != 'aucun_gr' ? personne.gr.libelle : 'common.aucun_gr') | translate }} </td>
+          <td> {{ personne.status | translate }}</td>
+          <td>
+            <button class="btn btn-secondary" (click)="details(personne.id)">
+              <i class="bi bi-card-text details" title="{{ 'page.liste_personnes.info.afficher_details' | translate }}"></i>
+            </button>
 
-          <button (click)="ajouterGR(personne)">
-            <i class="bi bi-plus-square" title="{{ 'page.liste_gr.info.ajouter_au_gr' | translate }}"></i>
-          </button>
-        </td>
-      </tr>
+            <button (click)="ajouterGR(personne)" class="btn btn-outline-danger">
+              <i class="bi bi-plus-square" title="{{ 'page.liste_gr.info.ajouter_au_gr' | translate }}"></i>
+            </button>
+          </td>
+        </tr>
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+
+</div>
 
 </div>
 

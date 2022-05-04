@@ -7,7 +7,9 @@ export const menuItemsClass = {
   EVENT_LIST: "events",
   THEME_GR_LIST: "themegr",
   REUNION_GR_LIST: "reuniongr",
+  SYNERGIE_MEGA_GR: "megagr",
   ADD_PERSONNE: "addBrebis",
+  ADD_RESEAU: "addReseau",
   ADD_EVENT: "addEvent",
   ADD_THEME: "addTheme",
   ADD_REUNION_GR: "addReunionGr",
@@ -16,14 +18,19 @@ export const menuItemsClass = {
   PRESENCE_CULTE: "presenceCulte",
   DETAILS_REUNION_GR: "detailsReunionGr",
   DETAILS_PERSONNE: "detailsBrebis",
+  DETAILS_RESEAU: "detailsReseau",
   DETAILS_EVENT: "detailsEvent",
   DETAILS_GR: "detailsGr",
+  MODIFIER_PERSONNE: "modifierPersonne",
+  MODIFIER_RESEAU: "modifierReseau",
+  MODIFIER_GR: "modifierGr",
   SUIVI_PERSONNE: "suivi",
   LOGIN: "login",
   BIENVENUE: "bienvenue",
   DECONNECTER: "logout",
   DASHBOARD: "dashboard",
   SUGGESTION_BUG: "suggestionBugs",
+  GESTION_RAPPORT: "rapports",
   HISTORY: ""
 }
 
@@ -40,3 +47,5 @@ export const Status = {
   FANTOME: "fantome",
   INVITE: "invite"
 }
+
+export const formatDesDate = 'DD/MM/YYYY';

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserRole } from 'src/app/enums/user-role';
 import { menuItemsClass } from 'src/app/models/const';
 import { Personne } from 'src/app/models/personne';
 import { User } from 'src/app/models/user';
@@ -14,7 +15,7 @@ import { PersonneService } from 'src/app/services/personne.service';
 })
 export class BienvenueComponent implements OnInit {
 
-  user: Personne;
+  user: User;
   //localStorage: Storage;
   step = 0;
   loginManquant = false;
@@ -36,7 +37,7 @@ export class BienvenueComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.user = JSON.parse(localStorage.getItem("userProvisoire")) as Personne;
+    this.user = JSON.parse(localStorage.getItem("userProvisoire")) as User;
 
     if (!this.user) {
       this.router.navigate([`/${menuItemsClass.LOGIN}`])
@@ -113,6 +114,23 @@ export class BienvenueComponent implements OnInit {
     let result = this.motDePasse.trim().length > 0;
     this.passwordManquant = ! result;
     return result;
+  }
+
+  getDescriptionCompte(role: string): string {
+    let description = '';
+    if(role === UserRole.ResponsableGr){
+      description = `GR ${this.user.gr.libelle}`;
+    }
+
+    if(role === UserRole.ResponsableReseau){
+      description = `Réseau ${this.user.reseau.nom}`;
+    }
+
+    if(role === UserRole.Pasteur){
+      description = `Eglise ${this.user.eglise.libelle}`;
+    }
+
+    return description;
   }
 
 

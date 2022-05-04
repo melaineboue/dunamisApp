@@ -61,18 +61,20 @@ export class LoginService implements CanActivate{
    * @param code: code d'acces
    * @returns Personne correspondant au code, sinon null si code incorrect
    */
-   getUserFromCode(code: string): Observable<Personne>{
+   getUserFromCode(code: string): Observable<User>{
     // service = login
     // action = validercode
     let url = `${environment.api}?service=login&action=validercode&code=${code}&mode=code`;
-    return this.http.get<Personne>(url).pipe(map(response => response))
+    console.log(url);
+
+    return this.http.get<User>(url).pipe(map(response => response))
   }
 
-  getUserFromUrl(codeMd5: string): Observable<Personne>{
+  getUserFromUrl(codeMd5: string): Observable<User>{
     // service = login
     // action = validercode
     let url = `${environment.api}?service=login&action=validercode&code=${codeMd5}&mode=url`;
-    return this.http.get<Personne>(url).pipe(map(response => response))
+    return this.http.get<User>(url).pipe(map(response => response))
   }
 
   /*getUserFromCode(code: string): Observable<Personne>{

@@ -3,6 +3,6 @@ import { GR } from "./gr";
 export interface Invite {
   id: number,
   nom: string,
-  checked: boolean,
+  checked?: boolean,
   gr?: GR
 }

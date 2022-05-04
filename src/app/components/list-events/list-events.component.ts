@@ -15,6 +15,7 @@ import { ParameterService } from 'src/app/services/parameter.service';
 export class ListEventsComponent implements OnInit {
 
   events: Evenement[] = [];
+  eventsAvenir: Evenement[] = [];
   recherche = new FormControl('');
   hover = false;
 
@@ -28,6 +29,7 @@ export class ListEventsComponent implements OnInit {
 
   ngOnInit(): void {
     this.eventService.getEvents().subscribe(response => this.events = response);
+    this.eventService.getEventsAvenir().subscribe(response => this.eventsAvenir = response);
   }
 
   ajouterPersonneOver() {
@@ -47,7 +49,6 @@ export class ListEventsComponent implements OnInit {
 
 
   /**************************** GET************************************** */
-
   get backgroundButtonAdd(): string {
     return this.hover ? ParameterService.configuration.secondaryColor : ParameterService.configuration.primaryColor;
   }
@@ -58,6 +59,13 @@ export class ListEventsComponent implements OnInit {
 
   get eventsRecherches(): Evenement[] {
     return this.events.filter(event => this.commonService.rechercher(
+      this.recherche.value,
+      event.libelle, event.predicateur, event.titre_message, event.date_evenement
+    ));
+  }
+
+  get eventsRecherchesAvenir(): Evenement[] {
+    return this.eventsAvenir.filter(event => this.commonService.rechercher(
       this.recherche.value,
       event.libelle, event.predicateur, event.titre_message, event.date_evenement
     ));

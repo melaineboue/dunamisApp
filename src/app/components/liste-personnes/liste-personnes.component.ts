@@ -41,7 +41,10 @@ export class ListePersonnesComponent implements OnInit {
   routeAddPersonne = `/${menuItemsClass.ADD_PERSONNE}`;
   routeListePersonneGr = `/${menuItemsClass.LISTE_PERSONNE_GR}`;
   routeDetailsPersonne = `/${menuItemsClass.DETAILS_PERSONNE}`;
+  routeModifierPersonne = `/${menuItemsClass.MODIFIER_PERSONNE}`;
   routeHere = `/${menuItemsClass.LISTE_PERSONNE}`;
+
+  successMessage = '';
 
   constructor(
     private personneService: PersonneService,
@@ -54,6 +57,8 @@ export class ListePersonnesComponent implements OnInit {
 
   ngOnInit(): void {
     this.reseauService.getPersonneReseau(getIdReseau()).subscribe(response => this.personnes = response);
+    this.successMessage = this.commonService.getFlashSuccessMessage();
+    this.commonService.removeFlashSuccessMessage();
   }
 
   ajouterPersonneOver() {
@@ -68,6 +73,12 @@ export class ListePersonnesComponent implements OnInit {
     this.commonService.setId(idPersonne);
     this.commonService.setBackRoute(this.routeHere);
     this.router.navigate([this.routeDetailsPersonne]);
+  }
+
+  modifier(personne: Personne) {
+    this.commonService.setPersonneModifier(personne);
+    this.commonService.setBackRoute(this.routeHere);
+    this.router.navigate([this.routeModifierPersonne]);
   }
 
 

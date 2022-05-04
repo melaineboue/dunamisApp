@@ -6,5 +6,7 @@ export interface PersonneSuivi {
   code?: string,
   copier?: boolean,
   copier_lien?: boolean,
-  gr_libelle?: string
+  gr_libelle?: string,
+  libelle_eglise?: string,
+  nom_reseau?: string
 }

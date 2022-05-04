@@ -1,16 +1,19 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { UserRole } from 'src/app/enums/user-role';
 import { menuItemsClass } from 'src/app/models/const';
 import { GR } from 'src/app/models/gr';
 import { Personne } from 'src/app/models/personne';
+import { PersonneDataValidation } from 'src/app/models/personne-data-validation';
 import { StatusModel } from 'src/app/models/status';
 import { CommonService } from 'src/app/services/common.service';
 import { GrService } from 'src/app/services/gr.service';
 import { ParameterService } from 'src/app/services/parameter.service';
+import { PersonneValideService } from 'src/app/services/personne-valide.service';
 import { PersonneService } from 'src/app/services/personne.service';
-import { getGr, getGrForUser } from 'src/app/utils/utils';
+import { getEgliseForUser, getGr, getGrForUser, getReseauForUser, getUserRole } from 'src/app/utils/utils';
 import { titleCase } from 'title-case';
 
 
@@ -21,11 +24,26 @@ import { titleCase } from 'title-case';
 })
 export class AddPersonneComponent implements OnInit {
 
-  currentUserRole = UserRole.ResponsableGr;
+  personne: Personne = {
+    id:0,
+    nom:'',
+    prenom:'',
+    date_ajout:'',
+    gr:{ id: 0 },
+    status: 'nouveau',
+    date_naissance:'',
+    date_evangelisation: '',
+    email:'',
+    telephone:'',
+    ville:'',
+    pays:''
+  };
+
+  validation: PersonneDataValidation = { estValide: true };
+  currentUserRole = getUserRole();
   role_responsable_gr = UserRole.ResponsableGr;
 
   backRoute = menuItemsClass.ACCUEIL;
-  personne: Personne;
 
   nom = '';
   prenom = '';
@@ -44,8 +62,8 @@ export class AddPersonneComponent implements OnInit {
   listeStatus: StatusModel[] = [];
   grs: GR[] = [];
 
-  villes: string[] = ['Rennes', 'Nantes'];
-  pays: string[] = ['France'];
+  villes: string[] = [];
+  pays: string[] = [];
 
   error: boolean = false;
   saved: boolean = false;
@@ -56,8 +74,10 @@ export class AddPersonneComponent implements OnInit {
 
   constructor(
     private personneService: PersonneService,
+    private personneValideService: PersonneValideService,
     private router: Router,
     private commonService: CommonService,
+    private translateService: TranslateService,
     private grService: GrService
   ) {
     this.personneService.getStatus().subscribe(status => {
@@ -74,6 +94,7 @@ export class AddPersonneComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.commonService.setPersonneModifier(this.personne);
   }
 
   get secondaryColor(): string {
@@ -90,33 +111,24 @@ export class AddPersonneComponent implements OnInit {
 
   sauvegarder() {
 
-    const gr = ((this.currentUserRole === this.role_responsable_gr) ? getGrForUser() : { id: this.gr.value }) as GR;
+    console.log('La personne là', this.personne);
 
+    this.validation = this.personneValideService.estValide(this.personne);
+    if(this.validation.estValide){
+      // Code HERE
+      const gr = getGrForUser();
+      const reseau = getReseauForUser();
+      const eglise = getEgliseForUser();
 
-    this.personne = {
-      nom: this.nom,
-      prenom: this.prenom,
-      date_naissance: this.datenaissance.value,
-      date_evangelisation: this.dateEvangelisation.value,
-      date_ajout: "",
-      telephone: this.numero.value,
-      email: this.email.value,
-      gr: gr,
-      photo: "",
-      status: this.statusPersonne.value,
-      ville: this.ville,
-      pays: this.paysPersonne
-    } as Personne;
+      this.personne.id = 0;
+      if(this.currentUserRole.role_libelle_court === UserRole.ResponsableGr || this.currentUserRole.role_libelle_court === UserRole.ResponsableGrReadOnly){
+        this.personne.gr = gr;
+      }
+      this.personne.reseau = reseau;
+      this.personne.eglise = eglise;
+      this.personne.photo = "";
 
-    // Validation Nom - prenom
-    let nomPrenomValide = this.nomPrenomValide();
-    let emailValide = this.emailValide(this.email.value);
-    let dateValide = this.dateValide();
-
-    if (nomPrenomValide && emailValide && dateValide) {
-
-      console.log('this.personne', this.personne);
-
+      console.log('oooooooooo', this.personne);
 
       this.personneService.ajouterPersonne(this.personne).subscribe(
         enregistre => {
@@ -124,6 +136,11 @@ export class AddPersonneComponent implements OnInit {
 
             this.error = false;
             this.saved = true;
+
+            let messageSuccess = this.personne.nom+ ' '+this.personne.prenom + ' ' + this.translateService.instant('page.add_personne.sucess_message');
+            this.commonService.addFlashSuccessMessage(messageSuccess);
+            this.router.navigate([menuItemsClass.LISTE_PERSONNE]);
+
           } else {
             this.error = true;
             this.saved = true;
@@ -132,42 +149,10 @@ export class AddPersonneComponent implements OnInit {
         error => this.error = true
       );
     }
-
-
   }
 
 
-  nomPrenomValide(): boolean {
-    let result = this.nom || this.prenom;
-    if (result) {
-      this.nomPrenomManquant = false;
-      return true;
-    }
-    // Afficher erreur
-    this.nomPrenomManquant = true;
-    return false;
-  }
 
-  emailValide(email: string): boolean {
-    let regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-
-    let estEmail = regexp.test(email);
-    if (!email || estEmail) {
-      this.emailInvalide = false;
-      return true;
-    }
-
-    this.emailInvalide = true;
-  }
-
-  numeroValide() {
-    return true;
-  }
-
-
-  get numeroManquant(): boolean {
-    return false;
-  }
 
   normaliserDateNaissance() {
     this.datenaissance.setValue(this.normaliserDate(this.datenaissance.value, this.oldDateNaissance));
@@ -214,14 +199,6 @@ export class AddPersonneComponent implements OnInit {
     return resultat;
   }
 
-  isNumero(numero: string): boolean {
-    var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/;
-    if (!(date_regex.test(numero))) {
-      return false;
-    }
-    return true;
-  }
-
   normaliserDate(date: string, dateAncien: string) {
     if (dateAncien.length < date.length) {
       if (date.length === 2 || date.length === 5) {
@@ -229,13 +206,5 @@ export class AddPersonneComponent implements OnInit {
       }
     }
     return date;
-  }
-
-  inTitleCase(text: string): string {
-      return titleCase(text);
-  }
-
-  get grName(){
-    return getGr();
   }
 }
